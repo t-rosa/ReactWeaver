@@ -3,7 +3,7 @@ import { FrameIcon } from "lucide-react";
 
 function Root(props: React.PropsWithChildren) {
   return (
-    <div className="bg-card/50 ring-border w-full max-w-md rounded-xl shadow-md ring-1">
+    <div className="w-full max-w-md rounded-xl bg-card/50 shadow-md ring-1 ring-border">
       {props.children}
     </div>
   );
@@ -31,12 +31,12 @@ function Title(props: React.PropsWithChildren) {
 }
 
 function Description(props: React.PropsWithChildren) {
-  return <p className="text-muted-foreground mt-1 text-sm/5">{props.children}</p>;
+  return <p className="mt-1 text-sm/5 text-muted-foreground">{props.children}</p>;
 }
 
 function Footer(props: React.PropsWithChildren) {
   return (
-    <div className="ring-border bg-card m-1.5 rounded-lg py-4 text-center text-sm/5 ring-1">
+    <div className="m-1.5 rounded-lg bg-card py-4 text-center text-sm/5 ring-1 ring-border">
       {props.children}
     </div>
   );

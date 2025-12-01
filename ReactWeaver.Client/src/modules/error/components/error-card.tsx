@@ -6,7 +6,7 @@ import * as React from "react";
 
 export function Root(props: React.PropsWithChildren) {
   return (
-    <div className="bg-card/50 w-full max-w-md rounded-lg border shadow-md ring-1 ring-black/5">
+    <div className="w-full max-w-md rounded-lg border bg-card/50 shadow-md ring-1 ring-black/5">
       {props.children}
     </div>
   );
@@ -25,7 +25,7 @@ function Header() {
         </Link>
       </div>
       <h1 className="mt-4 text-base/6 font-medium">Oups.</h1>
-      <p className="text-muted-foreground mt-1 text-sm/5">An error has occurred</p>
+      <p className="mt-1 text-sm/5 text-muted-foreground">An error has occurred</p>
     </div>
   );
 }
@@ -51,7 +51,7 @@ function Content(props: ContentProps) {
         </Button>
         <Button
           variant="outline"
-          className="text-muted-foreground cursor-pointer text-xs"
+          className="cursor-pointer text-xs text-muted-foreground"
           onClick={handleShowDetailsClick}
         >
           {showDetails ? "Masquer les détails" : "Afficher les détails"}
@@ -64,13 +64,13 @@ function Content(props: ContentProps) {
           </Button>
           {props.error ?
             <ScrollArea className="max-h-32 overflow-auto">
-              <pre className="bg-muted text-muted-foreground rounded p-2 text-xs">
+              <pre className="rounded bg-muted p-2 text-xs text-muted-foreground">
                 {props.error.message ?? JSON.stringify(props.error.message, null, 2)}
               </pre>
               <ScrollBar orientation="horizontal" />
               <ScrollBar orientation="vertical" />
             </ScrollArea>
-          : <pre className="bg-muted text-muted-foreground rounded p-2 text-xs">
+          : <pre className="rounded bg-muted p-2 text-xs text-muted-foreground">
               Erreur inconnue.
             </pre>
           }

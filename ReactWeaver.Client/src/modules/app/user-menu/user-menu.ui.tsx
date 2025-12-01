@@ -30,7 +30,7 @@ export function UserMenuDropdown(props: UserMenuDropdownProps) {
           </Avatar>
           <div className="grid flex-1 text-left text-sm leading-tight">
             <span className="truncate font-medium">{props.user?.email}</span>
-            <span className="text-muted-foreground truncate text-xs">{props.user?.roles[0]}</span>
+            <span className="truncate text-xs text-muted-foreground">{props.user?.roles[0]}</span>
           </div>
           <MoreVerticalIcon />
         </SidebarMenuButton>

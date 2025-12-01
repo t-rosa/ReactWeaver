@@ -1,0 +1,7 @@
+{
+  "printWidth": 100,
+  "experimentalTernaries": true,
+  "tailwindStylesheet": "./src/index.css",
+  "tailwindFunctions": ["clsx"],
+  "plugins": ["prettier-plugin-tailwindcss"]
+}

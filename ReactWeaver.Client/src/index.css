@@ -132,7 +132,7 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground text-balance;
+    @apply bg-background text-balance text-foreground;
   }
   #root {
     @apply isolate;
