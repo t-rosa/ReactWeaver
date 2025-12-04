@@ -13,7 +13,7 @@ dotnet new install .
 2. Scaffold a new project
 
 ```bash
-dotnet new full-stack-react -o MyProject
+dotnet new react-weaver -o MyProject
 ```
 
 Every occurrence of `ReactWeaver`/`react-weaver` is replaced automatically. `MyProject` becomes `my-project`, so the generated README and configuration already point to the correct projects and secrets. Remove this section once you copy the template into a new repository.
@@ -73,11 +73,11 @@ dotnet user-secrets set "CONNECTION_STRING" "Host=localhost;Port=5432;Username=p
 ```
 
 ```bash
-dotnet user-secrets set "OTEL_EXPORTER_OTLP_ENDPOINT" "http://react-weaver.aspire-dashboard:18889"
+dotnet user-secrets set "OTEL_EXPORTER_OTLP_ENDPOINT" "http://react-weaver.aspire-dashboard:18889" --project ReactWeaver.Server
 ```
 
 ```bash
-dotnet user-secrets set "OTEL_EXPORTER_OTLP_PROTOCOL" "grpc"
+dotnet user-secrets set "OTEL_EXPORTER_OTLP_PROTOCOL" "grpc" --project ReactWeaver.Server
 ```
 
 4. Build the app

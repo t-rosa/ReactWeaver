@@ -3,8 +3,9 @@
   "author": "Toma Rosa",
   "classifications": ["Web"],
   "identity": "ReactWeaver",
-  "name": "Full Stack React SPA with ASP.NET Core and Identity",
-  "shortName": "full-stack-react-spa",
+  "description": "Weaving the power of ASP.NET Core and React into one seamless experience. Full Stack SPA Template.",
+  "name": "React Weaver ",
+  "shortName": "react-weaver",
   "sourceName": "ReactWeaver",
   "tags": {
     "language": "C#, React, TypeScript",
