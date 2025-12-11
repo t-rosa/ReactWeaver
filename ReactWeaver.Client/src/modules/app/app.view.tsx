@@ -1,11 +1,8 @@
 import { SidebarProvider } from "@/components/ui/sidebar";
-import { Outlet, useRouteContext } from "@tanstack/react-router";
-import { AppLayout } from "./app.ui";
+import { Outlet } from "@tanstack/react-router";
 import { AppSidebar } from "./components/app-sidebar";
 
 export function AppView() {
-  const context = useRouteContext({ from: "/_app/forecasts/" });
-
   return (
     <SidebarProvider>
       <AppSidebar>
@@ -13,10 +10,7 @@ export function AppView() {
         <AppSidebar.Content />
         <AppSidebar.Footer />
       </AppSidebar>
-      <AppLayout>
-        <AppLayout.Header title={context.title} />
-        <Outlet />
-      </AppLayout>
+      <Outlet />
     </SidebarProvider>
   );
 }
