@@ -1,8 +1,8 @@
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { Spinner } from "@/components/ui/spinner";
 import { $api } from "@/lib/api/client";
+import { IconLogout } from "@tabler/icons-react";
 import { useNavigate } from "@tanstack/react-router";
-import { LogOutIcon } from "lucide-react";
 
 export function LogoutView() {
   const navigate = useNavigate();
@@ -33,7 +33,7 @@ export function LogoutView() {
 
   return (
     <DropdownMenuItem onClick={handleClick}>
-      <LogOutIcon />
+      <IconLogout />
       Log out
     </DropdownMenuItem>
   );

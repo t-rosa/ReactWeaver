@@ -16,11 +16,10 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Spinner } from "@/components/ui/spinner";
 import { Textarea } from "@/components/ui/textarea";
 import { $api } from "@/lib/api/client";
-import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { IconCalendar, IconPlus } from "@tabler/icons-react";
 import { format, formatISO } from "date-fns";
 import { fr } from "date-fns/locale";
-import { CalendarIcon, PlusIcon } from "lucide-react";
 import * as React from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as z from "zod";
@@ -67,10 +66,8 @@ export function CreateForecast() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button>
-          <PlusIcon /> Add forecast
-        </Button>
+      <DialogTrigger render={<Button />}>
+        <IconPlus /> Add forecast
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
@@ -86,21 +83,13 @@ export function CreateForecast() {
                 <Field className="flex flex-col">
                   <FieldLabel htmlFor={field.name}>Date</FieldLabel>
                   <Popover>
-                    <PopoverTrigger asChild id={field.name}>
-                      <Button
-                        variant="outline"
-                        className={cn(
-                          "pl-3 text-left font-normal",
-                          !field.value && "text-muted-foreground",
-                        )}
-                      >
-                        {field.value ?
-                          format(field.value, "P", { locale: fr })
-                        : <span>Pick a date</span>}
-                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                      </Button>
+                    <PopoverTrigger id={field.name} render={<Button variant="outline" />}>
+                      {field.value ?
+                        format(field.value, "P", { locale: fr })
+                      : <span>Pick a date</span>}
+                      <IconCalendar className="ml-auto h-4 w-4 opacity-50" />
                     </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0" align="start">
+                    <PopoverContent align="start">
                       <Calendar
                         mode="single"
                         selected={field.value}
@@ -146,7 +135,7 @@ export function CreateForecast() {
           </FieldGroup>
         </form>
         <DialogFooter>
-          <DialogClose asChild>
+          <DialogClose>
             <Button type="button" variant="outline">
               Cancel
             </Button>

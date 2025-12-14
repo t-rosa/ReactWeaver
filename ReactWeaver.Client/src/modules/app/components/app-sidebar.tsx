@@ -9,9 +9,9 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { UserMenu } from "@/modules/app/user-menu/user-menu.view";
+import { UserMenu } from "@/modules/app/user-menu.view";
+import { IconFrame, IconLayoutDashboard } from "@tabler/icons-react";
 import { Link } from "@tanstack/react-router";
-import { FrameIcon, LayoutDashboardIcon } from "lucide-react";
 import { ThemeSwitcher } from "../theme-switcher/theme-switcher.view";
 
 function Root(props: React.PropsWithChildren) {
@@ -29,11 +29,9 @@ function Header() {
     <SidebarHeader className="border-b">
       <SidebarMenu>
         <SidebarMenuItem>
-          <SidebarMenuButton asChild className="hover:bg-card">
-            <Link to="/login">
-              <FrameIcon />
-              <span>ReactWeaver</span>
-            </Link>
+          <SidebarMenuButton className="hover:bg-card">
+            <IconFrame />
+            <span>ReactWeaver</span>
           </SidebarMenuButton>
         </SidebarMenuItem>
       </SidebarMenu>
@@ -48,16 +46,19 @@ function Content() {
         <SidebarGroupContent>
           <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarMenuButton tooltip="Cartes" asChild>
-                <Link
-                  to="/forecasts"
-                  activeProps={{
-                    className: "bg-muted",
-                  }}
-                >
-                  <LayoutDashboardIcon />
-                  <span>Forecasts</span>
-                </Link>
+              <SidebarMenuButton
+                tooltip="Forecasts"
+                render={
+                  <Link
+                    to="/forecasts"
+                    activeProps={{
+                      className: "bg-muted",
+                    }}
+                  />
+                }
+              >
+                <IconLayoutDashboard />
+                <span>Forecasts</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>

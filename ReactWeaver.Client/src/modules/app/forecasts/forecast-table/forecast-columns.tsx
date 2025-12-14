@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import type { components } from "@/lib/api/schema";
+import { IconArrowsUpDown } from "@tabler/icons-react";
 import type { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown } from "lucide-react";
 import { ForecastActions } from "../forecast-actions.view";
 
 export const FORECAST_COLUMNS: ColumnDef<components["schemas"]["WeatherForecastResponse"]>[] = [
@@ -10,9 +10,7 @@ export const FORECAST_COLUMNS: ColumnDef<components["schemas"]["WeatherForecastR
     id: "select",
     header: ({ table }) => (
       <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && "indeterminate")
-        }
+        checked={table.getIsAllPageRowsSelected() || table.getIsSomePageRowsSelected()}
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
         aria-label="Select all"
       />
@@ -36,7 +34,7 @@ export const FORECAST_COLUMNS: ColumnDef<components["schemas"]["WeatherForecastR
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Date
-          <ArrowUpDown />
+          <IconArrowsUpDown />
         </Button>
       );
     },
@@ -50,7 +48,7 @@ export const FORECAST_COLUMNS: ColumnDef<components["schemas"]["WeatherForecastR
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Temperature C
-          <ArrowUpDown />
+          <IconArrowsUpDown />
         </Button>
       );
     },

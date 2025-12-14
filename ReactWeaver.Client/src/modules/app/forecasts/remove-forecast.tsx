@@ -7,13 +7,13 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { $api } from "@/lib/api/client";
 
 interface RemoveForecastProps {
   id: string;
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export function RemoveForecast(props: RemoveForecastProps) {
@@ -32,12 +32,7 @@ export function RemoveForecast(props: RemoveForecastProps) {
   }
 
   return (
-    <AlertDialog>
-      <AlertDialogTrigger asChild>
-        <DropdownMenuItem variant="destructive" onSelect={(e) => e.preventDefault()}>
-          Remove
-        </DropdownMenuItem>
-      </AlertDialogTrigger>
+    <AlertDialog open={props.open} onOpenChange={props.setOpen}>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>

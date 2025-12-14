@@ -95,9 +95,10 @@ export function LoginView() {
                 {login.isPending ? "Logging in..." : "Log in"}
                 {login.isPending && <Spinner />}
               </Button>
-              <Button asChild variant="link">
-                <Link to="/forgot-password">Forgot your password?</Link>
-              </Button>
+              <Button
+                variant="link"
+                render={<Link to="/forgot-password">Forgot your password?</Link>}
+              />
             </Field>
           </FieldGroup>
         </form>

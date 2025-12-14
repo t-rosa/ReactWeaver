@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { IconCopy, IconFrame } from "@tabler/icons-react";
 import { Link } from "@tanstack/react-router";
-import { CopyIcon, FrameIcon } from "lucide-react";
 import * as React from "react";
 
 export function Root(props: React.PropsWithChildren) {
@@ -21,7 +21,7 @@ function Header() {
     <div>
       <div className="flex items-start">
         <Link to="/" title="Accueil">
-          <FrameIcon />
+          <IconFrame />
         </Link>
       </div>
       <h1 className="mt-4 text-base/6 font-medium">Oups.</h1>
@@ -60,7 +60,7 @@ function Content(props: ContentProps) {
       {showDetails && (
         <div>
           <Button variant="link" className="cursor-pointer" onClick={props.onCopyClick}>
-            <CopyIcon /> Copier le message d&apos;erreur
+            <IconCopy /> Copier le message d&apos;erreur
           </Button>
           {props.error ?
             <ScrollArea className="max-h-32 overflow-auto">

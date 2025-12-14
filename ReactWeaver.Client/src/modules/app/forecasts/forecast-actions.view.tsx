@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -9,8 +10,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 import type { components } from "@/lib/api/schema";
 import { RemoveForecast } from "@/modules/app/forecasts/remove-forecast";
+import { IconDots } from "@tabler/icons-react";
 import type { CellContext } from "@tanstack/react-table";
-import { MoreHorizontal } from "lucide-react";
+import * as React from "react";
 import { UpdateForecast } from "./update-forecast";
 
 type ForecastActionsProps = CellContext<components["schemas"]["WeatherForecastResponse"], unknown>;
@@ -21,21 +23,27 @@ export function ForecastActions(props: ForecastActionsProps) {
   function handleCopyIdClick() {
     void navigator.clipboard.writeText(forecast.id);
   }
+  const [dialogOpen, setDialogOpen] = React.useState(false);
+  const [alertOpen, setAlertOpen] = React.useState(false);
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost">
-          <MoreHorizontal />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-        <DropdownMenuItem onClick={handleCopyIdClick}>Copy ID</DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <UpdateForecast forecast={forecast} />
-        <RemoveForecast id={forecast.id} />
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <React.Fragment>
+      <DropdownMenu>
+        <DropdownMenuTrigger render={<Button variant="ghost" />}>
+          <IconDots />
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuGroup>
+            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuItem onClick={handleCopyIdClick}>Copy ID</DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={() => setDialogOpen(true)}>Edit</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setAlertOpen(true)}>Remove</DropdownMenuItem>
+          </DropdownMenuGroup>
+        </DropdownMenuContent>
+      </DropdownMenu>
+      <UpdateForecast open={dialogOpen} setOpen={setDialogOpen} forecast={forecast} />
+      <RemoveForecast open={alertOpen} setOpen={setAlertOpen} id={forecast.id} />
+    </React.Fragment>
   );
 }

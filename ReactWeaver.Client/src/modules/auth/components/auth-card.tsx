@@ -1,5 +1,5 @@
+import { IconFrame } from "@tabler/icons-react";
 import { Link } from "@tanstack/react-router";
-import { FrameIcon } from "lucide-react";
 
 function Root(props: React.PropsWithChildren) {
   return (
@@ -18,7 +18,7 @@ function Header(props: React.PropsWithChildren) {
     <div className="mb-8">
       <div className="flex items-start">
         <Link to="/" title="Accueil">
-          <FrameIcon />
+          <IconFrame />
         </Link>
       </div>
       {props.children}

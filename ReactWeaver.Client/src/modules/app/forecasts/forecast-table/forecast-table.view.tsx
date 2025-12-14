@@ -17,6 +17,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import type { components } from "@/lib/api/schema";
+import { IconFolder } from "@tabler/icons-react";
 import {
   type ColumnDef,
   type ColumnFiltersState,
@@ -28,7 +29,6 @@ import {
   type SortingState,
   useReactTable,
 } from "@tanstack/react-table";
-import { FolderCodeIcon } from "lucide-react";
 import * as React from "react";
 import { TableContainer } from "../../../../components/table-container";
 import { CreateForecast } from "../create-forecast.view";
@@ -68,7 +68,7 @@ export function ForecastTable(props: ForecastTableProps) {
       <Empty>
         <EmptyHeader>
           <EmptyMedia variant="icon">
-            <FolderCodeIcon />
+            <IconFolder />
           </EmptyMedia>
           <EmptyTitle>No Forecasts Yet</EmptyTitle>
           <EmptyDescription>

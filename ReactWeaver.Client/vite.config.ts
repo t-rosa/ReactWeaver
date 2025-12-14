@@ -64,7 +64,7 @@ export default defineConfig({
             { test: /node_modules\/react-hook-form\//, name: "react-hook-form" },
             { test: /node_modules\/@hookform\/resolvers\//, name: "hookform-resolvers" },
             { test: /node_modules\/zod\//, name: "zod" },
-            { test: /node_modules\/@radix-ui\//, name: "radix-ui" },
+            { test: /node_modules\/@base-ui\//, name: "base-ui" },
           ],
         },
       },

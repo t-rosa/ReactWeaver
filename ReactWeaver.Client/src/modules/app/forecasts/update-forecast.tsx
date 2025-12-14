@@ -8,20 +8,17 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
-import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Textarea } from "@/components/ui/textarea";
 import { $api } from "@/lib/api/client";
 import type { components } from "@/lib/api/schema";
-import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { IconCalendar } from "@tabler/icons-react";
 import { format, formatISO } from "date-fns";
 import { fr } from "date-fns/locale";
-import { CalendarIcon } from "lucide-react";
 import * as React from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as z from "zod";
@@ -36,11 +33,11 @@ export type UpdateForecastFormSchema = z.infer<typeof formSchema>;
 
 interface UpdateForecastProps {
   forecast: components["schemas"]["WeatherForecastResponse"];
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export function UpdateForecast(props: UpdateForecastProps) {
-  const [open, setOpen] = React.useState(false);
-
   const form = useForm<UpdateForecastFormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -55,7 +52,7 @@ export function UpdateForecast(props: UpdateForecastProps) {
       invalidatesQuery: $api.queryOptions("get", "/api/weather-forecasts").queryKey,
     },
     onSuccess() {
-      setOpen(false);
+      props.setOpen(false);
     },
   });
 
@@ -75,11 +72,8 @@ export function UpdateForecast(props: UpdateForecastProps) {
   }
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={props.open} onOpenChange={props.setOpen}>
       <form id="update-forecast" onSubmit={form.handleSubmit(onSubmit)}>
-        <DialogTrigger asChild onSelect={(e) => e.preventDefault()}>
-          <DropdownMenuItem>Edit</DropdownMenuItem>
-        </DialogTrigger>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Edit forecast</DialogTitle>
@@ -92,24 +86,16 @@ export function UpdateForecast(props: UpdateForecastProps) {
               control={form.control}
               name="date"
               render={({ field, fieldState }) => (
-                <Field className="flex flex-col">
+                <Field orientation="vertical">
                   <FieldLabel htmlFor={field.name}>Date</FieldLabel>
                   <Popover>
-                    <PopoverTrigger asChild id={field.name}>
-                      <Button
-                        variant="outline"
-                        className={cn(
-                          "pl-3 text-left font-normal",
-                          !field.value && "text-muted-foreground",
-                        )}
-                      >
-                        {field.value ?
-                          format(field.value, "P", { locale: fr })
-                        : <span>Pick a date</span>}
-                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                      </Button>
+                    <PopoverTrigger id={field.name} render={<Button variant="outline" />}>
+                      {field.value ?
+                        format(field.value, "P", { locale: fr })
+                      : <span>Pick a date</span>}
+                      <IconCalendar className="ml-auto size-4 opacity-50" />
                     </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0" align="start">
+                    <PopoverContent align="start">
                       <Calendar
                         mode="single"
                         selected={field.value}
@@ -154,9 +140,7 @@ export function UpdateForecast(props: UpdateForecastProps) {
             />
           </FieldGroup>
           <DialogFooter>
-            <DialogClose asChild>
-              <Button variant="outline">Cancel</Button>
-            </DialogClose>
+            <DialogClose render={<Button variant="outline" />}>Cancel</DialogClose>
             <Button type="submit" form="update-forecast">
               Save changes
             </Button>
