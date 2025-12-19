@@ -17,7 +17,7 @@ import { Spinner } from "@/components/ui/spinner";
 import { Textarea } from "@/components/ui/textarea";
 import { $api } from "@/lib/api/client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { IconCalendar, IconPlus } from "@tabler/icons-react";
+import { CalendarIcon, PlusIcon } from "@phosphor-icons/react";
 import { format, formatISO } from "date-fns";
 import { fr } from "date-fns/locale";
 import * as React from "react";
@@ -67,7 +67,7 @@ export function CreateForecast() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger render={<Button />}>
-        <IconPlus /> Add forecast
+        <PlusIcon /> Add forecast
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
@@ -87,7 +87,7 @@ export function CreateForecast() {
                       {field.value ?
                         format(field.value, "P", { locale: fr })
                       : <span>Pick a date</span>}
-                      <IconCalendar className="ml-auto h-4 w-4 opacity-50" />
+                      <CalendarIcon className="ml-auto size-4 opacity-50" />
                     </PopoverTrigger>
                     <PopoverContent align="start">
                       <Calendar
@@ -135,11 +135,7 @@ export function CreateForecast() {
           </FieldGroup>
         </form>
         <DialogFooter>
-          <DialogClose>
-            <Button type="button" variant="outline">
-              Cancel
-            </Button>
-          </DialogClose>
+          <DialogClose render={<Button type="button" variant="outline" />}>Cancel</DialogClose>
           <Button type="submit" form="create-forecast" disabled={createForecast.isPending}>
             {createForecast.isPending ? "Submitting..." : "Submit"}
             {createForecast.isPending && <Spinner />}

@@ -1,7 +1,7 @@
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { Spinner } from "@/components/ui/spinner";
 import { $api } from "@/lib/api/client";
-import { IconLogout } from "@tabler/icons-react";
+import { SignOutIcon } from "@phosphor-icons/react";
 import { useNavigate } from "@tanstack/react-router";
 
 export function LogoutView() {
@@ -33,7 +33,7 @@ export function LogoutView() {
 
   return (
     <DropdownMenuItem onClick={handleClick}>
-      <IconLogout />
+      <SignOutIcon />
       Log out
     </DropdownMenuItem>
   );

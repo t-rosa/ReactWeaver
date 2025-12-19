@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import type { components } from "@/lib/api/schema";
-import { IconArrowsUpDown } from "@tabler/icons-react";
+import { ArrowsDownUpIcon } from "@phosphor-icons/react";
 import type { ColumnDef } from "@tanstack/react-table";
 import { ForecastActions } from "../forecast-actions.view";
 
@@ -34,7 +34,7 @@ export const FORECAST_COLUMNS: ColumnDef<components["schemas"]["WeatherForecastR
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Date
-          <IconArrowsUpDown />
+          <ArrowsDownUpIcon />
         </Button>
       );
     },
@@ -48,7 +48,7 @@ export const FORECAST_COLUMNS: ColumnDef<components["schemas"]["WeatherForecastR
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Temperature C
-          <IconArrowsUpDown />
+          <ArrowsDownUpIcon />
         </Button>
       );
     },

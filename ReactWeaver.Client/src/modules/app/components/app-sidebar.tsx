@@ -10,7 +10,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { UserMenu } from "@/modules/app/user-menu.view";
-import { IconFrame, IconLayoutDashboard } from "@tabler/icons-react";
+import { CodeSimpleIcon, WindIcon } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
 import { ThemeSwitcher } from "../theme-switcher/theme-switcher.view";
 
@@ -30,7 +30,7 @@ function Header() {
       <SidebarMenu>
         <SidebarMenuItem>
           <SidebarMenuButton className="hover:bg-card">
-            <IconFrame />
+            <CodeSimpleIcon />
             <span>ReactWeaver</span>
           </SidebarMenuButton>
         </SidebarMenuItem>
@@ -57,7 +57,7 @@ function Content() {
                   />
                 }
               >
-                <IconLayoutDashboard />
+                <WindIcon />
                 <span>Forecasts</span>
               </SidebarMenuButton>
             </SidebarMenuItem>

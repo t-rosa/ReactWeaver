@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { IconCopy, IconFrame } from "@tabler/icons-react";
+import { CodeSimpleIcon, CopyIcon } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
 import * as React from "react";
 
@@ -21,7 +21,7 @@ function Header() {
     <div>
       <div className="flex items-start">
         <Link to="/" title="Home">
-          <IconFrame />
+          <CodeSimpleIcon />
         </Link>
       </div>
       <h1 className="mt-4 text-base/6 font-medium">Oups.</h1>
@@ -60,7 +60,7 @@ function Content(props: ContentProps) {
       {showDetails && (
         <div>
           <Button variant="link" className="cursor-pointer" onClick={props.onCopyClick}>
-            <IconCopy /> Copy error message
+            <CopyIcon /> Copy error message
           </Button>
           {props.error ?
             <ScrollArea className="overflow-auto border bg-muted p-3 text-xs text-muted-foreground">

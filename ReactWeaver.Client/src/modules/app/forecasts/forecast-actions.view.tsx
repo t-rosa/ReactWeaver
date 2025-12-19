@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import type { components } from "@/lib/api/schema";
 import { RemoveForecast } from "@/modules/app/forecasts/remove-forecast";
-import { IconDots } from "@tabler/icons-react";
+import { DotsThreeIcon } from "@phosphor-icons/react";
 import type { CellContext } from "@tanstack/react-table";
 import * as React from "react";
 import { UpdateForecast } from "./update-forecast";
@@ -30,7 +30,7 @@ export function ForecastActions(props: ForecastActionsProps) {
     <React.Fragment>
       <DropdownMenu>
         <DropdownMenuTrigger render={<Button variant="ghost" />}>
-          <IconDots />
+          <DotsThreeIcon />
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuGroup>

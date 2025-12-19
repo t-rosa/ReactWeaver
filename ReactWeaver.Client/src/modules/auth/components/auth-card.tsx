@@ -1,4 +1,4 @@
-import { IconFrame } from "@tabler/icons-react";
+import { CodeSimpleIcon } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
 
 function Root(props: React.PropsWithChildren) {
@@ -18,7 +18,7 @@ function Header(props: React.PropsWithChildren) {
     <div className="mb-8">
       <div className="flex items-start">
         <Link to="/" title="Accueil">
-          <IconFrame />
+          <CodeSimpleIcon />
         </Link>
       </div>
       {props.children}

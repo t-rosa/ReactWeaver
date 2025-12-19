@@ -8,6 +8,7 @@ function Root(props: React.PropsWithChildren) {
 interface HeaderProps {
   title: string;
 }
+
 function Header(props: HeaderProps) {
   return (
     <header className="border-b p-2.5">

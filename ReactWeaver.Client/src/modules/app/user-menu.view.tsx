@@ -18,7 +18,7 @@ import {
 import { useUser } from "@/modules/auth/authorize/authorize.hooks";
 import { Authorize } from "@/modules/auth/authorize/authorize.view";
 import { LogoutView } from "@/modules/auth/logout.view";
-import { IconDotsVertical, IconShield, IconUserCircle } from "@tabler/icons-react";
+import { DotsThreeVerticalIcon, ShieldIcon, UserCircleIcon } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
 
 export function UserMenu() {
@@ -38,7 +38,7 @@ export function UserMenu() {
               </ItemMedia>
               <ItemContent className="truncate">{user.email}</ItemContent>
               <ItemActions>
-                <IconDotsVertical />
+                <DotsThreeVerticalIcon />
               </ItemActions>
             </Item>
           </DropdownMenuTrigger>
@@ -56,12 +56,12 @@ export function UserMenu() {
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem disabled>
-                <IconUserCircle />
+                <UserCircleIcon />
                 Profile
               </DropdownMenuItem>
               <Authorize role="Admin">
                 <DropdownMenuItem nativeButton={false} render={<Link to="/admin" />}>
-                  <IconShield />
+                  <ShieldIcon />
                   Administration
                 </DropdownMenuItem>
               </Authorize>

@@ -17,7 +17,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import type { components } from "@/lib/api/schema";
-import { IconFolder } from "@tabler/icons-react";
+import { FolderIcon } from "@phosphor-icons/react";
 import {
   type ColumnDef,
   type ColumnFiltersState,
@@ -68,7 +68,7 @@ export function ForecastTable(props: ForecastTableProps) {
       <Empty>
         <EmptyHeader>
           <EmptyMedia variant="icon">
-            <IconFolder />
+            <FolderIcon />
           </EmptyMedia>
           <EmptyTitle>No Forecasts Yet</EmptyTitle>
           <EmptyDescription>

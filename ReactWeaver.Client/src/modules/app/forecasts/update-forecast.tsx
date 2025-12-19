@@ -16,7 +16,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { $api } from "@/lib/api/client";
 import type { components } from "@/lib/api/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { IconCalendar } from "@tabler/icons-react";
+import { CalendarIcon } from "@phosphor-icons/react";
 import { format, formatISO } from "date-fns";
 import { fr } from "date-fns/locale";
 import * as React from "react";
@@ -93,7 +93,7 @@ export function UpdateForecast(props: UpdateForecastProps) {
                       {field.value ?
                         format(field.value, "P", { locale: fr })
                       : <span>Pick a date</span>}
-                      <IconCalendar className="ml-auto size-4 opacity-50" />
+                      <CalendarIcon className="ml-auto size-4 opacity-50" />
                     </PopoverTrigger>
                     <PopoverContent align="start">
                       <Calendar
