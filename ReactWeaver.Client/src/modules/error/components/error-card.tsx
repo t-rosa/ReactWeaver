@@ -20,7 +20,7 @@ function Header() {
   return (
     <div>
       <div className="flex items-start">
-        <Link to="/" title="Accueil">
+        <Link to="/" title="Home">
           <IconFrame />
         </Link>
       </div>
@@ -47,32 +47,27 @@ function Content(props: ContentProps) {
       <p>We encountered an error, please excuse us for the inconvenience.</p>
       <div className="grid gap-2">
         <Button onClick={props.onReloadClick} className="cursor-pointer">
-          Recharger la page
+          Reload page
         </Button>
         <Button
           variant="outline"
           className="cursor-pointer text-xs text-muted-foreground"
           onClick={handleShowDetailsClick}
         >
-          {showDetails ? "Masquer les détails" : "Afficher les détails"}
+          {showDetails ? "Hide details" : "Show details"}
         </Button>
       </div>
       {showDetails && (
         <div>
           <Button variant="link" className="cursor-pointer" onClick={props.onCopyClick}>
-            <IconCopy /> Copier le message d&apos;erreur
+            <IconCopy /> Copy error message
           </Button>
           {props.error ?
-            <ScrollArea className="max-h-32 overflow-auto">
-              <pre className="rounded bg-muted p-2 text-xs text-muted-foreground">
-                {props.error.message ?? JSON.stringify(props.error.message, null, 2)}
-              </pre>
+            <ScrollArea className="overflow-auto border bg-muted p-3 text-xs text-muted-foreground">
+              {props.error.message ?? JSON.stringify(props.error.message, null, 2)}
               <ScrollBar orientation="horizontal" />
-              <ScrollBar orientation="vertical" />
             </ScrollArea>
-          : <pre className="rounded bg-muted p-2 text-xs text-muted-foreground">
-              Erreur inconnue.
-            </pre>
+          : <pre className="rounded bg-muted p-2 text-xs text-muted-foreground">Unknown error.</pre>
           }
         </div>
       )}

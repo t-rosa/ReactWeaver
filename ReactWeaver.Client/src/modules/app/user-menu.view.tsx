@@ -60,7 +60,7 @@ export function UserMenu() {
                 Profile
               </DropdownMenuItem>
               <Authorize role="Admin">
-                <DropdownMenuItem render={<Link to="/admin" />}>
+                <DropdownMenuItem nativeButton={false} render={<Link to="/admin" />}>
                   <IconShield />
                   Administration
                 </DropdownMenuItem>

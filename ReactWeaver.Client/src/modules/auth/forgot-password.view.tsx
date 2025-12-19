@@ -54,7 +54,13 @@ export function ForgotPasswordView() {
               render={({ field, fieldState }) => (
                 <Field>
                   <FieldLabel htmlFor={field.name}>Email</FieldLabel>
-                  <Input id={field.name} type="email" placeholder="name@example.com" {...field} />
+                  <Input
+                    id={field.name}
+                    type="email"
+                    placeholder="name@example.com"
+                    autoComplete="username"
+                    {...field}
+                  />
                   {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                 </Field>
               )}

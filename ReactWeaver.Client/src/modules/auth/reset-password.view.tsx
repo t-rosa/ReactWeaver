@@ -103,7 +103,13 @@ export function ResetPasswordView() {
               render={({ field, fieldState }) => (
                 <Field>
                   <FieldLabel htmlFor={field.name}>Email</FieldLabel>
-                  <Input id={field.name} type="email" placeholder="name@example.com" {...field} />
+                  <Input
+                    id={field.name}
+                    type="email"
+                    placeholder="name@example.com"
+                    autoComplete="username"
+                    {...field}
+                  />
                   {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                 </Field>
               )}
@@ -114,7 +120,13 @@ export function ResetPasswordView() {
               render={({ field, fieldState }) => (
                 <Field>
                   <FieldLabel htmlFor={field.name}>Reset code</FieldLabel>
-                  <Input id={field.name} type="password" placeholder="••••••••" {...field} />
+                  <Input
+                    id={field.name}
+                    type="password"
+                    placeholder="••••••••"
+                    autoComplete="one-time-code"
+                    {...field}
+                  />
                   {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                 </Field>
               )}
@@ -125,7 +137,13 @@ export function ResetPasswordView() {
               render={({ field, fieldState }) => (
                 <Field>
                   <FieldLabel htmlFor={field.name}>New password</FieldLabel>
-                  <Input id={field.name} type="password" placeholder="••••••••" {...field} />
+                  <Input
+                    id={field.name}
+                    type="password"
+                    placeholder="••••••••"
+                    autoComplete="new-password"
+                    {...field}
+                  />
                   {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                 </Field>
               )}
@@ -136,7 +154,13 @@ export function ResetPasswordView() {
               render={({ field, fieldState }) => (
                 <Field>
                   <FieldLabel htmlFor={field.name}>Confirm password</FieldLabel>
-                  <Input id={field.name} type="password" placeholder="••••••••" {...field} />
+                  <Input
+                    id={field.name}
+                    type="password"
+                    placeholder="••••••••"
+                    autoComplete="new-password"
+                    {...field}
+                  />
                   {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                 </Field>
               )}
