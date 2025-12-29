@@ -80,7 +80,7 @@ export function CreateForecast() {
               control={form.control}
               name="date"
               render={({ field, fieldState }) => (
-                <Field className="flex flex-col">
+                <Field>
                   <FieldLabel htmlFor={field.name}>Date</FieldLabel>
                   <Popover>
                     <PopoverTrigger id={field.name} render={<Button variant="outline" />}>

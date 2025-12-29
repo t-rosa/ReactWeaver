@@ -7,6 +7,7 @@ import {
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
+  sidebarMenuButtonVariants,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { UserMenu } from "@/modules/app/user-menu.view";
@@ -16,24 +17,20 @@ import { ThemeSwitcher } from "../theme-switcher/theme-switcher.view";
 
 function Root(props: React.PropsWithChildren) {
   return (
-    <div className="pattern hidden sm:block">
-      <Sidebar variant="floating" collapsible="icon">
-        {props.children}
-      </Sidebar>
-    </div>
+    <Sidebar variant="floating" collapsible="icon">
+      {props.children}
+    </Sidebar>
   );
 }
 
 function Header() {
   return (
-    <SidebarHeader className="border-b">
+    <SidebarHeader>
       <SidebarMenu>
-        <SidebarMenuItem>
-          <SidebarMenuButton className="hover:bg-card">
-            <CodeSimpleIcon />
-            <span>ReactWeaver</span>
-          </SidebarMenuButton>
-        </SidebarMenuItem>
+        <SidebarMenuButton>
+          <CodeSimpleIcon />
+          ReactWeaver
+        </SidebarMenuButton>
       </SidebarMenu>
     </SidebarHeader>
   );
@@ -46,28 +43,15 @@ function Content() {
         <SidebarGroupContent>
           <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarMenuButton
-                tooltip="Forecasts"
-                render={
-                  <Link
-                    to="/forecasts"
-                    activeProps={{
-                      className: "bg-muted",
-                    }}
-                  />
-                }
+              <Link
+                className={sidebarMenuButtonVariants()}
+                to="/forecasts"
+                activeProps={{ className: "bg-sidebar-accent font-bold" }}
               >
                 <WindIcon />
                 <span>Forecasts</span>
-              </SidebarMenuButton>
+              </Link>
             </SidebarMenuItem>
-          </SidebarMenu>
-        </SidebarGroupContent>
-      </SidebarGroup>
-      <SidebarGroup className="mt-auto">
-        <SidebarGroupContent>
-          <SidebarMenu>
-            <ThemeSwitcher />
           </SidebarMenu>
         </SidebarGroupContent>
       </SidebarGroup>
@@ -77,8 +61,13 @@ function Content() {
 
 function Footer() {
   return (
-    <SidebarFooter className="border-t">
-      <UserMenu />
+    <SidebarFooter>
+      <SidebarMenu>
+        <ThemeSwitcher />
+        <SidebarMenuItem>
+          <UserMenu />
+        </SidebarMenuItem>
+      </SidebarMenu>
     </SidebarFooter>
   );
 }

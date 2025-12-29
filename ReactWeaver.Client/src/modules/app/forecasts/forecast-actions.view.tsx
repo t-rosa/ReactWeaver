@@ -15,16 +15,18 @@ import type { CellContext } from "@tanstack/react-table";
 import * as React from "react";
 import { UpdateForecast } from "./update-forecast";
 
-type ForecastActionsProps = CellContext<components["schemas"]["WeatherForecastResponse"], unknown>;
+type ForecastResponse = components["schemas"]["WeatherForecastResponse"];
+type ForecastActionsProps = CellContext<ForecastResponse, unknown>;
 
 export function ForecastActions(props: ForecastActionsProps) {
-  const forecast: components["schemas"]["WeatherForecastResponse"] = props.row.original;
+  const [dialogOpen, setDialogOpen] = React.useState(false);
+  const [alertOpen, setAlertOpen] = React.useState(false);
+
+  const forecast = props.row.original;
 
   function handleCopyIdClick() {
     void navigator.clipboard.writeText(forecast.id);
   }
-  const [dialogOpen, setDialogOpen] = React.useState(false);
-  const [alertOpen, setAlertOpen] = React.useState(false);
 
   return (
     <React.Fragment>
