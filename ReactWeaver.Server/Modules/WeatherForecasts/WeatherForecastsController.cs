@@ -48,13 +48,7 @@ public sealed class WeatherForecastsController(ApplicationDbContext db, UserMana
         IQueryable<WeatherForecastResponse> query = db.WeatherForecasts
             .Where(e => e.UserId == user.Id)
             .Where(e => e.Id == id)
-            .Select((forecast) => new WeatherForecastResponse
-            {
-                Id = forecast.Id,
-                Date = forecast.Date,
-                TemperatureC = forecast.TemperatureC,
-                Summary = forecast.Summary
-            });
+            .Select(WeatherForecastQueries.ProjectToResponse());
 
         WeatherForecastResponse? response = await query.SingleOrDefaultAsync();
         if (response is null)
@@ -81,13 +75,13 @@ public sealed class WeatherForecastsController(ApplicationDbContext db, UserMana
             return NotFound();
         }
 
-        WeatherForecast weatherForecast = request.ToEntity(user.Id);
+        WeatherForecast forecast = request.ToEntity(user.Id);
 
-        db.WeatherForecasts.Add(weatherForecast);
+        db.WeatherForecasts.Add(forecast);
 
         await db.SaveChangesAsync();
 
-        var response = weatherForecast.ToWeatherForecastResponse();
+        WeatherForecastResponse response = forecast.ToResponse();
 
         return CreatedAtAction(nameof(GetWeatherForecast), new { id = response.Id }, response);
     }
@@ -159,16 +153,16 @@ public sealed class WeatherForecastsController(ApplicationDbContext db, UserMana
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> RemoveWeatherForecasts([FromBody] List<string> ids)
     {
-        List<WeatherForecast> courses = await db.WeatherForecasts
+        List<WeatherForecast> forecasts = await db.WeatherForecasts
             .Where(c => ids.Contains(c.Id))
             .ToListAsync();
 
-        if (courses.Count == 0)
+        if (forecasts.Count == 0)
         {
             return NotFound();
         }
 
-        db.WeatherForecasts.RemoveRange(courses);
+        db.WeatherForecasts.RemoveRange(forecasts);
         await db.SaveChangesAsync();
 
         return NoContent();

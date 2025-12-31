@@ -1,30 +1,29 @@
-using ReactWeaver.Server.Modules.Users;
 using ReactWeaver.Server.Modules.WeatherForecasts.DTOs;
 
 namespace ReactWeaver.Server.Modules.WeatherForecasts;
 
 internal static class WeatherForecastMappings
 {
-    extension(WeatherForecast weatherForecast)
+    extension(WeatherForecast forecast)
     {
-        public WeatherForecastResponse ToWeatherForecastResponse()
+        public WeatherForecastResponse ToResponse()
         {
             return new WeatherForecastResponse
             {
-                Id = weatherForecast.Id,
-                Date = weatherForecast.Date,
-                TemperatureC = weatherForecast.TemperatureC,
-                Summary = weatherForecast.Summary
+                Id = forecast.Id,
+                Date = forecast.Date,
+                TemperatureC = forecast.TemperatureC,
+                Summary = forecast.Summary
             };
         }
 
         public void UpdateFromRequest(UpdateWeatherForecastRequest request, string userId)
         {
-            weatherForecast.UserId = userId;
-            weatherForecast.Date = request.Date;
-            weatherForecast.TemperatureC = request.TemperatureC;
-            weatherForecast.Summary = request.Summary;
-            weatherForecast.UpdatedAt = DateTime.UtcNow;
+            forecast.UserId = userId;
+            forecast.Date = request.Date;
+            forecast.TemperatureC = request.TemperatureC;
+            forecast.Summary = request.Summary;
+            forecast.UpdatedAt = DateTime.UtcNow;
         }
     }
 
@@ -34,7 +33,7 @@ internal static class WeatherForecastMappings
         {
             return new WeatherForecast
             {
-                Id = $"w_{Guid.CreateVersion7()}",
+                Id = $"wf_{Guid.CreateVersion7()}",
                 UserId = userId,
                 Date = request.Date,
                 TemperatureC = request.TemperatureC,

@@ -86,7 +86,7 @@ public class WeatherForecastsControllerTests : IAsyncLifetime
     [Fact]
     public async Task GetWeatherForecast_ReturnNotFound()
     {
-        HttpResponseMessage response = await _client.GetAsync($"/api/weather-forecasts/{Guid.NewGuid()}");
+        HttpResponseMessage response = await _client.GetAsync($"/api/weather-forecasts/wf_{Guid.CreateVersion7()}");
         response.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }
 
@@ -107,7 +107,7 @@ public class WeatherForecastsControllerTests : IAsyncLifetime
     public async Task UpdateWeatherForecast_ReturnNotFound()
     {
         UpdateWeatherForecastRequest updateRequest = _updateWeatherForecastFaker.Generate();
-        HttpResponseMessage response = await _client.PutAsJsonAsync($"/api/weather-forecasts/{Guid.NewGuid()}", updateRequest);
+        HttpResponseMessage response = await _client.PutAsJsonAsync($"/api/weather-forecasts/wf_{Guid.CreateVersion7()}", updateRequest);
         response.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }
 
@@ -128,7 +128,7 @@ public class WeatherForecastsControllerTests : IAsyncLifetime
     [Fact]
     public async Task DeleteWeatherForecast_ReturnNotFound()
     {
-        HttpResponseMessage response = await _client.DeleteAsync($"/api/weather-forecasts/{Guid.NewGuid()}");
+        HttpResponseMessage response = await _client.DeleteAsync($"/api/weather-forecasts/wf_{Guid.CreateVersion7()}");
         response.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }
 }
