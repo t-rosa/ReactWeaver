@@ -4,19 +4,23 @@ Full-stack starter that ships a production-ready ASP.NET Core API with a modern 
 
 ## Template Quickstart _(delete after scaffolding)_
 
-1. Install the template
+1. Clone the repo
 
 ```bash
-dotnet new install .
+git clone https://github.com/t-rosa/ReactWeaver.git
 ```
 
-2. Scaffold a new project
+2. Install the template
 
 ```bash
-dotnet new react-weaver -o MyProject
+cd ReactWeaver && dotnet new install .
 ```
 
-Every occurrence of `ReactWeaver`/`react-weaver` is replaced automatically. `MyProject` becomes `my-project`, so the generated README and configuration already point to the correct projects and secrets. Remove this section once you copy the template into a new repository.
+3. Scaffold a new project
+
+```bash
+cd .. && dotnet new react-weaver -o MyProject
+```
 
 ## Prerequisites
 
@@ -37,7 +41,7 @@ Every occurrence of `ReactWeaver`/`react-weaver` is replaced automatically. `MyP
 1. Initialize git
 
 ```bash
-git init
+rm -rf .git && git init
 ```
 
 2. Launch the database
@@ -53,14 +57,6 @@ dotnet user-secrets init --project ReactWeaver.Server
 ```
 
 ```bash
-dotnet user-secrets set "SMTP_USERNAME" "value" --project ReactWeaver.Server
-```
-
-```bash
-dotnet user-secrets set "SMTP_PASSWORD" "value" --project ReactWeaver.Server
-```
-
-```bash
 dotnet user-secrets set "ADMIN_EMAIL" "value" --project ReactWeaver.Server
 ```
 
@@ -70,6 +66,14 @@ dotnet user-secrets set "ADMIN_PASSWORD" "value" --project ReactWeaver.Server
 
 ```bash
 dotnet user-secrets set "CONNECTION_STRING" "Host=localhost;Port=5432;Username=postgres;Password=postgres;Database=react-weaver;" --project ReactWeaver.Server
+```
+
+```bash
+dotnet user-secrets set "SMTP_USERNAME" "value" --project ReactWeaver.Server
+```
+
+```bash
+dotnet user-secrets set "SMTP_PASSWORD" "value" --project ReactWeaver.Server
 ```
 
 ```bash
@@ -187,7 +191,7 @@ docker compose up -d
 ## Deployment
 
 ```bash
-rm -rf ReactWeaver.Server/bin/Publish && dotnet publish ReactWeaver.Server -t:PublishContainer -p ContainerArchiveOutputPath=../react-weaver.tar.gz -o ReactWeaver.Server/bin/Publish
+rm -rf ReactWeaver.Server/bin/Publish && dotnet publish ReactWeaver.Server -t:PublishContainer -p ContainerArchiveOutputPath=../server.tar.gz -o ReactWeaver.Server/bin/Publish
 ```
 
 ## Migrations
