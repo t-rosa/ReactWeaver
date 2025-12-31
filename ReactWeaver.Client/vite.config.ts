@@ -6,6 +6,7 @@ import fs from "fs";
 import { fileURLToPath, URL } from "node:url";
 import path from "path";
 import { env } from "process";
+import { ViteImageOptimizer } from "vite-plugin-image-optimizer";
 import { defineConfig } from "vitest/config";
 
 const baseFolder =
@@ -42,6 +43,7 @@ const target =
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
+    ViteImageOptimizer(),
     tanstackRouter({
       target: "react",
       autoCodeSplitting: true,
