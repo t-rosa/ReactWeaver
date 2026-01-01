@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { $api } from "@/lib/api/client";
+import { TrashSimpleIcon } from "@phosphor-icons/react";
 
 interface RemoveForecastsProps {
   ids: string[];
@@ -33,7 +34,10 @@ export function RemoveForecasts(props: RemoveForecastsProps) {
 
   return (
     <AlertDialog>
-      <AlertDialogTrigger render={<Button variant="destructive" />}>Remove</AlertDialogTrigger>
+      <AlertDialogTrigger render={<Button variant="destructive" />}>
+        <TrashSimpleIcon />
+        Remove
+      </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>

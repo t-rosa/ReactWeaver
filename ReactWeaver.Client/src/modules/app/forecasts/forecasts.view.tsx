@@ -1,4 +1,3 @@
-import { Container } from "@/components/container";
 import { $api } from "@/lib/api/client";
 import { AppLayout } from "../app.ui";
 import { FORECAST_COLUMNS } from "./forecast-table/forecast-columns";
@@ -9,10 +8,10 @@ export function ForecastsView() {
 
   return (
     <AppLayout>
-      <AppLayout.Header title="Forecasts" />
-      <Container>
+      <AppLayout.Title title="Forecasts" />
+      <AppLayout.Content>
         <ForecastTable columns={FORECAST_COLUMNS} data={data} />
-      </Container>
+      </AppLayout.Content>
     </AppLayout>
   );
 }

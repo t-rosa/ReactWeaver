@@ -8,6 +8,7 @@ import {
   EmptyTitle,
 } from "@/components/ui/empty";
 import { Input } from "@/components/ui/input";
+import { Item, ItemActions, ItemContent, ItemGroup } from "@/components/ui/item";
 import {
   Table,
   TableBody,
@@ -30,7 +31,6 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import * as React from "react";
-import { TableContainer } from "../../../../components/table-container";
 import { CreateForecast } from "../create-forecast.view";
 import { RemoveForecasts } from "../remove-forecasts";
 
@@ -83,67 +83,73 @@ export function ForecastTable(props: ForecastTableProps) {
   }
 
   return (
-    <TableContainer>
-      <TableContainer.Header>
-        <Input
-          placeholder="Filter date..."
-          value={(table.getColumn("date")?.getFilterValue() as string) ?? ""}
-          onChange={(event) => table.getColumn("date")?.setFilterValue(event.target.value)}
-          className="max-w-sm"
-        />
-        <div className="flex items-center gap-3">
+    <ItemGroup>
+      <Item size="xs" render={<header />}>
+        <ItemContent>
+          <Input
+            placeholder="Filter date..."
+            value={(table.getColumn("date")?.getFilterValue() as string) ?? ""}
+            onChange={(event) => table.getColumn("date")?.setFilterValue(event.target.value)}
+            className="max-w-sm"
+          />
+        </ItemContent>
+        <ItemActions>
           <CreateForecast />
           <RemoveForecasts ids={selectedIds} />
-        </div>
-      </TableContainer.Header>
-      <TableContainer.Content>
-        <Table>
-          <TableHeader>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <TableHead key={header.id}>
-                      {header.isPlaceholder ? null : (
-                        flexRender(header.column.columnDef.header, header.getContext())
-                      )}
-                    </TableHead>
-                  );
-                })}
-              </TableRow>
-            ))}
-          </TableHeader>
-          <TableBody>
-            {table.getRowModel().rows.map((row) => (
-              <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
-                {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
-                ))}
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer.Content>
-      <TableContainer.Footer>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-        >
-          Previous
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-        >
-          Next
-        </Button>
-      </TableContainer.Footer>
-    </TableContainer>
+        </ItemActions>
+      </Item>
+      <Item size="xs" render={<main />}>
+        <ItemContent>
+          <Table>
+            <TableHeader>
+              {table.getHeaderGroups().map((headerGroup) => (
+                <TableRow key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => {
+                    return (
+                      <TableHead key={header.id}>
+                        {header.isPlaceholder ? null : (
+                          flexRender(header.column.columnDef.header, header.getContext())
+                        )}
+                      </TableHead>
+                    );
+                  })}
+                </TableRow>
+              ))}
+            </TableHeader>
+            <TableBody>
+              {table.getRowModel().rows.map((row) => (
+                <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id}>
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </ItemContent>
+      </Item>
+      <Item size="xs" render={<footer />}>
+        <ItemActions>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          >
+            Previous
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
+            Next
+          </Button>
+        </ItemActions>
+      </Item>
+    </ItemGroup>
   );
 }
