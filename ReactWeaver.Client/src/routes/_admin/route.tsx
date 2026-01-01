@@ -1,7 +1,8 @@
 import { $api, $client } from "@/lib/api/client";
+import { AdminView } from "@/modules/admin/admin.view";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/admin")({
+export const Route = createFileRoute("/_admin")({
   async beforeLoad() {
     const query = await $client.GET("/api/users/me");
 
@@ -12,7 +13,7 @@ export const Route = createFileRoute("/admin")({
       });
     }
 
-    if (query.data && query.data.roles[0] != "Admin") {
+    if (query.data && !query.data.roles.includes("Admin")) {
       redirect({
         to: "/",
         throw: true,
@@ -22,4 +23,5 @@ export const Route = createFileRoute("/admin")({
   loader({ context }) {
     return context.queryClient.ensureQueryData($api.queryOptions("get", "/api/users/me"));
   },
+  component: AdminView,
 });

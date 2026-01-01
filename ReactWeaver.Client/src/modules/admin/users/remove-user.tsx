@@ -10,19 +10,19 @@ import {
 } from "@/components/ui/alert-dialog";
 import { $api } from "@/lib/api/client";
 
-interface RemoveForecastProps {
+interface RemoveUserProps {
   id: string;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export function RemoveForecast(props: RemoveForecastProps) {
-  const removeForecast = $api.useMutation("delete", "/api/weather-forecasts/{id}", {
-    meta: { invalidatesQuery: $api.queryOptions("get", "/api/weather-forecasts").queryKey },
+export function RemoveUser(props: RemoveUserProps) {
+  const removeUser = $api.useMutation("delete", "/api/users/{id}", {
+    meta: { invalidatesQuery: $api.queryOptions("get", "/api/users").queryKey },
   });
 
   function handleRemoveClick() {
-    removeForecast.mutate(
+    removeUser.mutate(
       {
         params: {
           path: {

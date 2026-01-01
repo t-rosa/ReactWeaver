@@ -1,4 +1,4 @@
-namespace ReactWeaver.Server.Modules.Auth.DTOs;
+namespace ReactWeaver.Server.Modules.Users.DTOs;
 
 public sealed record UserResponse
 {

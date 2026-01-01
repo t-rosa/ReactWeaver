@@ -31,7 +31,7 @@ function Header() {
 }
 
 interface ContentProps {
-  error: { message?: string };
+  error?: { message?: string };
   onReloadClick: () => void;
   onCopyClick: () => void;
 }

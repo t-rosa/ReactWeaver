@@ -32,7 +32,6 @@ export function LoginView() {
   const login = $api.useMutation("post", "/api/auth/login", {
     meta: {
       successMessage: "Connected",
-      errorMessage: "An error has occurred",
       invalidatesQuery: ["get", "manage/info"],
     },
     async onSuccess() {

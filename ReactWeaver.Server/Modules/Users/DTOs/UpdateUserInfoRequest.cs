@@ -1,6 +1,6 @@
-namespace ReactWeaver.Server.Modules.Auth.DTOs;
+namespace ReactWeaver.Server.Modules.Users.DTOs;
 
-public sealed record UpdateUserRequest
+public sealed record UpdateUserInfoRequest
 {
     public required string NewEmail { get; init; }
     public required string NewPassword { get; init; }

@@ -6,9 +6,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
-using ReactWeaver.Server.Modules.Auth;
-using ReactWeaver.Server.Modules.Auth.DTOs;
 using ReactWeaver.Server.Modules.Users;
+using ReactWeaver.Server.Modules.Users.DTOs;
 
 namespace ReactWeaver.Server.Modules.Auth;
 
@@ -31,7 +30,11 @@ public class AuthController(UserManager<User> userManager, SignInManager<User> s
             return ValidationProblem();
         }
 
-        var user = new User();
+        var user = new User()
+        {
+            Id = $"u_{Guid.CreateVersion7()}"
+        };
+
         await userManager.SetUserNameAsync(user, registration.Email);
         await userManager.SetEmailAsync(user, registration.Email);
 
@@ -199,7 +202,7 @@ public class AuthController(UserManager<User> userManager, SignInManager<User> s
 
     [HttpPost("info")]
     [ProducesResponseType(typeof(UserResponse), StatusCodes.Status200OK)]
-    public async Task<IActionResult> UpdateInfo([FromBody] UpdateUserRequest infoRequest)
+    public async Task<IActionResult> UpdateInfo([FromBody] UpdateUserInfoRequest infoRequest)
     {
         User? user = await userManager.GetUserAsync(User);
         if (user == null)

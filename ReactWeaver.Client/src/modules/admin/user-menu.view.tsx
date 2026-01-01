@@ -13,7 +13,7 @@ import { SidebarMenuButton, useSidebar } from "@/components/ui/sidebar";
 import { useUser } from "@/modules/auth/authorize/authorize.hooks";
 import { Authorize } from "@/modules/auth/authorize/authorize.view";
 import { LogoutView } from "@/modules/auth/logout.view";
-import { DotsThreeVerticalIcon, ShieldIcon, UserCircleIcon } from "@phosphor-icons/react";
+import { DotsThreeVerticalIcon, UserCircleIcon, WindIcon } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
 
 export function UserMenu() {
@@ -47,9 +47,9 @@ export function UserMenu() {
             Profile
           </DropdownMenuItem>
           <Authorize role="Admin">
-            <DropdownMenuItem nativeButton={false} render={<Link to="/users" />}>
-              <ShieldIcon />
-              Administration
+            <DropdownMenuItem nativeButton={false} render={<Link to="/forecasts" />}>
+              <WindIcon />
+              Forecasts
             </DropdownMenuItem>
           </Authorize>
           <DropdownMenuSeparator />

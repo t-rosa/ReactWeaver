@@ -2,13 +2,13 @@ import { ErrorCard } from "./components/error-card";
 import { ErrorLayout } from "./error.ui";
 
 interface ErrorProps {
-  error: { message?: string };
-  reset: () => void;
+  error?: { message: string };
+  reset?: () => void;
 }
 
 export function ErrorView(props: ErrorProps) {
   async function handleCopyClick() {
-    if (props.error.message) {
+    if (props.error?.message) {
       await navigator.clipboard.writeText(props.error.message);
     }
   }

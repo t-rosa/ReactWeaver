@@ -127,7 +127,7 @@ export function RegisterView() {
               name="confirmPassword"
               render={({ field, fieldState }) => (
                 <Field>
-                  <FieldLabel htmlFor={field.name}>Password</FieldLabel>
+                  <FieldLabel htmlFor={field.name}>Confirm password</FieldLabel>
                   <Input
                     id={field.name}
                     type="password"
