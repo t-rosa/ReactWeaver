@@ -16,7 +16,6 @@ import {
   NumberInputField,
   NumberInputGroup,
   NumberInputIncrement,
-  NumberInputScrubArea,
 } from "@/components/ui/number-input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Textarea } from "@/components/ui/textarea";
@@ -87,9 +86,7 @@ export function UpdateForecast(props: UpdateForecastProps) {
       <DialogContent render={<form onSubmit={form.handleSubmit(onSubmit)} />}>
         <DialogHeader>
           <DialogTitle>Edit forecast</DialogTitle>
-          <DialogDescription>
-            Make changes to your forecast here. Click save when you&apos;re done.
-          </DialogDescription>
+          <DialogDescription>Make changes to this forecast.</DialogDescription>
         </DialogHeader>
         <FieldGroup>
           <Controller
@@ -133,10 +130,6 @@ export function UpdateForecast(props: UpdateForecastProps) {
                   aria-invalid={fieldState.invalid}
                   onValueChange={(value) => field.onChange(value)}
                 >
-                  <NumberInputScrubArea>
-                    <FieldLabel htmlFor={field.name}>Temperature</FieldLabel>
-                    <NumberInputScrubArea />
-                  </NumberInputScrubArea>
                   <NumberInputGroup>
                     <NumberInputDecrement />
                     <NumberInputField placeholder="20" />
