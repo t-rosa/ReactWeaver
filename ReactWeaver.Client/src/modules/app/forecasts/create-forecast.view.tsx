@@ -17,7 +17,6 @@ import {
   NumberInputField,
   NumberInputGroup,
   NumberInputIncrement,
-  NumberInputScrubArea,
 } from "@/components/ui/number-input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Spinner } from "@/components/ui/spinner";
@@ -120,16 +119,13 @@ export function CreateForecast() {
             name="temperatureC"
             render={({ field, fieldState }) => (
               <Field>
+                <FieldLabel htmlFor={field.name}>Temperature</FieldLabel>
                 <NumberInput
                   {...field}
                   id={field.name}
                   aria-invalid={fieldState.invalid}
                   onValueChange={(value) => field.onChange(value)}
                 >
-                  <NumberInputScrubArea>
-                    <FieldLabel htmlFor={field.name}>Temperature</FieldLabel>
-                    <NumberInputScrubArea />
-                  </NumberInputScrubArea>
                   <NumberInputGroup>
                     <NumberInputDecrement />
                     <NumberInputField placeholder="20" />
