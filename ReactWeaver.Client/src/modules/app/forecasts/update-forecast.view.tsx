@@ -152,7 +152,7 @@ export function UpdateForecast(props: UpdateForecastProps) {
             name="summary"
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor={field.name}>More about you</FieldLabel>
+                <FieldLabel htmlFor={field.name}>Summary</FieldLabel>
                 <Textarea
                   {...field}
                   id={field.name}
