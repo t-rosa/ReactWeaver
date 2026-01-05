@@ -57,6 +57,10 @@ export function UpdateForecast(props: UpdateForecastProps) {
   const updateForecast = $api.useMutation("put", "/api/weather-forecasts/{id}", {
     meta: {
       invalidatesQuery: $api.queryOptions("get", "/api/weather-forecasts").queryKey,
+      errorMessage: "An error has occurred",
+    },
+    onError(error) {
+      form.setError("root", { message: error.detail ?? "An error has occurred" });
     },
     onSuccess() {
       props.setOpen(false);
@@ -159,6 +163,7 @@ export function UpdateForecast(props: UpdateForecastProps) {
               </Field>
             )}
           />
+          {form.formState.errors?.root && <FieldError errors={[form.formState.errors.root]} />}
         </FieldGroup>
         <DialogFooter>
           <DialogClose render={<Button variant="outline" />}>Cancel</DialogClose>

@@ -57,7 +57,7 @@ public static class WebApplicationExtensions
                     return;
                 }
 
-                if (!await userManager.Users.AnyAsync(u => u.Email == adminEmail))
+                if (!await userManager.Users.AnyAsync(e => e.Email == adminEmail))
                 {
                     var admin = new User
                     {

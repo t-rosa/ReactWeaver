@@ -16,6 +16,7 @@ public sealed class WeatherForecastsController(ApplicationDbContext db, UserMana
 {
     [HttpGet()]
     [ProducesResponseType(typeof(IEnumerable<WeatherForecastResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetWeatherForecasts()
     {
@@ -35,6 +36,7 @@ public sealed class WeatherForecastsController(ApplicationDbContext db, UserMana
 
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(WeatherForecastResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetWeatherForecast([FromRoute] string id)
@@ -61,7 +63,8 @@ public sealed class WeatherForecastsController(ApplicationDbContext db, UserMana
 
     [HttpPost()]
     [ProducesResponseType(typeof(WeatherForecastResponse), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> CreateWeatherForecast(
         [FromBody] CreateWeatherForecastRequest request,
@@ -72,7 +75,7 @@ public sealed class WeatherForecastsController(ApplicationDbContext db, UserMana
         User? user = await userManager.GetUserAsync(User);
         if (user == null)
         {
-            return NotFound();
+            return Unauthorized();
         }
 
         WeatherForecast forecast = request.ToEntity(user.Id);
@@ -88,7 +91,8 @@ public sealed class WeatherForecastsController(ApplicationDbContext db, UserMana
 
     [HttpPut("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> UpdateWeatherForecast(
         [FromRoute] string id,
@@ -100,7 +104,7 @@ public sealed class WeatherForecastsController(ApplicationDbContext db, UserMana
         User? user = await userManager.GetUserAsync(User);
         if (user == null)
         {
-            return NotFound();
+            return Unauthorized();
         }
 
         WeatherForecast? forecast = await db.WeatherForecasts
@@ -122,6 +126,7 @@ public sealed class WeatherForecastsController(ApplicationDbContext db, UserMana
 
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> RemoveWeatherForecast([FromRoute] string id)
@@ -129,7 +134,7 @@ public sealed class WeatherForecastsController(ApplicationDbContext db, UserMana
         User? user = await userManager.GetUserAsync(User);
         if (user == null)
         {
-            return NotFound();
+            return Unauthorized();
         }
 
         WeatherForecast? forecast = await db.WeatherForecasts
@@ -151,10 +156,20 @@ public sealed class WeatherForecastsController(ApplicationDbContext db, UserMana
 
     [HttpPost("bulk-delete")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> RemoveWeatherForecasts([FromBody] List<string> ids)
     {
+        User? user = await userManager.GetUserAsync(User);
+        if (user == null)
+        {
+            return Unauthorized();
+        }
+
         List<WeatherForecast> forecasts = await db.WeatherForecasts
-            .Where(c => ids.Contains(c.Id))
+            .Where(e => e.UserId == user.Id)
+            .Where(e => ids.Contains(e.Id))
             .ToListAsync();
 
         if (forecasts.Count == 0)

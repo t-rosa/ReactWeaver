@@ -6,31 +6,31 @@ namespace ReactWeaver.Server.Modules.WeatherForecasts;
 
 public sealed class WeatherForecastConfiguration : IEntityTypeConfiguration<WeatherForecast>
 {
-      public void Configure(EntityTypeBuilder<WeatherForecast> builder)
-      {
-            builder.HasKey(wf => wf.Id);
+    public void Configure(EntityTypeBuilder<WeatherForecast> builder)
+    {
+        builder.HasKey(e => e.Id);
 
-            builder
-                  .Property(wf => wf.Id)
-                  .HasMaxLength(500);
+        builder
+              .Property(e => e.Id)
+              .HasMaxLength(500);
 
-            builder
-                  .Property(wf => wf.UserId)
-                  .HasMaxLength(500);
+        builder
+              .Property(e => e.UserId)
+              .HasMaxLength(500);
 
-            builder
-                  .Property(wf => wf.Date);
+        builder
+              .Property(e => e.Date);
 
-            builder
-                  .Property(wf => wf.TemperatureC);
+        builder
+              .Property(e => e.TemperatureC);
 
-            builder
-                  .Property(wf => wf.Summary)
-                  .HasMaxLength(100);
+        builder
+              .Property(e => e.Summary)
+              .HasMaxLength(100);
 
-            builder
-                  .HasOne<User>()
-                  .WithMany()
-                  .HasForeignKey(wf => wf.UserId);
-      }
+        builder
+              .HasOne<User>()
+              .WithMany()
+              .HasForeignKey(e => e.UserId);
+    }
 }

@@ -10,6 +10,7 @@ export function LogoutView() {
   const { mutate, status } = $api.useMutation("post", "/api/auth/logout", {
     meta: {
       successMessage: "Logged out",
+      errorMessage: "An error has occurred",
       invalidatesQuery: ["get", "manage/info"],
     },
     async onSuccess() {

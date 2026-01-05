@@ -20,16 +20,22 @@ export type ForgotPasswordFormSchema = z.infer<typeof formSchema>;
 export function ForgotPasswordView() {
   const navigate = useNavigate();
 
-  const forgotPassword = $api.useMutation("post", "/api/auth/forgotPassword", {
-    async onSuccess() {
-      await navigate({ to: "/reset-password" });
-    },
-  });
-
   const form = useForm<ForgotPasswordFormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
+    },
+  });
+
+  const forgotPassword = $api.useMutation("post", "/api/auth/forgotPassword", {
+    meta: {
+      errorMessage: "An error has occurred",
+    },
+    onError(error) {
+      form.setError("root", { message: error.detail ?? "An error has occurred" });
+    },
+    async onSuccess() {
+      await navigate({ to: "/reset-password" });
     },
   });
 
@@ -65,6 +71,7 @@ export function ForgotPasswordView() {
                 </Field>
               )}
             />
+            {form.formState.errors?.root && <FieldError errors={[form.formState.errors.root]} />}
             <Button type="submit" disabled={forgotPassword.isPending}>
               {forgotPassword.isPending ? "Sending..." : "Forgot password"}
               {forgotPassword.isPending && <Spinner />}

@@ -20,7 +20,7 @@ public class UsersController(ApplicationDbContext db, UserManager<User> userMana
         User? user = await userManager.GetUserAsync(User);
         if (user == null)
         {
-            return NotFound();
+            return Unauthorized();
         }
 
         var response = new UserResponse
@@ -79,7 +79,7 @@ public class UsersController(ApplicationDbContext db, UserManager<User> userMana
     public async Task<IActionResult> RemoveUsers([FromBody] List<string> ids)
     {
         List<User> users = await db.Users
-            .Where(c => ids.Contains(c.Id))
+            .Where(e => ids.Contains(e.Id))
             .ToListAsync();
 
         if (users.Count == 0)

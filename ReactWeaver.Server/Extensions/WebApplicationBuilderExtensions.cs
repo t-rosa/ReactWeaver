@@ -86,7 +86,7 @@ public static class WebApplicationBuilderExtensions
             return builder;
         }
 
-        public WebApplicationBuilder AddAuthenticationServices()
+        public WebApplicationBuilder AddAuthentication()
         {
             builder.Services.AddAuthorization();
 
@@ -105,7 +105,7 @@ public static class WebApplicationBuilderExtensions
             return builder;
         }
 
-        public WebApplicationBuilder AddEmailServices()
+        public WebApplicationBuilder AddMailing()
         {
             builder.Services.AddTransient<IEmailSender<User>, EmailSender>();
             builder.Services.Configure<SmtpOptions>(builder.Configuration.GetSection("SmtpOptions"));

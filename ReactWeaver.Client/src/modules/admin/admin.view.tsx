@@ -1,6 +1,6 @@
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { Outlet } from "@tanstack/react-router";
-import { AdminSidebar } from "./comopnents/admin-sidebar";
+import { AdminSidebar } from "./components/admin-sidebar";
 
 export function AdminView() {
   return (

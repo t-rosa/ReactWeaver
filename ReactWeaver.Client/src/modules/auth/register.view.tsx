@@ -41,14 +41,21 @@ const formSchema = z
 export type RegisterFormSchema = z.infer<typeof formSchema>;
 
 export function RegisterView() {
-  const register = $api.useMutation("post", "/api/auth/register");
-
   const form = useForm<RegisterFormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
       password: "",
       confirmPassword: "",
+    },
+  });
+
+  const register = $api.useMutation("post", "/api/auth/register", {
+    meta: {
+      errorMessage: "An error has occurred",
+    },
+    onError(error) {
+      form.setError("root", { message: error.detail ?? "An error has occurred" });
     },
   });
 
@@ -139,6 +146,7 @@ export function RegisterView() {
                 </Field>
               )}
             />
+            {form.formState.errors?.root && <FieldError errors={[form.formState.errors.root]} />}
             <Button type="submit" disabled={register.isPending}>
               {register.isPending ? "Creating..." : "Create account"}
               {register.isPending && <Spinner />}

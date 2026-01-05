@@ -23,6 +23,8 @@ public class AuthController(UserManager<User> userManager, SignInManager<User> s
     [AllowAnonymous]
     [HttpPost("register")]
     [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> Register([FromBody] RegisterRequest registration)
     {
         if (string.IsNullOrEmpty(registration.Email) || !emailAddressAttribute.IsValid(registration.Email))
@@ -41,7 +43,10 @@ public class AuthController(UserManager<User> userManager, SignInManager<User> s
         IdentityResult result = await userManager.CreateAsync(user, registration.Password);
         if (!result.Succeeded)
         {
-            return ValidationProblem();
+            return Problem(
+                statusCode: StatusCodes.Status400BadRequest,
+                title: "Registration failed",
+                detail: "Registration failed.");
         }
 
         if (!await userManager.IsInRoleAsync(user, Roles.Member))
@@ -65,6 +70,8 @@ public class AuthController(UserManager<User> userManager, SignInManager<User> s
     [AllowAnonymous]
     [HttpPost("login")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> Login([FromBody] LoginRequest login, [FromQuery] bool? useCookies, [FromQuery] bool? useSessionCookies)
     {
         bool useCookieScheme = useCookies == true || useSessionCookies == true;
@@ -89,14 +96,19 @@ public class AuthController(UserManager<User> userManager, SignInManager<User> s
 
         if (!result.Succeeded)
         {
-            return Unauthorized(result.ToString());
+            return Problem(
+                statusCode: StatusCodes.Status400BadRequest,
+                title: "Authentication failed",
+                detail: "Authentication failed.");
         }
 
         return NoContent();
     }
 
+
     [HttpPost("logout")]
     [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> Logout()
     {
         await signInManager.SignOutAsync();
@@ -106,6 +118,8 @@ public class AuthController(UserManager<User> userManager, SignInManager<User> s
     [AllowAnonymous]
     [HttpGet("confirmEmail")]
     [ProducesResponseType(StatusCodes.Status302Found)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> ConfirmEmail([FromQuery] string userId, [FromQuery] string code, [FromQuery] string? changedEmail)
     {
         User? user = await userManager.FindByIdAsync(userId);
@@ -143,6 +157,7 @@ public class AuthController(UserManager<User> userManager, SignInManager<User> s
     [AllowAnonymous]
     [HttpPost("resendConfirmationEmail")]
     [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> ResendConfirmationEmail([FromBody] ResendConfirmationEmailRequest resendRequest)
     {
         User? user = await userManager.FindByEmailAsync(resendRequest.Email);
@@ -158,6 +173,7 @@ public class AuthController(UserManager<User> userManager, SignInManager<User> s
     [AllowAnonymous]
     [HttpPost("forgotPassword")]
     [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordRequest resetRequest)
     {
         User? user = await userManager.FindByEmailAsync(resetRequest.Email);
@@ -173,6 +189,8 @@ public class AuthController(UserManager<User> userManager, SignInManager<User> s
     [AllowAnonymous]
     [HttpPost("resetPassword")]
     [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordRequest resetRequest)
     {
         User? user = await userManager.FindByEmailAsync(resetRequest.Email);
@@ -202,6 +220,9 @@ public class AuthController(UserManager<User> userManager, SignInManager<User> s
 
     [HttpPost("info")]
     [ProducesResponseType(typeof(UserResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> UpdateInfo([FromBody] UpdateUserInfoRequest infoRequest)
     {
         User? user = await userManager.GetUserAsync(User);

@@ -44,8 +44,6 @@ const formSchema = z
 export type ResetPasswordFormSchema = z.infer<typeof formSchema>;
 
 export function ResetPasswordView() {
-  const resetPassword = $api.useMutation("post", "/api/auth/resetPassword");
-
   const form = useForm<ResetPasswordFormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -53,6 +51,15 @@ export function ResetPasswordView() {
       resetCode: "",
       newPassword: "",
       confirmPassword: "",
+    },
+  });
+
+  const resetPassword = $api.useMutation("post", "/api/auth/resetPassword", {
+    meta: {
+      errorMessage: "An error has occurred",
+    },
+    onError(error) {
+      form.setError("root", { message: error.detail ?? "An error has occurred" });
     },
   });
 
@@ -165,6 +172,7 @@ export function ResetPasswordView() {
                 </Field>
               )}
             />
+            {form.formState.errors?.root && <FieldError errors={[form.formState.errors.root]} />}
             <Button type="submit" disabled={resetPassword.isPending}>
               {resetPassword.isPending ? "Reseting..." : "Reset password"}
               {resetPassword.isPending && <Spinner />}

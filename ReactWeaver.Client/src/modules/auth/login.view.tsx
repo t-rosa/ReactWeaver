@@ -29,21 +29,25 @@ export type LoginFormSchema = z.infer<typeof formSchema>;
 export function LoginView() {
   const navigate = useNavigate();
 
-  const login = $api.useMutation("post", "/api/auth/login", {
-    meta: {
-      successMessage: "Connected",
-      invalidatesQuery: ["get", "manage/info"],
-    },
-    async onSuccess() {
-      await navigate({ to: "/forecasts" });
-    },
-  });
-
   const form = useForm<LoginFormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
       password: "",
+    },
+  });
+
+  const login = $api.useMutation("post", "/api/auth/login", {
+    meta: {
+      successMessage: "Connected",
+      errorMessage: "An error has occurred",
+      invalidatesQuery: ["get", "manage/info"],
+    },
+    onError(error) {
+      form.setError("root", { message: error.detail ?? "An error has occurred" });
+    },
+    async onSuccess() {
+      await navigate({ to: "/forecasts" });
     },
   });
 
@@ -101,6 +105,7 @@ export function LoginView() {
                 </Field>
               )}
             />
+            {form.formState.errors?.root && <FieldError errors={[form.formState.errors.root]} />}
             <Field>
               <Button type="submit" disabled={login.isPending}>
                 {login.isPending ? "Logging in..." : "Log in"}

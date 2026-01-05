@@ -14,7 +14,10 @@ public sealed class GlobalExceptionHandler(IProblemDetailsService problemDetails
             ProblemDetails = new ProblemDetails
             {
                 Title = "Internal Server Error",
-                Detail = "An error occurred while processing your request. Please try again"
+                Detail = "An unexpected error occurred while processing your request.",
+                Status = StatusCodes.Status500InternalServerError,
+                Type = "https://datatracker.ietf.org/doc/html/rfc9110#section-15.6.1",
+                Instance = httpContext.Request.Path,
             }
         });
     }

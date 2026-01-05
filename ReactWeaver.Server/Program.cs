@@ -14,8 +14,8 @@ public interface IProgram
             .AddDatabase()
             .AddErrorHandling()
             .AddObservability()
-            .AddAuthenticationServices()
-            .AddEmailServices()
+            .AddAuthentication()
+            .AddMailing()
             .AddApplicationServices();
 
         WebApplication app = builder.Build();
@@ -34,6 +34,8 @@ public interface IProgram
         app.UseHttpsRedirection();
 
         app.UseExceptionHandler();
+
+        app.UseAuthentication();
 
         app.UseAuthorization();
 

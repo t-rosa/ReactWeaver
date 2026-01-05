@@ -53,7 +53,11 @@ export function CreateForecast() {
 
   const createForecast = $api.useMutation("post", "/api/weather-forecasts", {
     meta: {
+      errorMessage: "An error has occurred",
       invalidatesQuery: $api.queryOptions("get", "/api/weather-forecasts").queryKey,
+    },
+    onError(error) {
+      form.setError("root", { message: error.detail ?? "An error has occurred" });
     },
     onSuccess() {
       setOpen(!open);
@@ -152,6 +156,7 @@ export function CreateForecast() {
               </Field>
             )}
           />
+          {form.formState.errors?.root && <FieldError errors={[form.formState.errors.root]} />}
         </FieldGroup>
         <DialogFooter>
           <DialogClose render={<Button type="button" variant="outline" />}>Cancel</DialogClose>

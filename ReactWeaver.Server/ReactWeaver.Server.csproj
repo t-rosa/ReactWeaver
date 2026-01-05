@@ -4,7 +4,7 @@
     <SpaRoot>..\ReactWeaver.Client</SpaRoot>
     <SpaProxyLaunchCommand>npm run dev</SpaProxyLaunchCommand>
     <SpaProxyServerUrl>https://localhost:50000</SpaProxyServerUrl>
-    <UserSecretsId>ee50dfd6-9d3a-4b30-9866-9103e9b8a5bc</UserSecretsId>
+    <UserSecretsId>9211db2f-6a5f-49fd-9f9a-99b1f28fd34d</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
