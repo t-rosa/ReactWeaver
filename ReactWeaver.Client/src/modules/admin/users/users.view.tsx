@@ -1,5 +1,5 @@
 import { $api } from "@/lib/api/client";
-import { AdminLayout } from "../admin.ui";
+import { AdminLayout } from "../comopnents/admin-layout";
 import { USER_COLUMNS } from "./user-table/user-columns";
 import { UserTable } from "./user-table/user-table.view";
 

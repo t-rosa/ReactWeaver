@@ -1,5 +1,5 @@
 import { $api } from "@/lib/api/client";
-import { AppLayout } from "../app.ui";
+import { AppLayout } from "../components/app-layout";
 import { FORECAST_COLUMNS } from "./forecast-table/forecast-columns";
 import { ForecastTable } from "./forecast-table/forecast-table.view";
 

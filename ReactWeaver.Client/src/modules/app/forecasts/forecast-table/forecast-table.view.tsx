@@ -32,7 +32,7 @@ import {
 } from "@tanstack/react-table";
 import * as React from "react";
 import { CreateForecast } from "../create-forecast.view";
-import { RemoveForecasts } from "../remove-forecasts";
+import { RemoveForecasts } from "../remove-forecasts.view";
 
 interface ForecastTableProps {
   columns: ColumnDef<components["schemas"]["WeatherForecastResponse"]>[];

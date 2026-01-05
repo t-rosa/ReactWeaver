@@ -9,11 +9,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import type { components } from "@/lib/api/schema";
-import { RemoveForecast } from "@/modules/app/forecasts/remove-forecast";
+import { RemoveForecast } from "@/modules/app/forecasts/remove-forecast.view";
 import { DotsThreeIcon } from "@phosphor-icons/react";
 import type { CellContext } from "@tanstack/react-table";
 import * as React from "react";
-import { UpdateForecast } from "./update-forecast";
+import { UpdateForecast } from "./update-forecast.view";
 
 type ForecastResponse = components["schemas"]["WeatherForecastResponse"];
 type ForecastActionsProps = CellContext<ForecastResponse, unknown>;

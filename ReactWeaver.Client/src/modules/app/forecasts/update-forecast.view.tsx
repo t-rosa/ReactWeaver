@@ -39,9 +39,9 @@ const formSchema = z.object({
 export type UpdateForecastFormSchema = z.infer<typeof formSchema>;
 
 interface UpdateForecastProps {
-  forecast: components["schemas"]["WeatherForecastResponse"];
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  forecast: components["schemas"]["WeatherForecastResponse"];
 }
 
 export function UpdateForecast(props: UpdateForecastProps) {

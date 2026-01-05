@@ -1,5 +1,5 @@
 import { ErrorCard } from "./components/error-card";
-import { ErrorLayout } from "./error.ui";
+import { ErrorLayout } from "./components/error-layout";
 
 interface ErrorProps {
   error?: { message: string };
