@@ -26,7 +26,7 @@ public sealed class WeatherForecastsController(ApplicationDbContext db, UserMana
             return Unauthorized();
         }
 
-        IQueryable<WeatherForecastResponse> response = db.WeatherForecasts
+        IEnumerable<WeatherForecastResponse> response = db.WeatherForecasts
             .AsNoTracking()
             .Where(e => e.UserId == user.Id)
             .Select(WeatherForecastQueries.ProjectToResponse());
@@ -62,7 +62,7 @@ public sealed class WeatherForecastsController(ApplicationDbContext db, UserMana
     }
 
     [HttpPost()]
-    [ProducesResponseType(typeof(WeatherForecastResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(WeatherForecastResponse), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
@@ -93,6 +93,7 @@ public sealed class WeatherForecastsController(ApplicationDbContext db, UserMana
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> UpdateWeatherForecast(
         [FromRoute] string id,
