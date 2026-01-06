@@ -12,8 +12,8 @@ using ReactWeaver.Server.Database;
 namespace ReactWeaver.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251127175225_Initial")]
-    partial class Initial
+    [Migration("20260106102832_Identity")]
+    partial class Identity
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -278,49 +278,6 @@ namespace ReactWeaver.Server.Migrations
                     b.ToTable("users", "application");
                 });
 
-            modelBuilder.Entity("ReactWeaver.Server.Modules.WeatherForecasts.WeatherForecast", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasMaxLength(500)
-                        .HasColumnType("character varying(500)")
-                        .HasColumnName("id");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("created_at");
-
-                    b.Property<DateOnly>("Date")
-                        .HasColumnType("date")
-                        .HasColumnName("date");
-
-                    b.Property<string>("Summary")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
-                        .HasColumnName("summary");
-
-                    b.Property<int>("TemperatureC")
-                        .HasColumnType("integer")
-                        .HasColumnName("temperature_c");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("updated_at");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("character varying(500)")
-                        .HasColumnName("user_id");
-
-                    b.HasKey("Id")
-                        .HasName("pk_weather_forecasts");
-
-                    b.HasIndex("UserId")
-                        .HasDatabaseName("ix_weather_forecasts_user_id");
-
-                    b.ToTable("weather_forecasts", "application");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -376,16 +333,6 @@ namespace ReactWeaver.Server.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_user_tokens_asp_net_users_user_id");
-                });
-
-            modelBuilder.Entity("ReactWeaver.Server.Modules.WeatherForecasts.WeatherForecast", b =>
-                {
-                    b.HasOne("ReactWeaver.Server.Modules.Users.User", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_weather_forecasts_users_user_id");
                 });
 #pragma warning restore 612, 618
         }

@@ -12,8 +12,7 @@ namespace ReactWeaver.Tests;
 
 public class BaseFactory : WebApplicationFactory<IProgram>, IAsyncLifetime
 {
-    [Obsolete]
-    private readonly PostgreSqlContainer _container = new PostgreSqlBuilder()
+    private readonly PostgreSqlContainer _container = new PostgreSqlBuilder("postgres:18.1")
         .WithDatabase("react-weaver")
         .WithUsername("postgres")
         .WithPassword("postgres")
