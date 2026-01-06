@@ -3,11 +3,12 @@ import { Checkbox } from "@/components/ui/checkbox";
 import type { components } from "@/lib/api/schema";
 import { ArrowsDownUpIcon } from "@phosphor-icons/react";
 import type { ColumnDef } from "@tanstack/react-table";
-import { ForecastActions } from "../forecast-actions.view";
+import { ForecastActions } from "./forecast-actions.view";
 
 export const FORECAST_COLUMNS: ColumnDef<components["schemas"]["WeatherForecastResponse"]>[] = [
   {
     id: "select",
+    accessorKey: "id",
     header: ({ table }) => (
       <Checkbox
         checked={table.getIsAllPageRowsSelected() || table.getIsSomePageRowsSelected()}
@@ -59,6 +60,8 @@ export const FORECAST_COLUMNS: ColumnDef<components["schemas"]["WeatherForecastR
   },
   {
     id: "actions",
+    accessorKey: "id",
+    header: () => null,
     cell: ForecastActions,
   },
 ];

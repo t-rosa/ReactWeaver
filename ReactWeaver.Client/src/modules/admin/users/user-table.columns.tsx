@@ -4,12 +4,12 @@ import type { components } from "@/lib/api/schema";
 import { useUser } from "@/modules/auth/authorize/authorize.hooks";
 import { ArrowsDownUpIcon } from "@phosphor-icons/react";
 import type { ColumnDef } from "@tanstack/react-table";
-import { UserActions } from "../user-actions";
-// import { ForecastActions } from "../forecast-actions.view";
+import { UserActions } from "./user-actions.view";
 
 export const USER_COLUMNS: ColumnDef<components["schemas"]["UserResponse"]>[] = [
   {
     id: "select",
+    accessorKey: "id",
     header: ({ table }) => (
       <Checkbox
         checked={table.getIsAllPageRowsSelected() || table.getIsSomePageRowsSelected()}
@@ -78,6 +78,8 @@ export const USER_COLUMNS: ColumnDef<components["schemas"]["UserResponse"]>[] = 
   },
   {
     id: "actions",
+    accessorKey: "id",
+    header: () => null,
     cell: UserActions,
   },
 ];

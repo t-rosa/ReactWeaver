@@ -1,7 +1,7 @@
 import { $api } from "@/lib/api/client";
 import { AppLayout } from "../components/app-layout";
-import { FORECAST_COLUMNS } from "./forecast-table/forecast-columns";
-import { ForecastTable } from "./forecast-table/forecast-table.view";
+import { FORECAST_COLUMNS } from "./forecast-table.columns";
+import { ForecastTable } from "./forecast-table.view";
 
 export function ForecastsView() {
   const { data } = $api.useSuspenseQuery("get", "/api/weather-forecasts");

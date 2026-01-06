@@ -31,8 +31,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import * as React from "react";
-import { RemoveUsers } from "./remove-users";
-// import { RemoveForecasts } from "../remove-forecasts";
+import { RemoveUsers } from "./remove-users.view";
 
 interface UserTableProps {
   columns: ColumnDef<components["schemas"]["UserResponse"]>[];
@@ -56,6 +55,7 @@ export function UserTable(props: UserTableProps) {
     getFilteredRowModel: getFilteredRowModel(),
     onColumnFiltersChange: setColumnFilters,
     onRowSelectionChange: setRowSelection,
+    getRowId: (original) => original.id,
     state: {
       sorting,
       columnFilters,
@@ -118,7 +118,7 @@ export function UserTable(props: UserTableProps) {
             <TableBody>
               {table.getRowModel().rows.map((row) => (
                 <TableRow
-                  key={row.id}
+                  key={row.original.id}
                   data-state={row.getIsSelected() && "selected"}
                   data-disabled={user.id === row.original.id}
                   aria-disabled={user.id === row.original.id}

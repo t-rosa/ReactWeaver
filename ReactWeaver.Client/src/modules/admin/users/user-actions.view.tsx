@@ -12,7 +12,7 @@ import type { components } from "@/lib/api/schema";
 import { DotsThreeIcon } from "@phosphor-icons/react";
 import type { CellContext } from "@tanstack/react-table";
 import * as React from "react";
-import { RemoveUser } from "./remove-user";
+import { RemoveUser } from "./remove-user.view";
 
 type UserResponse = components["schemas"]["UserResponse"];
 type UserActionsProps = CellContext<UserResponse, unknown>;

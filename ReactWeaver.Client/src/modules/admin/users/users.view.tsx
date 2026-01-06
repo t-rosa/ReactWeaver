@@ -1,7 +1,7 @@
 import { $api } from "@/lib/api/client";
 import { AdminLayout } from "../components/admin-layout";
-import { USER_COLUMNS } from "./user-table/user-columns";
-import { UserTable } from "./user-table/user-table.view";
+import { USER_COLUMNS } from "./user-table.columns";
+import { UserTable } from "./user-table.view";
 
 export function UsersView() {
   const { data } = $api.useSuspenseQuery("get", "/api/users");

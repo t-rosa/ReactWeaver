@@ -31,8 +31,8 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import * as React from "react";
-import { CreateForecast } from "../create-forecast.view";
-import { RemoveForecasts } from "../remove-forecasts.view";
+import { CreateForecast } from "./create-forecast.view";
+import { RemoveForecasts } from "./remove-forecasts.view";
 
 interface ForecastTableProps {
   columns: ColumnDef<components["schemas"]["WeatherForecastResponse"]>[];
@@ -54,6 +54,7 @@ export function ForecastTable(props: ForecastTableProps) {
     getFilteredRowModel: getFilteredRowModel(),
     onColumnFiltersChange: setColumnFilters,
     onRowSelectionChange: setRowSelection,
+    getRowId: (original) => original.id,
     state: {
       sorting,
       columnFilters,
@@ -118,7 +119,7 @@ export function ForecastTable(props: ForecastTableProps) {
             </TableHeader>
             <TableBody>
               {table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+                <TableRow key={row.original.id} data-state={row.getIsSelected() && "selected"}>
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
