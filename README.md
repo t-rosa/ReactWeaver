@@ -50,50 +50,28 @@ rm -rf .git && git init
 docker compose up -d
 ```
 
-3. Configure required secrets
-
-```bash
-dotnet user-secrets init --project ReactWeaver.Server
-```
-
-```bash
-dotnet user-secrets set "ADMIN_EMAIL" "value" --project ReactWeaver.Server
-```
-
-```bash
-dotnet user-secrets set "ADMIN_PASSWORD" "value" --project ReactWeaver.Server
-```
-
-```bash
-dotnet user-secrets set "CONNECTION_STRING" "Host=localhost;Port=5432;Username=postgres;Password=postgres;Database=react-weaver;" --project ReactWeaver.Server
-```
-
-```bash
-dotnet user-secrets set "SMTP_USERNAME" "value" --project ReactWeaver.Server
-```
-
-```bash
-dotnet user-secrets set "SMTP_PASSWORD" "value" --project ReactWeaver.Server
-```
-
-```bash
-dotnet user-secrets set "OTEL_EXPORTER_OTLP_ENDPOINT" "http://react-weaver.aspire-dashboard:18889" --project ReactWeaver.Server
-```
-
-```bash
-dotnet user-secrets set "OTEL_EXPORTER_OTLP_PROTOCOL" "grpc" --project ReactWeaver.Server
-```
-
-4. Build the app
+3. Build the app
 
 ```bash
 dotnet publish ReactWeaver.Server -o ReactWeaver.Server/bin/Production
 ```
 
-5. Launch the app
+4. Launch the app
 
 ```bash
 dotnet run --project ReactWeaver.Server
+```
+
+5. You can login with email "admin@react-weaver.com" and password "Admin123!"
+
+- Enable SMTP (Gmail)
+
+```bash
+dotnet user-secrets set "SmtpOptions:Username" "value" --project ReactWeaver.Server
+```
+
+```bash
+dotnet user-secrets set "SmtpOptions:Password" "value" --project ReactWeaver.Server
 ```
 
 - Execute automated tests:

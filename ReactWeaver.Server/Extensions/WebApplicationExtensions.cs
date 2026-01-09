@@ -49,8 +49,8 @@ public static class WebApplicationExtensions
 
                 app.Logger.LogInformation("successfully created roles.");
 
-                string? adminEmail = configuration["ADMIN_EMAIL"];
-                string? adminPassword = configuration["ADMIN_PASSWORD"];
+                string? adminEmail = configuration["Admin:Email"];
+                string? adminPassword = configuration["Admin:Password"];
 
                 if (string.IsNullOrWhiteSpace(adminEmail) || string.IsNullOrWhiteSpace(adminPassword))
                 {

@@ -52,7 +52,7 @@ public static class WebApplicationBuilderExtensions
             {
                 options
                     .UseNpgsql(
-                        builder.Configuration["CONNECTION_STRING"],
+                        builder.Configuration["ConnectionStrings:Default"],
                         npgsqlOptions =>
                         {
                             npgsqlOptions.MigrationsHistoryTable(HistoryRepository.DefaultTableName, Schemas.Application);

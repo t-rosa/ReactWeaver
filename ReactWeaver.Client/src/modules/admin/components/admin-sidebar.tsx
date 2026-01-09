@@ -11,7 +11,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { UserMenu } from "@/modules/admin/user-menu.view";
-import { CodeSimpleIcon, WindIcon } from "@phosphor-icons/react";
+import { CodeSimpleIcon, UsersIcon } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
 import { ThemeSwitcher } from "../theme-switcher/theme-switcher.view";
 
@@ -48,7 +48,7 @@ function Content() {
                 to="/users"
                 activeProps={{ className: "bg-sidebar-accent font-bold" }}
               >
-                <WindIcon />
+                <UsersIcon />
                 <span>Users</span>
               </Link>
             </SidebarMenuItem>

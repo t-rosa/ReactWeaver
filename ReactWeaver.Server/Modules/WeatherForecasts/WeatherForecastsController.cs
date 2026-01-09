@@ -47,12 +47,12 @@ public sealed class WeatherForecastsController(ApplicationDbContext db, UserMana
             return Unauthorized();
         }
 
-        IQueryable<WeatherForecastResponse> query = db.WeatherForecasts
+        WeatherForecastResponse? response = await db.WeatherForecasts
             .Where(e => e.UserId == user.Id)
             .Where(e => e.Id == id)
-            .Select(WeatherForecastQueries.ProjectToResponse());
+            .Select(WeatherForecastQueries.ProjectToResponse())
+            .SingleOrDefaultAsync();
 
-        WeatherForecastResponse? response = await query.SingleOrDefaultAsync();
         if (response is null)
         {
             return NotFound();

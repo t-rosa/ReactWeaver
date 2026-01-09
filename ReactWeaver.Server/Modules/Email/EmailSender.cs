@@ -12,12 +12,12 @@ public sealed class EmailSender(IOptions<SmtpOptions> options, IConfiguration co
 
     public async Task SendEmailAsync(string email, string subject, string htmlMessage)
     {
-        string? username = configuration["SMTP_USERNAME"];
-        string? password = configuration["SMTP_PASSWORD"];
+        string? username = configuration["SmtpOptions:Username"];
+        string? password = configuration["SmtpOptions:Password"];
 
         if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
         {
-            throw new InvalidOperationException("SMTP_USERNAME and SMTP_PASSWORD must be configured. For Gmail, use an App Password (not your regular password).");
+            throw new InvalidOperationException("SmtpOptions:Username and SmtpOptions:Password must be configured. For Gmail, use an App Password (not your regular password).");
         }
 
         using MailMessage message = new() { From = new MailAddress(username) };

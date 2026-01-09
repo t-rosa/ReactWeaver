@@ -26,7 +26,7 @@ export function UserMenu() {
         <Avatar>
           <AvatarFallback>{user.email.charAt(0).toUpperCase()}</AvatarFallback>
         </Avatar>
-        {user.email}
+        <p className="truncate">{user.email}</p>
         <DotsThreeVerticalIcon />
       </DropdownMenuTrigger>
       <DropdownMenuContent side={isMobile ? "bottom" : "right"}>
