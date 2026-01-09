@@ -36,7 +36,7 @@ public class WeatherForecastsControllerTests : IAsyncLifetime
     {
         HttpResponseMessage response = await _client.PostAsJsonAsync("/api/auth/login?useCookies=true", new
         {
-            email = _configuration["Admin:Username"],
+            email = _configuration["Admin:Email"],
             password = _configuration["Admin:Password"]
         });
 
