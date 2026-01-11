@@ -58,7 +58,7 @@ export function ForgotPasswordView() {
               control={form.control}
               name="email"
               render={({ field, fieldState }) => (
-                <Field>
+                <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor={field.name}>Email</FieldLabel>
                   <Input
                     id={field.name}

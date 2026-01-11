@@ -99,7 +99,7 @@ export function RegisterView() {
               control={form.control}
               name="email"
               render={({ field, fieldState }) => (
-                <Field>
+                <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor={field.name}>Email</FieldLabel>
                   <Input
                     id={field.name}
@@ -116,7 +116,7 @@ export function RegisterView() {
               control={form.control}
               name="password"
               render={({ field, fieldState }) => (
-                <Field>
+                <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor={field.name}>Password</FieldLabel>
                   <Input
                     id={field.name}
@@ -133,7 +133,7 @@ export function RegisterView() {
               control={form.control}
               name="confirmPassword"
               render={({ field, fieldState }) => (
-                <Field>
+                <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor={field.name}>Confirm password</FieldLabel>
                   <Input
                     id={field.name}

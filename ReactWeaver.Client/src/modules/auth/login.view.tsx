@@ -75,7 +75,7 @@ export function LoginView() {
               control={form.control}
               name="email"
               render={({ field, fieldState }) => (
-                <Field>
+                <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor={field.name}>Email</FieldLabel>
                   <Input
                     id={field.name}
@@ -92,7 +92,7 @@ export function LoginView() {
               control={form.control}
               name="password"
               render={({ field, fieldState }) => (
-                <Field>
+                <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor={field.name}>Password</FieldLabel>
                   <Input
                     id={field.name}
@@ -106,17 +106,15 @@ export function LoginView() {
               )}
             />
             {form.formState.errors?.root && <FieldError errors={[form.formState.errors.root]} />}
-            <Field>
-              <Button type="submit" disabled={login.isPending}>
-                {login.isPending ? "Logging in..." : "Log in"}
-                {login.isPending && <Spinner />}
-              </Button>
-              <Button
-                variant="link"
-                nativeButton={false}
-                render={<Link to="/forgot-password">Forgot your password?</Link>}
-              />
-            </Field>
+            <Button type="submit" disabled={login.isPending}>
+              {login.isPending ? "Logging in..." : "Log in"}
+              {login.isPending && <Spinner />}
+            </Button>
+            <Button
+              variant="link"
+              nativeButton={false}
+              render={<Link to="/forgot-password">Forgot your password?</Link>}
+            />
           </FieldGroup>
         </form>
       </AuthCard.Content>

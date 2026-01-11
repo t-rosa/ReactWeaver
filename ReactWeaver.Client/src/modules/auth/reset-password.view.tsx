@@ -79,9 +79,7 @@ export function ResetPasswordView() {
         <AuthCard.Content>
           <AuthCard.Header>
             <AuthCard.Title>Reset password.</AuthCard.Title>
-            <AuthCard.Description>
-              Enter your email address to reset your password.
-            </AuthCard.Description>
+            <AuthCard.Description>A reset code has been sent to you by email.</AuthCard.Description>
           </AuthCard.Header>
           <p>Password successfully reset!</p>
           <p>You can now log in with your new password.</p>
@@ -98,9 +96,7 @@ export function ResetPasswordView() {
       <AuthCard.Content>
         <AuthCard.Header>
           <AuthCard.Title>Reset password.</AuthCard.Title>
-          <AuthCard.Description>
-            Enter your email address to reset your password.
-          </AuthCard.Description>
+          <AuthCard.Description>A reset code has been sent to you by email.</AuthCard.Description>
         </AuthCard.Header>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <FieldGroup>
@@ -108,7 +104,7 @@ export function ResetPasswordView() {
               control={form.control}
               name="email"
               render={({ field, fieldState }) => (
-                <Field>
+                <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor={field.name}>Email</FieldLabel>
                   <Input
                     id={field.name}
@@ -125,7 +121,7 @@ export function ResetPasswordView() {
               control={form.control}
               name="resetCode"
               render={({ field, fieldState }) => (
-                <Field>
+                <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor={field.name}>Reset code</FieldLabel>
                   <Input
                     id={field.name}
@@ -142,7 +138,7 @@ export function ResetPasswordView() {
               control={form.control}
               name="newPassword"
               render={({ field, fieldState }) => (
-                <Field>
+                <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor={field.name}>New password</FieldLabel>
                   <Input
                     id={field.name}
@@ -159,7 +155,7 @@ export function ResetPasswordView() {
               control={form.control}
               name="confirmPassword"
               render={({ field, fieldState }) => (
-                <Field>
+                <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor={field.name}>Confirm password</FieldLabel>
                   <Input
                     id={field.name}

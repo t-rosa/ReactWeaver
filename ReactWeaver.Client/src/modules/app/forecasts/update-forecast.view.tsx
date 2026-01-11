@@ -122,7 +122,7 @@ export function UpdateForecast(props: UpdateForecastProps) {
             control={form.control}
             name="temperatureC"
             render={({ field, fieldState }) => (
-              <Field>
+              <Field data-invalid={fieldState.invalid}>
                 <FieldLabel htmlFor={field.name}>Temperature</FieldLabel>
                 <NumberInput
                   {...field}

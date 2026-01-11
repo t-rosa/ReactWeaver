@@ -89,7 +89,7 @@ export function CreateForecast() {
             control={form.control}
             name="date"
             render={({ field, fieldState }) => (
-              <Field>
+              <Field data-invalid={fieldState.invalid}>
                 <FieldLabel htmlFor={field.name}>Date</FieldLabel>
                 <Popover>
                   <PopoverTrigger id={field.name} render={<Button variant="outline" />}>
@@ -118,7 +118,7 @@ export function CreateForecast() {
             control={form.control}
             name="temperatureC"
             render={({ field, fieldState }) => (
-              <Field>
+              <Field data-invalid={fieldState.invalid}>
                 <FieldLabel htmlFor={field.name}>Temperature</FieldLabel>
                 <NumberInput
                   {...field}
