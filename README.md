@@ -13,13 +13,17 @@ git clone https://github.com/t-rosa/ReactWeaver.git
 2. Install the template
 
 ```bash
-cd ReactWeaver && dotnet new install .
+cd ReactWeaver
+```
+
+```bash
+dotnet new install .
 ```
 
 3. Scaffold a new project
 
 ```bash
-cd .. && dotnet new react-weaver -o MyProject
+dotnet new react-weaver -o MyProject
 ```
 
 ## Prerequisites
@@ -41,7 +45,12 @@ cd .. && dotnet new react-weaver -o MyProject
 1. Initialize git
 
 ```bash
-rm -rf .git && git init
+rm -rf .git
+```
+
+```bash
+
+git init
 ```
 
 2. Launch the database
