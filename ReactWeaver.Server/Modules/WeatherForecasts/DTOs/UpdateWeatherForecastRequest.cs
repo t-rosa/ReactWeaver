@@ -13,7 +13,7 @@ public class UpdateWeatherForecastRequestValidator : AbstractValidator<UpdateWea
 {
     public UpdateWeatherForecastRequestValidator()
     {
-        RuleFor(e => e.Date).NotEmpty().WithMessage("Date is required.");
-        RuleFor(e => e.TemperatureC).NotEmpty().WithMessage("Temperature is required.");
+        RuleFor(e => e.Date).NotEmpty().WithMessage("The forecast date must be specified.");
+        RuleFor(e => e.TemperatureC).NotEmpty().WithMessage("The forecast temperature must be specified.");
     }
 }

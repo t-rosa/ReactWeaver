@@ -157,11 +157,16 @@ public sealed class WeatherForecastsController(ApplicationDbContext db, UserMana
 
     [HttpPost("bulk-delete")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> RemoveWeatherForecasts([FromBody] List<string> ids)
+    public async Task<IActionResult> RemoveWeatherForecasts(
+        [FromBody] RemoveWeatherForecastsRequest request,
+        [FromServices] IValidator<RemoveWeatherForecastsRequest> validator)
     {
+        await validator.ValidateAndThrowAsync(request);
+
         User? user = await userManager.GetUserAsync(User);
         if (user == null)
         {
@@ -170,7 +175,7 @@ public sealed class WeatherForecastsController(ApplicationDbContext db, UserMana
 
         List<WeatherForecast> forecasts = await db.WeatherForecasts
             .Where(e => e.UserId == user.Id)
-            .Where(e => ids.Contains(e.Id))
+            .Where(e => request.Ids.Contains(e.Id))
             .ToListAsync();
 
         if (forecasts.Count == 0)
