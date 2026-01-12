@@ -1,4 +1,5 @@
 using FluentValidation;
+using Microsoft.Extensions.Localization;
 
 namespace ReactWeaver.Server.Modules.WeatherForecasts.DTOs;
 
@@ -9,8 +10,10 @@ public sealed record RemoveWeatherForecastsRequest
 
 public class RemoveWeatherForecastsRequestValidator : AbstractValidator<RemoveWeatherForecastsRequest>
 {
-    public RemoveWeatherForecastsRequestValidator()
+    public RemoveWeatherForecastsRequestValidator(IStringLocalizer<WeatherForecastsResource> localizer)
     {
-        RuleFor(e => e.Ids).NotEmpty().WithMessage("At least one forecast ID must be provided.");
+        RuleFor(e => e.Ids)
+            .NotEmpty()
+            .WithMessage(localizer["Validation_IdsNotEmpty"]);
     }
 }

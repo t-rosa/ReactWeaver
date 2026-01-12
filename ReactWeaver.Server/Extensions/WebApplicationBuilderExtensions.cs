@@ -1,6 +1,8 @@
+using System.Globalization;
 using FluentValidation;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 using OpenTelemetry;
@@ -81,6 +83,32 @@ public static class WebApplicationBuilderExtensions
             {
                 options.IncludeScopes = true;
                 options.IncludeFormattedMessage = true;
+            });
+
+            return builder;
+        }
+
+        public WebApplicationBuilder AddI18n()
+        {
+            builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+
+            builder.Services.Configure<RequestLocalizationOptions>(options =>
+            {
+                CultureInfo[] supportedCultures =
+                [
+                    new CultureInfo("en"),
+                    new CultureInfo("fr"),
+                ];
+
+                options.DefaultRequestCulture = new RequestCulture("en");
+                options.SupportedCultures = supportedCultures;
+                options.SupportedUICultures = supportedCultures;
+
+                options.RequestCultureProviders =
+                [
+                    new CookieRequestCultureProvider(),
+                    new AcceptLanguageHeaderRequestCultureProvider(),
+                ];
             });
 
             return builder;

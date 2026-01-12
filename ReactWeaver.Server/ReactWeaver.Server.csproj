@@ -34,7 +34,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ReactWeaver.Client\ReactWeaver.Client.esproj" />
+    <ProjectReference Include="..\ReactWeaver.Client\ReactWeaver.Client.esproj">
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
   </ItemGroup>
 
 </Project>
