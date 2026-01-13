@@ -1,5 +1,4 @@
 using FluentValidation;
-using Microsoft.Extensions.Localization;
 
 namespace ReactWeaver.Server.Modules.WeatherForecasts.DTOs;
 
@@ -12,14 +11,9 @@ public sealed record CreateWeatherForecastRequest
 
 public class CreateWeatherForecastRequestValidator : AbstractValidator<CreateWeatherForecastRequest>
 {
-    public CreateWeatherForecastRequestValidator(IStringLocalizer<WeatherForecastsResource> localizer)
+    public CreateWeatherForecastRequestValidator()
     {
-        RuleFor(e => e.Date)
-            .NotEmpty()
-            .WithMessage(localizer["Validation_DateRequired"]);
-
-        RuleFor(e => e.TemperatureC)
-            .NotEmpty()
-            .WithMessage(localizer["Validation_TemperatureRequired"]);
+        RuleFor(e => e.Date).NotEmpty().WithMessage("The forecast date must be specified.");
+        RuleFor(e => e.TemperatureC).NotEmpty().WithMessage("The forecast temperature must be specified.");
     }
 }

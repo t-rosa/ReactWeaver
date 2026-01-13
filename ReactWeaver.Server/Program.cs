@@ -1,4 +1,3 @@
-using Microsoft.Extensions.Options;
 using ReactWeaver.Server.Extensions;
 using Scalar.AspNetCore;
 
@@ -15,7 +14,6 @@ public interface IProgram
             .AddDatabase()
             .AddErrorHandling()
             .AddObservability()
-            .AddI18n()
             .AddAuthentication()
             .AddMailing()
             .AddApplicationServices();
@@ -36,11 +34,6 @@ public interface IProgram
         app.UseHttpsRedirection();
 
         app.UseExceptionHandler();
-
-        app.UseRequestLocalization(
-            app.Services
-                .GetRequiredService<IOptions<RequestLocalizationOptions>>()
-                .Value);
 
         app.UseAuthentication();
 
