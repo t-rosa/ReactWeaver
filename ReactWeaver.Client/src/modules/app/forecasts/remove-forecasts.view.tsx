@@ -28,7 +28,9 @@ export function RemoveForecasts(props: RemoveForecastsProps) {
 
   function handleRemoveClick() {
     removeForecasts.mutate({
-      body: props.ids,
+      body: {
+        ids: props.ids
+      },
     });
   }
 

@@ -160,7 +160,10 @@ export function UpdateForecast(props: UpdateForecastProps) {
         </FieldGroup>
         <DialogFooter>
           <DialogClose render={<Button variant="outline" />}>Cancel</DialogClose>
-          <Button type="submit">Save changes</Button>
+          <Button type="submit" disabled={updateForecast.isPending}>
+            {updateForecast.isPending ? "Updating..." : "Update"}
+            {updateForecast.isPending && <Spinner />}
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
