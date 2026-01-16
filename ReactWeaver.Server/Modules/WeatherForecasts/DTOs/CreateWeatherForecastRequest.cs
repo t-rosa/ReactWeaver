@@ -14,6 +14,9 @@ public class CreateWeatherForecastRequestValidator : AbstractValidator<CreateWea
     public CreateWeatherForecastRequestValidator()
     {
         RuleFor(e => e.Date).NotEmpty().WithMessage("The forecast date must be specified.");
-        RuleFor(e => e.TemperatureC).NotEmpty().WithMessage("The forecast temperature must be specified.");
+
+        RuleFor(e => e.TemperatureC)
+            .InclusiveBetween(-100, 100)
+            .WithMessage("The forecast temperature must be between -100 and 100.");
     }
 }
