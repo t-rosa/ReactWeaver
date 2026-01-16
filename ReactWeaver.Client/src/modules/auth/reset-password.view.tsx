@@ -107,11 +107,11 @@ export function ResetPasswordView() {
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor={field.name}>Email</FieldLabel>
                   <Input
+                    {...field}
                     id={field.name}
                     type="email"
                     placeholder="name@example.com"
                     autoComplete="username"
-                    {...field}
                   />
                   {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                 </Field>
@@ -124,11 +124,11 @@ export function ResetPasswordView() {
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor={field.name}>Reset code</FieldLabel>
                   <Input
+                    {...field}
                     id={field.name}
                     type="password"
                     placeholder="••••••••"
                     autoComplete="one-time-code"
-                    {...field}
                   />
                   {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                 </Field>
@@ -141,11 +141,11 @@ export function ResetPasswordView() {
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor={field.name}>New password</FieldLabel>
                   <Input
+                    {...field}
                     id={field.name}
                     type="password"
                     placeholder="••••••••"
                     autoComplete="new-password"
-                    {...field}
                   />
                   {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                 </Field>
@@ -158,11 +158,11 @@ export function ResetPasswordView() {
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor={field.name}>Confirm password</FieldLabel>
                   <Input
+                    {...field}
                     id={field.name}
                     type="password"
                     placeholder="••••••••"
                     autoComplete="new-password"
-                    {...field}
                   />
                   {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                 </Field>

@@ -22,7 +22,7 @@ export function UserMenu() {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger render={<SidebarMenuButton disabled={user === null} size="lg" />}>
+      <DropdownMenuTrigger render={<SidebarMenuButton size="lg" />}>
         <Avatar>
           <AvatarFallback>{user.email.charAt(0).toUpperCase()}</AvatarFallback>
         </Avatar>

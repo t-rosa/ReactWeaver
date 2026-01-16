@@ -41,7 +41,6 @@ export function LoginView() {
     meta: {
       successMessage: "Connected",
       errorMessage: "An error has occurred",
-      invalidatesQuery: ["get", "manage/info"],
     },
     onError(error) {
       form.setError("root", { message: error.detail ?? "An error has occurred" });
@@ -78,11 +77,11 @@ export function LoginView() {
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor={field.name}>Email</FieldLabel>
                   <Input
+                    {...field}
                     id={field.name}
                     type="email"
                     placeholder="name@example.com"
                     autoComplete="username"
-                    {...field}
                   />
                   {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                 </Field>
@@ -95,11 +94,11 @@ export function LoginView() {
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor={field.name}>Password</FieldLabel>
                   <Input
+                    {...field}
                     id={field.name}
                     type="password"
                     placeholder="••••••••"
                     autoComplete="current-password"
-                    {...field}
                   />
                   {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                 </Field>
@@ -110,11 +109,9 @@ export function LoginView() {
               {login.isPending ? "Logging in..." : "Log in"}
               {login.isPending && <Spinner />}
             </Button>
-            <Button
-              variant="link"
-              nativeButton={false}
-              render={<Link to="/forgot-password">Forgot your password?</Link>}
-            />
+            <Button variant="link" nativeButton={false} render={<Link to="/forgot-password" />}>
+              Forgot your password?
+            </Button>
           </FieldGroup>
         </form>
       </AuthCard.Content>

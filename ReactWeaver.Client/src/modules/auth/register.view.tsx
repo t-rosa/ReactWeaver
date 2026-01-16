@@ -102,11 +102,11 @@ export function RegisterView() {
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor={field.name}>Email</FieldLabel>
                   <Input
+                    {...field}
                     id={field.name}
                     type="email"
                     placeholder="name@example.com"
                     autoComplete="username"
-                    {...field}
                   />
                   {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                 </Field>
@@ -119,11 +119,11 @@ export function RegisterView() {
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor={field.name}>Password</FieldLabel>
                   <Input
+                    {...field}
                     id={field.name}
                     type="password"
                     placeholder="••••••••"
                     autoComplete="new-password"
-                    {...field}
                   />
                   {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                 </Field>
@@ -136,11 +136,11 @@ export function RegisterView() {
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor={field.name}>Confirm password</FieldLabel>
                   <Input
+                    {...field}
                     id={field.name}
                     type="password"
                     placeholder="••••••••"
                     autoComplete="new-password"
-                    {...field}
                   />
                   {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                 </Field>

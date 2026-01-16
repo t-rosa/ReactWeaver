@@ -61,11 +61,11 @@ export function ForgotPasswordView() {
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor={field.name}>Email</FieldLabel>
                   <Input
+                    {...field}
                     id={field.name}
                     type="email"
                     placeholder="name@example.com"
                     autoComplete="username"
-                    {...field}
                   />
                   {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                 </Field>
@@ -73,7 +73,7 @@ export function ForgotPasswordView() {
             />
             {form.formState.errors?.root && <FieldError errors={[form.formState.errors.root]} />}
             <Button type="submit" disabled={forgotPassword.isPending}>
-              {forgotPassword.isPending ? "Sending..." : "Forgot password"}
+              {forgotPassword.isPending ? "Sending..." : "Submit"}
               {forgotPassword.isPending && <Spinner />}
             </Button>
           </FieldGroup>
