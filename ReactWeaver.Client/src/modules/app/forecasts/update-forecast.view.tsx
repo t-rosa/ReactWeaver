@@ -18,6 +18,7 @@ import {
   NumberInputIncrement,
 } from "@/components/ui/number-input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Spinner } from "@/components/ui/spinner";
 import { Textarea } from "@/components/ui/textarea";
 import { $api } from "@/lib/api/client";
 import type { components } from "@/lib/api/schema";
