@@ -74,8 +74,8 @@ export interface FileRoutesByFullPath {
   '/login': typeof AuthLoginRoute
   '/register': typeof AuthRegisterRoute
   '/reset-password': typeof AuthResetPasswordRoute
-  '/users': typeof AdminUsersIndexRoute
-  '/forecasts': typeof AppForecastsIndexRoute
+  '/users/': typeof AdminUsersIndexRoute
+  '/forecasts/': typeof AppForecastsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -107,8 +107,8 @@ export interface FileRouteTypes {
     | '/login'
     | '/register'
     | '/reset-password'
-    | '/users'
-    | '/forecasts'
+    | '/users/'
+    | '/forecasts/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -144,21 +144,21 @@ declare module '@tanstack/react-router' {
     '/_auth': {
       id: '/_auth'
       path: ''
-      fullPath: ''
+      fullPath: '/'
       preLoaderRoute: typeof AuthRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_app': {
       id: '/_app'
       path: ''
-      fullPath: ''
+      fullPath: '/'
       preLoaderRoute: typeof AppRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_admin': {
       id: '/_admin'
       path: ''
-      fullPath: ''
+      fullPath: '/'
       preLoaderRoute: typeof AdminRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
@@ -200,14 +200,14 @@ declare module '@tanstack/react-router' {
     '/_app/forecasts/': {
       id: '/_app/forecasts/'
       path: '/forecasts'
-      fullPath: '/forecasts'
+      fullPath: '/forecasts/'
       preLoaderRoute: typeof AppForecastsIndexRouteImport
       parentRoute: typeof AppRouteRoute
     }
     '/_admin/users/': {
       id: '/_admin/users/'
       path: '/users'
-      fullPath: '/users'
+      fullPath: '/users/'
       preLoaderRoute: typeof AdminUsersIndexRouteImport
       parentRoute: typeof AdminRouteRoute
     }

@@ -29,7 +29,7 @@ export function RemoveForecasts(props: RemoveForecastsProps) {
   function handleRemoveClick() {
     removeForecasts.mutate({
       body: {
-        ids: props.ids
+        ids: props.ids,
       },
     });
   }
