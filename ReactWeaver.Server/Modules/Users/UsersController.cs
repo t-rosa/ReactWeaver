@@ -59,8 +59,15 @@ public class UsersController(ApplicationDbContext db, UserManager<User> userMana
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> RemoveUser([FromRoute] string id)
     {
+        User? currentUser = await userManager.GetUserAsync(User);
+        if (currentUser == null)
+        {
+            return Unauthorized();
+        }
+
         User? user = await db.Users
             .Where(e => e.Id == id)
+            .Where(e => e.Id != currentUser.Id)
             .SingleOrDefaultAsync();
 
         if (user is null)
@@ -78,8 +85,15 @@ public class UsersController(ApplicationDbContext db, UserManager<User> userMana
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> RemoveUsers([FromBody] List<string> ids)
     {
-        List<User> users = await db.Users
+        User? currentUser = await userManager.GetUserAsync(User);
+        if (currentUser == null)
+        {
+            return Unauthorized();
+        }
+
+        List<User> users = await userManager.Users
             .Where(e => ids.Contains(e.Id))
+            .Where(e => e.Id != currentUser.Id)
             .ToListAsync();
 
         if (users.Count == 0)

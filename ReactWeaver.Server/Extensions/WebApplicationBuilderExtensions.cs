@@ -100,7 +100,10 @@ public static class WebApplicationBuilderExtensions
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            builder.Services.AddDataProtection().PersistKeysToFileSystem(new DirectoryInfo("keys/storage"));
+            builder.Services
+                .AddDataProtection()
+                .SetApplicationName("ReactWeaver")
+                .PersistKeysToFileSystem(new DirectoryInfo(Path.Combine(builder.Environment.ContentRootPath, "keys", "storage")));
 
             return builder;
         }

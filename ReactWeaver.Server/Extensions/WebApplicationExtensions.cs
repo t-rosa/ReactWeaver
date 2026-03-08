@@ -61,7 +61,7 @@ public static class WebApplicationExtensions
                 {
                     var admin = new User
                     {
-                        Id = $"u_${Guid.CreateVersion7()}",
+                        Id = $"u_{Guid.CreateVersion7()}",
                         Email = adminEmail,
                         UserName = adminEmail,
                         EmailConfirmed = true,
