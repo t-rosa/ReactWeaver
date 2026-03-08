@@ -5,9 +5,7 @@ services:
   #   ports:
   #     - 127.0.0.1:3000:8080
   #   environment:
-  #     - CONNECTION_STRING=Host=react-weaver.db;Port=5432;Database=react-weaver;Username=postgres;Password=postgres
-  #     - OTEL_EXPORTER_OTLP_ENDPOINT=http://react-weaver.aspire-dashboard:18889
-  #     - OTEL_EXPORTER_OTLP_PROTOCOL=grpc
+  #     - ConnectionStrings:Default=Host=react-weaver.db;Port=5432;Database=react-weaver;Username=postgres;Password=postgres
   #   depends_on:
   #     - react-weaver.db
   #   volumes:
@@ -30,13 +28,6 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-
-  react-weaver.aspire-dashboard:
-    image: mcr.microsoft.com/dotnet/aspire-dashboard:9.3
-    environment:
-      DOTNET_DASHBOARD_UNSECURED_ALLOW_ANONYMOUS: true
-    ports:
-      - 18888:18888
 
 volumes:
   react-weaver.db-data:

@@ -13,7 +13,7 @@ public interface IProgram
             .AddControllers()
             .AddDatabase()
             .AddErrorHandling()
-            .AddObservability()
+            // .AddObservability()
             .AddAuthentication()
             .AddMailing()
             .AddApplicationServices();
