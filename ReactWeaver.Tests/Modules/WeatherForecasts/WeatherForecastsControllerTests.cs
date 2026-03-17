@@ -149,7 +149,7 @@ public class WeatherForecastsControllerTests : IAsyncLifetime
 
         RemoveWeatherForecastsRequest bulkRequest = new()
         {
-            Ids = [created1!.Id, created2!.Id]
+            Ids = [created1.Id, created2.Id]
         };
 
         HttpResponseMessage bulkDeleteResponse = await _client.PostAsJsonAsync("/api/weather-forecasts/bulk-delete", bulkRequest);
@@ -184,7 +184,7 @@ public class WeatherForecastsControllerTests : IAsyncLifetime
 
         RemoveWeatherForecastsRequest bulkRequest = new()
         {
-            Ids = [created!.Id, $"wf_{Guid.CreateVersion7()}"]
+            Ids = [created.Id, $"wf_{Guid.CreateVersion7()}"]
         };
 
         HttpResponseMessage response = await _client.PostAsJsonAsync("/api/weather-forecasts/bulk-delete", bulkRequest);
