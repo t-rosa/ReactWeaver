@@ -57,7 +57,7 @@ export default defineConfig({
   build: {
     rolldownOptions: {
       output: {
-        advancedChunks: {
+        codeSplitting: {
           groups: [
             { test: /node_modules\/react\//, name: "react" },
             { test: /node_modules\/react-dom\//, name: "react-dom" },
