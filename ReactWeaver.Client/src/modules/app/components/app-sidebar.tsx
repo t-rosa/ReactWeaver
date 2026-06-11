@@ -72,8 +72,4 @@ function Footer() {
   );
 }
 
-export const AppSidebar = Object.assign(Root, {
-  Content,
-  Header,
-  Footer,
-});
+export { Content, Footer, Header, Root };

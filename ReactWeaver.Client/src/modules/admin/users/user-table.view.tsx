@@ -21,46 +21,35 @@ import { useUser } from "@/modules/auth/authorize/authorize.hooks";
 import { FolderIcon } from "@phosphor-icons/react";
 import {
   type ColumnDef,
-  type ColumnFiltersState,
+  createFilteredRowModel,
+  createPaginatedRowModel,
+  createSortedRowModel,
+  filterFns,
   flexRender,
-  getCoreRowModel,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  type SortingState,
-  useReactTable,
+  sortFns,
+  useTable,
 } from "@tanstack/react-table";
-import * as React from "react";
 import { RemoveUsers } from "./remove-users.view";
+import { userTableFeatures } from "./table-features";
 
 interface UserTableProps {
-  columns: ColumnDef<components["schemas"]["UserResponse"]>[];
+  columns: ColumnDef<typeof userTableFeatures, components["schemas"]["UserResponse"]>[];
   data: components["schemas"]["UserResponse"][];
 }
 
 export function UserTable(props: UserTableProps) {
-  const [sorting, setSorting] = React.useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
-  const [rowSelection, setRowSelection] = React.useState({});
-
   const { user } = useUser();
 
-  const table = useReactTable({
+  const table = useTable({
+    features: userTableFeatures,
+    rowModels: {
+      filteredRowModel: createFilteredRowModel(filterFns),
+      sortedRowModel: createSortedRowModel(sortFns),
+      paginatedRowModel: createPaginatedRowModel(),
+    },
     data: props.data,
     columns: props.columns,
-    getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    onSortingChange: setSorting,
-    getFilteredRowModel: getFilteredRowModel(),
-    onColumnFiltersChange: setColumnFilters,
-    onRowSelectionChange: setRowSelection,
     getRowId: (original) => original.id,
-    state: {
-      sorting,
-      columnFilters,
-      rowSelection,
-    },
   });
 
   const selectedIds = table

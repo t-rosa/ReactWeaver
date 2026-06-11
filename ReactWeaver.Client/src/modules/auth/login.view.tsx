@@ -3,7 +3,7 @@ import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field
 import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
 import { $api } from "@/lib/api/client";
-import { AuthCard } from "@/modules/auth/components/auth-card";
+import * as AuthCard from "@/modules/auth/components/auth-card";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { Controller, useForm } from "react-hook-form";
@@ -62,7 +62,7 @@ export function LoginView() {
   }
 
   return (
-    <AuthCard>
+    <AuthCard.Root>
       <AuthCard.Content>
         <AuthCard.Header>
           <AuthCard.Title>Welcome!</AuthCard.Title>
@@ -118,6 +118,6 @@ export function LoginView() {
       <AuthCard.Footer>
         <Link to="/register">Create account</Link>
       </AuthCard.Footer>
-    </AuthCard>
+    </AuthCard.Root>
   );
 }

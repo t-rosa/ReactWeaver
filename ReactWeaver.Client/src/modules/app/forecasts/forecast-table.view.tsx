@@ -21,45 +21,37 @@ import type { components } from "@/lib/api/schema";
 import { FolderIcon } from "@phosphor-icons/react";
 import {
   type ColumnDef,
-  type ColumnFiltersState,
+  createFilteredRowModel,
+  createPaginatedRowModel,
+  createSortedRowModel,
+  filterFns,
   flexRender,
-  getCoreRowModel,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  type SortingState,
-  useReactTable,
+  sortFns,
+  useTable,
 } from "@tanstack/react-table";
-import * as React from "react";
 import { CreateForecast } from "./create-forecast.view";
 import { RemoveForecasts } from "./remove-forecasts.view";
+import { forecastTableFeatures } from "./table-features";
 
 interface ForecastTableProps {
-  columns: ColumnDef<components["schemas"]["WeatherForecastResponse"]>[];
+  columns: ColumnDef<
+    typeof forecastTableFeatures,
+    components["schemas"]["WeatherForecastResponse"]
+  >[];
   data: components["schemas"]["WeatherForecastResponse"][];
 }
 
 export function ForecastTable(props: ForecastTableProps) {
-  const [sorting, setSorting] = React.useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
-  const [rowSelection, setRowSelection] = React.useState({});
-
-  const table = useReactTable({
+  const table = useTable({
+    features: forecastTableFeatures,
+    rowModels: {
+      filteredRowModel: createFilteredRowModel(filterFns),
+      sortedRowModel: createSortedRowModel(sortFns),
+      paginatedRowModel: createPaginatedRowModel(),
+    },
     data: props.data,
     columns: props.columns,
-    getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    onSortingChange: setSorting,
-    getFilteredRowModel: getFilteredRowModel(),
-    onColumnFiltersChange: setColumnFilters,
-    onRowSelectionChange: setRowSelection,
     getRowId: (original) => original.id,
-    state: {
-      sorting,
-      columnFilters,
-      rowSelection,
-    },
   });
 
   const selectedIds = table.getFilteredSelectedRowModel().rows.map((r) => r.original.id);

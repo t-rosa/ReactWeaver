@@ -72,8 +72,4 @@ function Footer() {
   );
 }
 
-export const AdminSidebar = Object.assign(Root, {
-  Content,
-  Header,
-  Footer,
-});
+export { Content, Footer, Header, Root };

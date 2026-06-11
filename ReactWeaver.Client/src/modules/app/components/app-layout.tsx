@@ -4,9 +4,7 @@ import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 
 function Root(props: React.PropsWithChildren) {
-  return (
-    <div className="my-2 mr-2 w-full space-y-9 divide-y rounded-md border">{props.children}</div>
-  );
+  return <div className="my-2 mr-2 w-full space-y-9 divide-y border">{props.children}</div>;
 }
 
 interface TitleProps {
@@ -33,7 +31,4 @@ function Content(props: React.PropsWithChildren) {
   return <Container>{props.children}</Container>;
 }
 
-export const AppLayout = Object.assign(Root, {
-  Title,
-  Content,
-});
+export { Content, Root, Title };

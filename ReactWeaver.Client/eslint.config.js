@@ -30,6 +30,7 @@ export default defineConfig([
     },
     rules: {
       "@typescript-eslint/no-misused-promises": "off",
+      "react-refresh/only-export-components": "warn",
     },
   },
 ]);

@@ -3,13 +3,18 @@ import { Checkbox } from "@/components/ui/checkbox";
 import type { components } from "@/lib/api/schema";
 import { useUser } from "@/modules/auth/authorize/authorize.hooks";
 import { ArrowsDownUpIcon } from "@phosphor-icons/react";
-import type { ColumnDef } from "@tanstack/react-table";
+import { createColumnHelper } from "@tanstack/react-table";
+import type { userTableFeatures } from "./table-features";
 import { UserActions } from "./user-actions.view";
 
-export const USER_COLUMNS: ColumnDef<components["schemas"]["UserResponse"]>[] = [
-  {
+const columnHelper = createColumnHelper<
+  typeof userTableFeatures,
+  components["schemas"]["UserResponse"]
+>();
+
+export const USER_COLUMNS = columnHelper.columns([
+  columnHelper.accessor("id", {
     id: "select",
-    accessorKey: "id",
     header: ({ table }) => (
       <Checkbox
         checked={table.getIsAllPageRowsSelected() || table.getIsSomePageRowsSelected()}
@@ -33,9 +38,8 @@ export const USER_COLUMNS: ColumnDef<components["schemas"]["UserResponse"]>[] = 
     },
     enableSorting: false,
     enableHiding: false,
-  },
-  {
-    accessorKey: "email",
+  }),
+  columnHelper.accessor("email", {
     header: ({ column }) => {
       return (
         <Button
@@ -47,9 +51,8 @@ export const USER_COLUMNS: ColumnDef<components["schemas"]["UserResponse"]>[] = 
         </Button>
       );
     },
-  },
-  {
-    accessorKey: "roles",
+  }),
+  columnHelper.accessor("roles", {
     header: ({ column }) => {
       return (
         <Button
@@ -61,9 +64,8 @@ export const USER_COLUMNS: ColumnDef<components["schemas"]["UserResponse"]>[] = 
         </Button>
       );
     },
-  },
-  {
-    accessorKey: "isEmailConfirmed",
+  }),
+  columnHelper.accessor("isEmailConfirmed", {
     header: ({ column }) => {
       return (
         <Button
@@ -75,11 +77,10 @@ export const USER_COLUMNS: ColumnDef<components["schemas"]["UserResponse"]>[] = 
         </Button>
       );
     },
-  },
-  {
+  }),
+  columnHelper.accessor("id", {
     id: "actions",
-    accessorKey: "id",
     header: () => null,
     cell: UserActions,
-  },
-];
+  }),
+]);

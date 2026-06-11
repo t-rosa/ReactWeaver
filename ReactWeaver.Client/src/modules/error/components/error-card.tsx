@@ -4,9 +4,9 @@ import { CodeSimpleIcon, CopyIcon } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
 import * as React from "react";
 
-export function Root(props: React.PropsWithChildren) {
+function Root(props: React.PropsWithChildren) {
   return (
-    <div className="w-full max-w-md rounded-lg border bg-card/50 shadow-md ring-1 ring-black/5">
+    <div className="w-full max-w-md border bg-card/50 shadow-md ring-1 ring-black/5">
       {props.children}
     </div>
   );
@@ -67,16 +67,11 @@ function Content(props: ContentProps) {
               {props.error.message ?? JSON.stringify(props.error.message, null, 2)}
               <ScrollBar orientation="horizontal" />
             </ScrollArea>
-          : <pre className="rounded bg-muted p-2 text-xs text-muted-foreground">Unknown error.</pre>
-          }
+          : <pre className="bg-muted p-2 text-xs text-muted-foreground">Unknown error.</pre>}
         </div>
       )}
     </div>
   );
 }
 
-export const ErrorCard = Object.assign(Root, {
-  Container,
-  Header,
-  Content,
-});
+export { Container, Content, Header, Root };

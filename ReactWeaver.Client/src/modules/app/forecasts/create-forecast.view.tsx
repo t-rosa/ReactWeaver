@@ -40,11 +40,13 @@ export type CreateForecastFormSchema = z.infer<typeof formSchema>;
 
 export function CreateForecast() {
   const [open, setOpen] = React.useState(false);
+  const maxDate = React.useMemo(() => new Date(), []);
+  const minDate = React.useMemo(() => new Date("1900-01-01"), []);
 
   const form = useForm<CreateForecastFormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      date: new Date(),
+      date: maxDate,
       temperatureC: 0,
       summary: "",
     },
@@ -103,9 +105,7 @@ export function CreateForecast() {
                       mode="single"
                       selected={field.value}
                       onSelect={field.onChange}
-                      disabled={(date) =>
-                        date > new globalThis.Date() || date < new globalThis.Date("1900-01-01")
-                      }
+                      disabled={(date) => date > maxDate || date < minDate}
                       captionLayout="dropdown"
                     />
                   </PopoverContent>

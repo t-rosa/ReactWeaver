@@ -1,10 +1,8 @@
 import { SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
-import { Skeleton } from "@/components/ui/skeleton";
 import { Switch } from "@/components/ui/switch";
 import * as React from "react";
 
 interface SidebarThemeToggleProps {
-  mounted: boolean;
   isDark: boolean;
   onThemeChange: () => void;
 }
@@ -41,13 +39,11 @@ export function ThemeSwitcherMenuItem(props: SidebarThemeToggleProps) {
                 ></path>
               </svg>
               <span>Switch theme</span>
-              {props.mounted ?
-                <Switch
-                  className="ml-auto"
-                  checked={props.isDark}
-                  onCheckedChange={props.onThemeChange}
-                />
-              : <Skeleton className="ml-auto h-4 w-8 rounded-full" />}
+              <Switch
+                className="ml-auto"
+                checked={props.isDark}
+                onCheckedChange={props.onThemeChange}
+              />
             </label>
           }
         />

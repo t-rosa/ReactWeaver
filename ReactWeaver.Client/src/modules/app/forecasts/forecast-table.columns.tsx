@@ -2,13 +2,21 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import type { components } from "@/lib/api/schema";
 import { ArrowsDownUpIcon } from "@phosphor-icons/react";
-import type { ColumnDef } from "@tanstack/react-table";
+import { createColumnHelper, type ColumnDef } from "@tanstack/react-table";
 import { ForecastActions } from "./forecast-actions.view";
+import type { forecastTableFeatures } from "./table-features";
 
-export const FORECAST_COLUMNS: ColumnDef<components["schemas"]["WeatherForecastResponse"]>[] = [
-  {
+const columnHelper = createColumnHelper<
+  typeof forecastTableFeatures,
+  components["schemas"]["WeatherForecastResponse"]
+>();
+
+export const FORECAST_COLUMNS: ColumnDef<
+  typeof forecastTableFeatures,
+  components["schemas"]["WeatherForecastResponse"]
+>[] = columnHelper.columns([
+  columnHelper.accessor("id", {
     id: "select",
-    accessorKey: "id",
     header: ({ table }) => (
       <Checkbox
         checked={table.getIsAllPageRowsSelected() || table.getIsSomePageRowsSelected()}
@@ -25,9 +33,8 @@ export const FORECAST_COLUMNS: ColumnDef<components["schemas"]["WeatherForecastR
     ),
     enableSorting: false,
     enableHiding: false,
-  },
-  {
-    accessorKey: "date",
+  }),
+  columnHelper.accessor("date", {
     header: ({ column }) => {
       return (
         <Button
@@ -39,9 +46,8 @@ export const FORECAST_COLUMNS: ColumnDef<components["schemas"]["WeatherForecastR
         </Button>
       );
     },
-  },
-  {
-    accessorKey: "temperatureC",
+  }),
+  columnHelper.accessor("temperatureC", {
     header: ({ column }) => {
       return (
         <Button
@@ -53,15 +59,13 @@ export const FORECAST_COLUMNS: ColumnDef<components["schemas"]["WeatherForecastR
         </Button>
       );
     },
-  },
-  {
-    accessorKey: "summary",
+  }),
+  columnHelper.accessor("summary", {
     header: "Summary",
-  },
-  {
+  }),
+  columnHelper.accessor("id", {
     id: "actions",
-    accessorKey: "id",
     header: () => null,
     cell: ForecastActions,
-  },
-];
+  }),
+]);

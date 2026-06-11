@@ -1,5 +1,5 @@
 import { $api } from "@/lib/api/client";
-import { AppLayout } from "../components/app-layout";
+import * as AppLayout from "../components/app-layout";
 import { FORECAST_COLUMNS } from "./forecast-table.columns";
 import { ForecastTable } from "./forecast-table.view";
 
@@ -7,11 +7,11 @@ export function ForecastsView() {
   const { data } = $api.useSuspenseQuery("get", "/api/weather-forecasts");
 
   return (
-    <AppLayout>
+    <AppLayout.Root>
       <AppLayout.Title title="Forecasts" />
       <AppLayout.Content>
         <ForecastTable columns={FORECAST_COLUMNS} data={data} />
       </AppLayout.Content>
-    </AppLayout>
+    </AppLayout.Root>
   );
 }

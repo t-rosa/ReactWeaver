@@ -1,4 +1,4 @@
-import { ErrorCard } from "./components/error-card";
+import * as ErrorCard from "./components/error-card";
 import { ErrorLayout } from "./components/error-layout";
 
 interface ErrorProps {
@@ -19,7 +19,7 @@ export function ErrorView(props: ErrorProps) {
 
   return (
     <ErrorLayout>
-      <ErrorCard>
+      <ErrorCard.Root>
         <ErrorCard.Container>
           <ErrorCard.Header />
           <ErrorCard.Content
@@ -28,7 +28,7 @@ export function ErrorView(props: ErrorProps) {
             onCopyClick={handleCopyClick}
           />
         </ErrorCard.Container>
-      </ErrorCard>
+      </ErrorCard.Root>
     </ErrorLayout>
   );
 }
