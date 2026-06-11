@@ -17,17 +17,19 @@ export const FORECAST_COLUMNS: ColumnDef<
 >[] = columnHelper.columns([
   columnHelper.accessor("id", {
     id: "select",
-    header: ({ table }) => (
+    header: (context) => (
       <Checkbox
-        checked={table.getIsAllPageRowsSelected() || table.getIsSomePageRowsSelected()}
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        checked={
+          context.table.getIsAllPageRowsSelected() || context.table.getIsSomePageRowsSelected()
+        }
+        onCheckedChange={(value) => context.table.toggleAllPageRowsSelected(!!value)}
         aria-label="Select all"
       />
     ),
-    cell: ({ row }) => (
+    cell: (context) => (
       <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        checked={context.row.getIsSelected()}
+        onCheckedChange={(value) => context.row.toggleSelected(!!value)}
         aria-label="Select row"
       />
     ),
@@ -35,11 +37,11 @@ export const FORECAST_COLUMNS: ColumnDef<
     enableHiding: false,
   }),
   columnHelper.accessor("date", {
-    header: ({ column }) => {
+    header: (context) => {
       return (
         <Button
           variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          onClick={() => context.column.toggleSorting(context.column.getIsSorted() === "asc")}
         >
           Date
           <ArrowsDownUpIcon />
@@ -48,11 +50,11 @@ export const FORECAST_COLUMNS: ColumnDef<
     },
   }),
   columnHelper.accessor("temperatureC", {
-    header: ({ column }) => {
+    header: (context) => {
       return (
         <Button
           variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          onClick={() => context.column.toggleSorting(context.column.getIsSorted() === "asc")}
         >
           Temperature C
           <ArrowsDownUpIcon />

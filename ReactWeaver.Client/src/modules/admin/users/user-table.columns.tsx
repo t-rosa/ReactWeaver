@@ -15,21 +15,25 @@ const columnHelper = createColumnHelper<
 export const USER_COLUMNS = columnHelper.columns([
   columnHelper.accessor("id", {
     id: "select",
-    header: ({ table }) => (
+    header: (context) => (
       <Checkbox
-        checked={table.getIsAllPageRowsSelected() || table.getIsSomePageRowsSelected()}
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        checked={
+          context.table.getIsAllPageRowsSelected() || context.table.getIsSomePageRowsSelected()
+        }
+        onCheckedChange={(value) => context.table.toggleAllPageRowsSelected(!!value)}
         aria-label="Select all"
       />
     ),
-    cell: function Cell({ row }) {
+    cell: function Cell(context) {
       const { user } = useUser();
+      const id = context.getValue();
+
       return (
         <Checkbox
-          checked={row.getIsSelected() && row.original.id !== user.id}
+          checked={context.row.getIsSelected() && id !== user.id}
           onCheckedChange={(value) => {
-            if (row.original.id !== user.id) {
-              row.toggleSelected(!!value);
+            if (id !== user.id) {
+              context.row.toggleSelected(!!value);
             }
           }}
           aria-label="Select row"
@@ -40,11 +44,11 @@ export const USER_COLUMNS = columnHelper.columns([
     enableHiding: false,
   }),
   columnHelper.accessor("email", {
-    header: ({ column }) => {
+    header: (context) => {
       return (
         <Button
           variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          onClick={() => context.column.toggleSorting(context.column.getIsSorted() === "asc")}
         >
           Email
           <ArrowsDownUpIcon />
@@ -53,11 +57,11 @@ export const USER_COLUMNS = columnHelper.columns([
     },
   }),
   columnHelper.accessor("roles", {
-    header: ({ column }) => {
+    header: (context) => {
       return (
         <Button
           variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          onClick={() => context.column.toggleSorting(context.column.getIsSorted() === "asc")}
         >
           Roles
           <ArrowsDownUpIcon />
@@ -66,11 +70,11 @@ export const USER_COLUMNS = columnHelper.columns([
     },
   }),
   columnHelper.accessor("isEmailConfirmed", {
-    header: ({ column }) => {
+    header: (context) => {
       return (
         <Button
           variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          onClick={() => context.column.toggleSorting(context.column.getIsSorted() === "asc")}
         >
           Email confirmed
           <ArrowsDownUpIcon />

@@ -25,7 +25,6 @@ import {
   createPaginatedRowModel,
   createSortedRowModel,
   filterFns,
-  flexRender,
   sortFns,
   useTable,
 } from "@tanstack/react-table";
@@ -95,9 +94,7 @@ export function UserTable(props: UserTableProps) {
                   {headerGroup.headers.map((header) => {
                     return (
                       <TableHead key={header.id}>
-                        {header.isPlaceholder ? null : (
-                          flexRender(header.column.columnDef.header, header.getContext())
-                        )}
+                        {header.isPlaceholder ? null : <table.FlexRender header={header} />}
                       </TableHead>
                     );
                   })}
@@ -115,7 +112,7 @@ export function UserTable(props: UserTableProps) {
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      <table.FlexRender cell={cell} />
                     </TableCell>
                   ))}
                 </TableRow>

@@ -8,237 +8,241 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from "./routes/__root";
-import { Route as AuthRouteRouteImport } from "./routes/_auth/route";
-import { Route as AppRouteRouteImport } from "./routes/_app/route";
-import { Route as AdminRouteRouteImport } from "./routes/_admin/route";
-import { Route as IndexRouteImport } from "./routes/index";
-import { Route as AuthResetPasswordRouteImport } from "./routes/_auth/reset-password";
-import { Route as AuthRegisterRouteImport } from "./routes/_auth/register";
-import { Route as AuthLoginRouteImport } from "./routes/_auth/login";
-import { Route as AuthForgotPasswordRouteImport } from "./routes/_auth/forgot-password";
-import { Route as AppForecastsIndexRouteImport } from "./routes/_app/forecasts/index";
-import { Route as AdminUsersIndexRouteImport } from "./routes/_admin/users/index";
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as AuthRouteRouteImport } from './routes/_auth/route'
+import { Route as AppRouteRouteImport } from './routes/_app/route'
+import { Route as AdminRouteRouteImport } from './routes/_admin/route'
+import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthResetPasswordRouteImport } from './routes/_auth/reset-password'
+import { Route as AuthRegisterRouteImport } from './routes/_auth/register'
+import { Route as AuthLoginRouteImport } from './routes/_auth/login'
+import { Route as AuthForgotPasswordRouteImport } from './routes/_auth/forgot-password'
+import { Route as AppForecastsIndexRouteImport } from './routes/_app/forecasts/index'
+import { Route as AdminUsersIndexRouteImport } from './routes/_admin/users/index'
 
 const AuthRouteRoute = AuthRouteRouteImport.update({
-  id: "/_auth",
+  id: '/_auth',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const AppRouteRoute = AppRouteRouteImport.update({
-  id: "/_app",
+  id: '/_app',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const AdminRouteRoute = AdminRouteRouteImport.update({
-  id: "/_admin",
+  id: '/_admin',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const IndexRoute = IndexRouteImport.update({
-  id: "/",
-  path: "/",
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const AuthResetPasswordRoute = AuthResetPasswordRouteImport.update({
-  id: "/reset-password",
-  path: "/reset-password",
+  id: '/reset-password',
+  path: '/reset-password',
   getParentRoute: () => AuthRouteRoute,
-} as any);
+} as any)
 const AuthRegisterRoute = AuthRegisterRouteImport.update({
-  id: "/register",
-  path: "/register",
+  id: '/register',
+  path: '/register',
   getParentRoute: () => AuthRouteRoute,
-} as any);
+} as any)
 const AuthLoginRoute = AuthLoginRouteImport.update({
-  id: "/login",
-  path: "/login",
+  id: '/login',
+  path: '/login',
   getParentRoute: () => AuthRouteRoute,
-} as any);
+} as any)
 const AuthForgotPasswordRoute = AuthForgotPasswordRouteImport.update({
-  id: "/forgot-password",
-  path: "/forgot-password",
+  id: '/forgot-password',
+  path: '/forgot-password',
   getParentRoute: () => AuthRouteRoute,
-} as any);
+} as any)
 const AppForecastsIndexRoute = AppForecastsIndexRouteImport.update({
-  id: "/forecasts/",
-  path: "/forecasts/",
+  id: '/forecasts/',
+  path: '/forecasts/',
   getParentRoute: () => AppRouteRoute,
-} as any);
+} as any)
 const AdminUsersIndexRoute = AdminUsersIndexRouteImport.update({
-  id: "/users/",
-  path: "/users/",
+  id: '/users/',
+  path: '/users/',
   getParentRoute: () => AdminRouteRoute,
-} as any);
+} as any)
 
 export interface FileRoutesByFullPath {
-  "/": typeof IndexRoute;
-  "/forgot-password": typeof AuthForgotPasswordRoute;
-  "/login": typeof AuthLoginRoute;
-  "/register": typeof AuthRegisterRoute;
-  "/reset-password": typeof AuthResetPasswordRoute;
-  "/users/": typeof AdminUsersIndexRoute;
-  "/forecasts/": typeof AppForecastsIndexRoute;
+  '/': typeof IndexRoute
+  '/forgot-password': typeof AuthForgotPasswordRoute
+  '/login': typeof AuthLoginRoute
+  '/register': typeof AuthRegisterRoute
+  '/reset-password': typeof AuthResetPasswordRoute
+  '/users/': typeof AdminUsersIndexRoute
+  '/forecasts/': typeof AppForecastsIndexRoute
 }
 export interface FileRoutesByTo {
-  "/": typeof IndexRoute;
-  "/forgot-password": typeof AuthForgotPasswordRoute;
-  "/login": typeof AuthLoginRoute;
-  "/register": typeof AuthRegisterRoute;
-  "/reset-password": typeof AuthResetPasswordRoute;
-  "/users": typeof AdminUsersIndexRoute;
-  "/forecasts": typeof AppForecastsIndexRoute;
+  '/': typeof IndexRoute
+  '/forgot-password': typeof AuthForgotPasswordRoute
+  '/login': typeof AuthLoginRoute
+  '/register': typeof AuthRegisterRoute
+  '/reset-password': typeof AuthResetPasswordRoute
+  '/users': typeof AdminUsersIndexRoute
+  '/forecasts': typeof AppForecastsIndexRoute
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport;
-  "/": typeof IndexRoute;
-  "/_admin": typeof AdminRouteRouteWithChildren;
-  "/_app": typeof AppRouteRouteWithChildren;
-  "/_auth": typeof AuthRouteRouteWithChildren;
-  "/_auth/forgot-password": typeof AuthForgotPasswordRoute;
-  "/_auth/login": typeof AuthLoginRoute;
-  "/_auth/register": typeof AuthRegisterRoute;
-  "/_auth/reset-password": typeof AuthResetPasswordRoute;
-  "/_admin/users/": typeof AdminUsersIndexRoute;
-  "/_app/forecasts/": typeof AppForecastsIndexRoute;
+  __root__: typeof rootRouteImport
+  '/': typeof IndexRoute
+  '/_admin': typeof AdminRouteRouteWithChildren
+  '/_app': typeof AppRouteRouteWithChildren
+  '/_auth': typeof AuthRouteRouteWithChildren
+  '/_auth/forgot-password': typeof AuthForgotPasswordRoute
+  '/_auth/login': typeof AuthLoginRoute
+  '/_auth/register': typeof AuthRegisterRoute
+  '/_auth/reset-password': typeof AuthResetPasswordRoute
+  '/_admin/users/': typeof AdminUsersIndexRoute
+  '/_app/forecasts/': typeof AppForecastsIndexRoute
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath;
+  fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | "/"
-    | "/forgot-password"
-    | "/login"
-    | "/register"
-    | "/reset-password"
-    | "/users/"
-    | "/forecasts/";
-  fileRoutesByTo: FileRoutesByTo;
+    | '/'
+    | '/forgot-password'
+    | '/login'
+    | '/register'
+    | '/reset-password'
+    | '/users/'
+    | '/forecasts/'
+  fileRoutesByTo: FileRoutesByTo
   to:
-    | "/"
-    | "/forgot-password"
-    | "/login"
-    | "/register"
-    | "/reset-password"
-    | "/users"
-    | "/forecasts";
+    | '/'
+    | '/forgot-password'
+    | '/login'
+    | '/register'
+    | '/reset-password'
+    | '/users'
+    | '/forecasts'
   id:
-    | "__root__"
-    | "/"
-    | "/_admin"
-    | "/_app"
-    | "/_auth"
-    | "/_auth/forgot-password"
-    | "/_auth/login"
-    | "/_auth/register"
-    | "/_auth/reset-password"
-    | "/_admin/users/"
-    | "/_app/forecasts/";
-  fileRoutesById: FileRoutesById;
+    | '__root__'
+    | '/'
+    | '/_admin'
+    | '/_app'
+    | '/_auth'
+    | '/_auth/forgot-password'
+    | '/_auth/login'
+    | '/_auth/register'
+    | '/_auth/reset-password'
+    | '/_admin/users/'
+    | '/_app/forecasts/'
+  fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute;
-  AdminRouteRoute: typeof AdminRouteRouteWithChildren;
-  AppRouteRoute: typeof AppRouteRouteWithChildren;
-  AuthRouteRoute: typeof AuthRouteRouteWithChildren;
+  IndexRoute: typeof IndexRoute
+  AdminRouteRoute: typeof AdminRouteRouteWithChildren
+  AppRouteRoute: typeof AppRouteRouteWithChildren
+  AuthRouteRoute: typeof AuthRouteRouteWithChildren
 }
 
-declare module "@tanstack/react-router" {
+declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    "/_auth": {
-      id: "/_auth";
-      path: "";
-      fullPath: "/";
-      preLoaderRoute: typeof AuthRouteRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/_app": {
-      id: "/_app";
-      path: "";
-      fullPath: "/";
-      preLoaderRoute: typeof AppRouteRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/_admin": {
-      id: "/_admin";
-      path: "";
-      fullPath: "/";
-      preLoaderRoute: typeof AdminRouteRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/": {
-      id: "/";
-      path: "/";
-      fullPath: "/";
-      preLoaderRoute: typeof IndexRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/_auth/reset-password": {
-      id: "/_auth/reset-password";
-      path: "/reset-password";
-      fullPath: "/reset-password";
-      preLoaderRoute: typeof AuthResetPasswordRouteImport;
-      parentRoute: typeof AuthRouteRoute;
-    };
-    "/_auth/register": {
-      id: "/_auth/register";
-      path: "/register";
-      fullPath: "/register";
-      preLoaderRoute: typeof AuthRegisterRouteImport;
-      parentRoute: typeof AuthRouteRoute;
-    };
-    "/_auth/login": {
-      id: "/_auth/login";
-      path: "/login";
-      fullPath: "/login";
-      preLoaderRoute: typeof AuthLoginRouteImport;
-      parentRoute: typeof AuthRouteRoute;
-    };
-    "/_auth/forgot-password": {
-      id: "/_auth/forgot-password";
-      path: "/forgot-password";
-      fullPath: "/forgot-password";
-      preLoaderRoute: typeof AuthForgotPasswordRouteImport;
-      parentRoute: typeof AuthRouteRoute;
-    };
-    "/_app/forecasts/": {
-      id: "/_app/forecasts/";
-      path: "/forecasts";
-      fullPath: "/forecasts/";
-      preLoaderRoute: typeof AppForecastsIndexRouteImport;
-      parentRoute: typeof AppRouteRoute;
-    };
-    "/_admin/users/": {
-      id: "/_admin/users/";
-      path: "/users";
-      fullPath: "/users/";
-      preLoaderRoute: typeof AdminUsersIndexRouteImport;
-      parentRoute: typeof AdminRouteRoute;
-    };
+    '/_auth': {
+      id: '/_auth'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_app': {
+      id: '/_app'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AppRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_admin': {
+      id: '/_admin'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AdminRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_auth/reset-password': {
+      id: '/_auth/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof AuthResetPasswordRouteImport
+      parentRoute: typeof AuthRouteRoute
+    }
+    '/_auth/register': {
+      id: '/_auth/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof AuthRegisterRouteImport
+      parentRoute: typeof AuthRouteRoute
+    }
+    '/_auth/login': {
+      id: '/_auth/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof AuthLoginRouteImport
+      parentRoute: typeof AuthRouteRoute
+    }
+    '/_auth/forgot-password': {
+      id: '/_auth/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof AuthForgotPasswordRouteImport
+      parentRoute: typeof AuthRouteRoute
+    }
+    '/_app/forecasts/': {
+      id: '/_app/forecasts/'
+      path: '/forecasts'
+      fullPath: '/forecasts/'
+      preLoaderRoute: typeof AppForecastsIndexRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/_admin/users/': {
+      id: '/_admin/users/'
+      path: '/users'
+      fullPath: '/users/'
+      preLoaderRoute: typeof AdminUsersIndexRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
   }
 }
 
 interface AdminRouteRouteChildren {
-  AdminUsersIndexRoute: typeof AdminUsersIndexRoute;
+  AdminUsersIndexRoute: typeof AdminUsersIndexRoute
 }
 
 const AdminRouteRouteChildren: AdminRouteRouteChildren = {
   AdminUsersIndexRoute: AdminUsersIndexRoute,
-};
+}
 
-const AdminRouteRouteWithChildren = AdminRouteRoute._addFileChildren(AdminRouteRouteChildren);
+const AdminRouteRouteWithChildren = AdminRouteRoute._addFileChildren(
+  AdminRouteRouteChildren,
+)
 
 interface AppRouteRouteChildren {
-  AppForecastsIndexRoute: typeof AppForecastsIndexRoute;
+  AppForecastsIndexRoute: typeof AppForecastsIndexRoute
 }
 
 const AppRouteRouteChildren: AppRouteRouteChildren = {
   AppForecastsIndexRoute: AppForecastsIndexRoute,
-};
+}
 
-const AppRouteRouteWithChildren = AppRouteRoute._addFileChildren(AppRouteRouteChildren);
+const AppRouteRouteWithChildren = AppRouteRoute._addFileChildren(
+  AppRouteRouteChildren,
+)
 
 interface AuthRouteRouteChildren {
-  AuthForgotPasswordRoute: typeof AuthForgotPasswordRoute;
-  AuthLoginRoute: typeof AuthLoginRoute;
-  AuthRegisterRoute: typeof AuthRegisterRoute;
-  AuthResetPasswordRoute: typeof AuthResetPasswordRoute;
+  AuthForgotPasswordRoute: typeof AuthForgotPasswordRoute
+  AuthLoginRoute: typeof AuthLoginRoute
+  AuthRegisterRoute: typeof AuthRegisterRoute
+  AuthResetPasswordRoute: typeof AuthResetPasswordRoute
 }
 
 const AuthRouteRouteChildren: AuthRouteRouteChildren = {
@@ -246,16 +250,18 @@ const AuthRouteRouteChildren: AuthRouteRouteChildren = {
   AuthLoginRoute: AuthLoginRoute,
   AuthRegisterRoute: AuthRegisterRoute,
   AuthResetPasswordRoute: AuthResetPasswordRoute,
-};
+}
 
-const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(AuthRouteRouteChildren);
+const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
+  AuthRouteRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRouteRoute: AdminRouteRouteWithChildren,
   AppRouteRoute: AppRouteRouteWithChildren,
   AuthRouteRoute: AuthRouteRouteWithChildren,
-};
+}
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>();
+  ._addFileTypes<FileRouteTypes>()

@@ -25,7 +25,6 @@ import {
   createPaginatedRowModel,
   createSortedRowModel,
   filterFns,
-  flexRender,
   sortFns,
   useTable,
 } from "@tanstack/react-table";
@@ -100,9 +99,7 @@ export function ForecastTable(props: ForecastTableProps) {
                   {headerGroup.headers.map((header) => {
                     return (
                       <TableHead key={header.id}>
-                        {header.isPlaceholder ? null : (
-                          flexRender(header.column.columnDef.header, header.getContext())
-                        )}
+                        {header.isPlaceholder ? null : <table.FlexRender header={header} />}
                       </TableHead>
                     );
                   })}
@@ -114,7 +111,7 @@ export function ForecastTable(props: ForecastTableProps) {
                 <TableRow key={row.original.id} data-state={row.getIsSelected() && "selected"}>
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      <table.FlexRender cell={cell} />
                     </TableCell>
                   ))}
                 </TableRow>
