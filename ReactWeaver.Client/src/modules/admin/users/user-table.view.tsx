@@ -21,12 +21,7 @@ import { useUser } from "@/modules/auth/authorize/authorize.hooks";
 import { FolderIcon } from "@phosphor-icons/react";
 import {
   type ColumnDef,
-  createFilteredRowModel,
-  createPaginatedRowModel,
-  createSortedRowModel,
-  filterFns,
-  sortFns,
-  useTable,
+  useTable
 } from "@tanstack/react-table";
 import { RemoveUsers } from "./remove-users.view";
 import { userTableFeatures } from "./table-features";
@@ -41,13 +36,8 @@ export function UserTable(props: UserTableProps) {
 
   const table = useTable({
     features: userTableFeatures,
-    rowModels: {
-      filteredRowModel: createFilteredRowModel(filterFns),
-      sortedRowModel: createSortedRowModel(sortFns),
-      paginatedRowModel: createPaginatedRowModel(),
-    },
-    data: props.data,
     columns: props.columns,
+    data: props.data,
     getRowId: (original) => original.id,
   });
 

@@ -19,15 +19,7 @@ import {
 } from "@/components/ui/table";
 import type { components } from "@/lib/api/schema";
 import { FolderIcon } from "@phosphor-icons/react";
-import {
-  type ColumnDef,
-  createFilteredRowModel,
-  createPaginatedRowModel,
-  createSortedRowModel,
-  filterFns,
-  sortFns,
-  useTable,
-} from "@tanstack/react-table";
+import { type ColumnDef, useTable } from "@tanstack/react-table";
 import { CreateForecast } from "./create-forecast.view";
 import { RemoveForecasts } from "./remove-forecasts.view";
 import { forecastTableFeatures } from "./table-features";
@@ -43,13 +35,8 @@ interface ForecastTableProps {
 export function ForecastTable(props: ForecastTableProps) {
   const table = useTable({
     features: forecastTableFeatures,
-    rowModels: {
-      filteredRowModel: createFilteredRowModel(filterFns),
-      sortedRowModel: createSortedRowModel(sortFns),
-      paginatedRowModel: createPaginatedRowModel(),
-    },
-    data: props.data,
     columns: props.columns,
+    data: props.data,
     getRowId: (original) => original.id,
   });
 

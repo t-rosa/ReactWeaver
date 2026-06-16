@@ -1,6 +1,9 @@
 import {
   columnFilteringFeature,
   columnVisibilityFeature,
+  createFilteredRowModel,
+  createPaginatedRowModel,
+  createSortedRowModel,
   rowPaginationFeature,
   rowSelectionFeature,
   rowSortingFeature,
@@ -13,4 +16,7 @@ export const forecastTableFeatures = tableFeatures({
   rowPaginationFeature,
   columnVisibilityFeature,
   rowSelectionFeature,
+  filteredRowModel: createFilteredRowModel(),
+  sortedRowModel: createSortedRowModel(),
+  paginatedRowModel: createPaginatedRowModel(),
 });
