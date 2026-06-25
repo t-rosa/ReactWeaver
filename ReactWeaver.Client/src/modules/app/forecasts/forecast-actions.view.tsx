@@ -8,7 +8,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import type { components } from "@/lib/api/schema";
+import type { WeatherForecastResponse } from "@/lib/api";
 import { RemoveForecast } from "@/modules/app/forecasts/remove-forecast.view";
 import { DotsThreeIcon } from "@phosphor-icons/react";
 import type { CellContext } from "@tanstack/react-table";
@@ -16,8 +16,11 @@ import * as React from "react";
 import type { forecastTableFeatures } from "./table-features";
 import { UpdateForecast } from "./update-forecast.view";
 
-type ForecastResponse = components["schemas"]["WeatherForecastResponse"];
-type ForecastActionsProps = CellContext<typeof forecastTableFeatures, ForecastResponse, unknown>;
+type ForecastActionsProps = CellContext<
+  typeof forecastTableFeatures,
+  WeatherForecastResponse,
+  unknown
+>;
 
 export function ForecastActions(props: ForecastActionsProps) {
   const [dialogOpen, setDialogOpen] = React.useState(false);

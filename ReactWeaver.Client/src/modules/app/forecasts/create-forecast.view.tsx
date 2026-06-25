@@ -21,13 +21,18 @@ import {
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Spinner } from "@/components/ui/spinner";
 import { Textarea } from "@/components/ui/textarea";
-import { $api } from "@/lib/api/client";
+import {
+  createWeatherForecastMutation,
+  getWeatherForecastsQueryKey,
+} from "@/lib/api/@tanstack/react-query.gen";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CalendarIcon, PlusIcon } from "@phosphor-icons/react";
+import { useMutation } from "@tanstack/react-query";
 import { format, formatISO } from "date-fns";
 import { fr } from "date-fns/locale";
 import * as React from "react";
 import { Controller, useForm } from "react-hook-form";
+import { toast } from "sonner";
 import * as z from "zod";
 
 const formSchema = z.object({
@@ -52,17 +57,18 @@ export function CreateForecast() {
     },
   });
 
-  const createForecast = $api.useMutation("post", "/api/weather-forecasts", {
-    meta: {
-      errorMessage: "An error has occurred",
-      invalidatesQuery: $api.queryOptions("get", "/api/weather-forecasts").queryKey,
-    },
+  const createForecast = useMutation({
+    ...createWeatherForecastMutation(),
     onError(error) {
+      toast.error("An error has occurred");
       form.setError("root", { message: error.detail ?? "An error has occurred" });
     },
     onSuccess() {
       setOpen(!open);
       form.reset();
+    },
+    meta: {
+      invalidatesQuery: getWeatherForecastsQueryKey(),
     },
   });
 

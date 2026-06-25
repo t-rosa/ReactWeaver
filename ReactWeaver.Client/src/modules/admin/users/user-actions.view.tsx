@@ -8,14 +8,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import type { components } from "@/lib/api/schema";
+import type { UserResponse } from "@/lib/api";
 import { DotsThreeIcon } from "@phosphor-icons/react";
 import type { CellContext } from "@tanstack/react-table";
 import * as React from "react";
 import { RemoveUser } from "./remove-user.view";
 import type { userTableFeatures } from "./table-features";
 
-type UserResponse = components["schemas"]["UserResponse"];
 type UserActionsProps = CellContext<typeof userTableFeatures, UserResponse>;
 
 export function UserActions(props: UserActionsProps) {

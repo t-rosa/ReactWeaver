@@ -1,10 +1,11 @@
-import { $api } from "@/lib/api/client";
+import { getWeatherForecastsOptions } from "@/lib/api/@tanstack/react-query.gen";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import * as AppLayout from "../components/app-layout";
 import { FORECAST_COLUMNS } from "./forecast-table.columns";
 import { ForecastTable } from "./forecast-table.view";
 
 export function ForecastsView() {
-  const { data } = $api.useSuspenseQuery("get", "/api/weather-forecasts");
+  const { data } = useSuspenseQuery(getWeatherForecastsOptions());
 
   return (
     <AppLayout.Root>

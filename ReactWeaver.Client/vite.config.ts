@@ -1,3 +1,4 @@
+import { heyApiPlugin } from "@hey-api/vite-plugin";
 import tailwindcss from "@tailwindcss/vite";
 import { tanstackRouter } from "@tanstack/router-plugin/vite";
 import react from "@vitejs/plugin-react";
@@ -44,6 +45,34 @@ const target =
 export default defineConfig({
   plugins: [
     ViteImageOptimizer(),
+    heyApiPlugin({
+      config: {
+        input: "../ReactWeaver.Server/ReactWeaver.Server.json",
+        output: "src/lib/api",
+        plugins: [
+          "@hey-api/client-fetch",
+          {
+            name: "@hey-api/schemas",
+            type: "form",
+          },
+          "zod",
+          {
+            name: "@hey-api/sdk",
+            validator: {
+              request: "zod",
+              response: "zod",
+            },
+            // operations: {
+            //   methods: "instance",
+            // },
+          },
+          {
+            name: "@hey-api/typescript",
+          },
+          "@tanstack/react-query",
+        ],
+      },
+    }),
     tanstackRouter({
       target: "react",
       autoCodeSplitting: true,

@@ -17,7 +17,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import type { components } from "@/lib/api/schema";
+import type { WeatherForecastResponse } from "@/lib/api";
 import { FolderIcon } from "@phosphor-icons/react";
 import { type ColumnDef, useTable } from "@tanstack/react-table";
 import { CreateForecast } from "./create-forecast.view";
@@ -25,11 +25,8 @@ import { RemoveForecasts } from "./remove-forecasts.view";
 import { forecastTableFeatures } from "./table-features";
 
 interface ForecastTableProps {
-  columns: ColumnDef<
-    typeof forecastTableFeatures,
-    components["schemas"]["WeatherForecastResponse"]
-  >[];
-  data: components["schemas"]["WeatherForecastResponse"][];
+  columns: ColumnDef<typeof forecastTableFeatures, WeatherForecastResponse>[];
+  data: WeatherForecastResponse[];
 }
 
 export function ForecastTable(props: ForecastTableProps) {

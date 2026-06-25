@@ -1,11 +1,12 @@
-import { $api, $client } from "@/lib/api/client";
+import { getCurrentUser } from "@/lib/api";
+import { getWeatherForecastsOptions } from "@/lib/api/@tanstack/react-query.gen";
 import { AppView } from "@/modules/app/app.view";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_app")({
   async beforeLoad() {
-    const query = await $client.GET("/api/users/me");
-    if (!query.response.ok) {
+    const query = await getCurrentUser();
+    if (query.error) {
       redirect({
         to: "/login",
         throw: true,
@@ -13,7 +14,7 @@ export const Route = createFileRoute("/_app")({
     }
   },
   loader({ context }) {
-    return context.queryClient.ensureQueryData($api.queryOptions("get", "/api/users/me"));
+    return context.queryClient.ensureQueryData(getWeatherForecastsOptions());
   },
   component: AppView,
 });

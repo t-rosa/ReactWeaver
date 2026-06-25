@@ -14,6 +14,7 @@ public interface IProgram
             .AddDatabase()
             .AddErrorHandling()
             // .AddObservability()
+            .AddOpenApi()
             .AddAuthentication()
             .AddMailing()
             .AddApplicationServices();

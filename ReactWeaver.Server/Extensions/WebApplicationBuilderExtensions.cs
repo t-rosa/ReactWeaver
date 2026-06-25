@@ -116,6 +116,20 @@ public static class WebApplicationBuilderExtensions
             return builder;
         }
 
+        public WebApplicationBuilder AddOpenApi()
+        {
+            builder.Services.AddOpenApi(options =>
+            {
+                options.AddOperationTransformer((operation, context, cancellationToken) =>
+                {
+                    operation.OperationId = context.Description.ActionDescriptor.RouteValues["action"];
+                    return Task.CompletedTask;
+                });
+            });
+
+            return builder;
+        }
+
         public WebApplicationBuilder AddApplicationServices()
         {
             builder.Services.AddValidatorsFromAssemblyContaining<IProgram>();

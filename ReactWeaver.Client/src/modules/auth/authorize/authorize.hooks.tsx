@@ -1,9 +1,10 @@
-import { $api } from "@/lib/api/client";
+import { getCurrentUserOptions } from "@/lib/api/@tanstack/react-query.gen";
+import { useSuspenseQuery } from "@tanstack/react-query";
 
 export type UserRole = "Admin" | "Member";
 
 export function useUser() {
-  const { data: user } = $api.useSuspenseQuery("get", "/api/users/me");
+  const { data: user } = useSuspenseQuery({ ...getCurrentUserOptions() });
 
   function hasRole(role: UserRole) {
     return user.roles.includes(role) ?? false;

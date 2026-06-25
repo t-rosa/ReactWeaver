@@ -16,19 +16,16 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import type { components } from "@/lib/api/schema";
+import type { UserResponse } from "@/lib/api";
 import { useUser } from "@/modules/auth/authorize/authorize.hooks";
 import { FolderIcon } from "@phosphor-icons/react";
-import {
-  type ColumnDef,
-  useTable
-} from "@tanstack/react-table";
+import { type ColumnDef, useTable } from "@tanstack/react-table";
 import { RemoveUsers } from "./remove-users.view";
 import { userTableFeatures } from "./table-features";
 
 interface UserTableProps {
-  columns: ColumnDef<typeof userTableFeatures, components["schemas"]["UserResponse"]>[];
-  data: components["schemas"]["UserResponse"][];
+  columns: ColumnDef<typeof userTableFeatures, UserResponse>[];
+  data: UserResponse[];
 }
 
 export function UserTable(props: UserTableProps) {

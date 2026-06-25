@@ -20,14 +20,19 @@ import {
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Spinner } from "@/components/ui/spinner";
 import { Textarea } from "@/components/ui/textarea";
-import { $api } from "@/lib/api/client";
-import type { components } from "@/lib/api/schema";
+import type { WeatherForecastResponse } from "@/lib/api";
+import {
+  getWeatherForecastsQueryKey,
+  updateWeatherForecastMutation,
+} from "@/lib/api/@tanstack/react-query.gen";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CalendarIcon } from "@phosphor-icons/react";
+import { useMutation } from "@tanstack/react-query";
 import { format, formatISO } from "date-fns";
 import { fr } from "date-fns/locale";
 import * as React from "react";
 import { Controller, useForm } from "react-hook-form";
+import { toast } from "sonner";
 import * as z from "zod";
 
 const formSchema = z.object({
@@ -41,7 +46,7 @@ export type UpdateForecastFormSchema = z.infer<typeof formSchema>;
 interface UpdateForecastProps {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  forecast: components["schemas"]["WeatherForecastResponse"];
+  forecast: WeatherForecastResponse;
 }
 
 export function UpdateForecast(props: UpdateForecastProps) {
@@ -54,25 +59,24 @@ export function UpdateForecast(props: UpdateForecastProps) {
     },
   });
 
-  const updateForecast = $api.useMutation("put", "/api/weather-forecasts/{id}", {
-    meta: {
-      invalidatesQuery: $api.queryOptions("get", "/api/weather-forecasts").queryKey,
-      errorMessage: "An error has occurred",
-    },
+  const updateForecast = useMutation({
+    ...updateWeatherForecastMutation(),
     onError(error) {
+      toast.error("An error has occurred");
       form.setError("root", { message: error.detail ?? "An error has occurred" });
     },
     onSuccess() {
       props.setOpen(false);
     },
+    meta: {
+      invalidatesQuery: getWeatherForecastsQueryKey(),
+    },
   });
 
   function onSubmit(values: UpdateForecastFormSchema) {
     updateForecast.mutate({
-      params: {
-        path: {
-          id: props.forecast.id,
-        },
+      path: {
+        id: props.forecast.id,
       },
       body: {
         temperatureC: values.temperatureC,

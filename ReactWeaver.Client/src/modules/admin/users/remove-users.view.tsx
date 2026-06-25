@@ -10,16 +10,20 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { $api } from "@/lib/api/client";
+import { getUsersQueryKey, removeUsersMutation } from "@/lib/api/@tanstack/react-query.gen";
 import { TrashSimpleIcon } from "@phosphor-icons/react";
+import { useMutation } from "@tanstack/react-query";
 
 interface RemoveUsersProps {
   ids: string[];
 }
 
 export function RemoveUsers(props: RemoveUsersProps) {
-  const removeUsers = $api.useMutation("post", "/api/users/bulk-delete", {
-    meta: { invalidatesQuery: $api.queryOptions("get", "/api/users").queryKey },
+  const removeUsers = useMutation({
+    ...removeUsersMutation(),
+    meta: {
+      invalidatesQuery: getUsersQueryKey(),
+    },
   });
 
   if (props.ids.length === 0) {

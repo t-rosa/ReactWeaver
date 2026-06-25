@@ -8,7 +8,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { $api } from "@/lib/api/client";
+import { getUsersQueryKey, removeUserMutation } from "@/lib/api/@tanstack/react-query.gen";
+import { useMutation } from "@tanstack/react-query";
 
 interface RemoveUserProps {
   id: string;
@@ -17,17 +18,18 @@ interface RemoveUserProps {
 }
 
 export function RemoveUser(props: RemoveUserProps) {
-  const removeUser = $api.useMutation("delete", "/api/users/{id}", {
-    meta: { invalidatesQuery: $api.queryOptions("get", "/api/users").queryKey },
+  const removeUser = useMutation({
+    ...removeUserMutation(),
+    meta: {
+      invalidatesQuery: getUsersQueryKey(),
+    },
   });
 
   function handleRemoveClick() {
     removeUser.mutate(
       {
-        params: {
-          path: {
-            id: props.id,
-          },
+        path: {
+          id: props.id,
         },
       },
       {

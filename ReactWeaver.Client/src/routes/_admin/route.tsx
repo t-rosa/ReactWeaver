@@ -1,12 +1,13 @@
-import { $api, $client } from "@/lib/api/client";
+import { getCurrentUser } from "@/lib/api";
+import { getCurrentUserOptions } from "@/lib/api/@tanstack/react-query.gen";
 import { AdminView } from "@/modules/admin/admin.view";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_admin")({
   async beforeLoad() {
-    const query = await $client.GET("/api/users/me");
+    const query = await getCurrentUser();
 
-    if (!query.response.ok) {
+    if (query.error) {
       redirect({
         to: "/login",
         throw: true,
@@ -21,7 +22,7 @@ export const Route = createFileRoute("/_admin")({
     }
   },
   loader({ context }) {
-    return context.queryClient.ensureQueryData($api.queryOptions("get", "/api/users/me"));
+    return context.queryClient.ensureQueryData(getCurrentUserOptions());
   },
   component: AdminView,
 });

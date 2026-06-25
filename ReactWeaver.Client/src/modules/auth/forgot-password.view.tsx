@@ -2,11 +2,13 @@ import { Button } from "@/components/ui/button";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
-import { $api } from "@/lib/api/client";
+import { forgotPasswordMutation } from "@/lib/api/@tanstack/react-query.gen";
 import * as AuthCard from "@/modules/auth/components/auth-card";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { Controller, useForm } from "react-hook-form";
+import { toast } from "sonner";
 import * as z from "zod";
 
 const formSchema = z.object({
@@ -27,11 +29,11 @@ export function ForgotPasswordView() {
     },
   });
 
-  const forgotPassword = $api.useMutation("post", "/api/auth/forgotPassword", {
-    meta: {
-      errorMessage: "An error has occurred",
-    },
+  const forgotPassword = useMutation({
+    ...forgotPasswordMutation(),
+
     onError(error) {
+      toast.error("An error has occurred");
       form.setError("root", { message: error.detail ?? "An error has occurred" });
     },
     async onSuccess() {

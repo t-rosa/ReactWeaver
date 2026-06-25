@@ -1,16 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import type { components } from "@/lib/api/schema";
+import type { UserResponse } from "@/lib/api";
 import { useUser } from "@/modules/auth/authorize/authorize.hooks";
 import { ArrowsDownUpIcon } from "@phosphor-icons/react";
 import { createColumnHelper } from "@tanstack/react-table";
 import type { userTableFeatures } from "./table-features";
 import { UserActions } from "./user-actions.view";
 
-const columnHelper = createColumnHelper<
-  typeof userTableFeatures,
-  components["schemas"]["UserResponse"]
->();
+const columnHelper = createColumnHelper<typeof userTableFeatures, UserResponse>();
 
 export const USER_COLUMNS = columnHelper.columns([
   columnHelper.accessor("id", {

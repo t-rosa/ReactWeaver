@@ -8,7 +8,11 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { $api } from "@/lib/api/client";
+import {
+  getWeatherForecastsQueryKey,
+  removeWeatherForecastMutation,
+} from "@/lib/api/@tanstack/react-query.gen";
+import { useMutation } from "@tanstack/react-query";
 
 interface RemoveForecastProps {
   id: string;
@@ -17,17 +21,18 @@ interface RemoveForecastProps {
 }
 
 export function RemoveForecast(props: RemoveForecastProps) {
-  const removeForecast = $api.useMutation("delete", "/api/weather-forecasts/{id}", {
-    meta: { invalidatesQuery: $api.queryOptions("get", "/api/weather-forecasts").queryKey },
+  const removeForecast = useMutation({
+    ...removeWeatherForecastMutation(),
+    meta: {
+      invalidatesQuery: getWeatherForecastsQueryKey(),
+    },
   });
 
   function handleRemoveClick() {
     removeForecast.mutate(
       {
-        params: {
-          path: {
-            id: props.id,
-          },
+        path: {
+          id: props.id,
         },
       },
       {

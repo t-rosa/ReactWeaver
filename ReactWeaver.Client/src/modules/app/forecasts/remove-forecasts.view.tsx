@@ -10,16 +10,23 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { $api } from "@/lib/api/client";
+import {
+  getWeatherForecastsQueryKey,
+  removeWeatherForecastsMutation,
+} from "@/lib/api/@tanstack/react-query.gen";
 import { TrashSimpleIcon } from "@phosphor-icons/react";
+import { useMutation } from "@tanstack/react-query";
 
 interface RemoveForecastsProps {
   ids: string[];
 }
 
 export function RemoveForecasts(props: RemoveForecastsProps) {
-  const removeForecasts = $api.useMutation("post", "/api/weather-forecasts/bulk-delete", {
-    meta: { invalidatesQuery: $api.queryOptions("get", "/api/weather-forecasts").queryKey },
+  const removeForecasts = useMutation({
+    ...removeWeatherForecastsMutation(),
+    meta: {
+      invalidatesQuery: getWeatherForecastsQueryKey(),
+    },
   });
 
   if (props.ids.length === 0) {

@@ -24,8 +24,6 @@
     "noUncheckedSideEffectImports": true,
     "noUncheckedIndexedAccess": true,
 
-    /* Paths */
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     }

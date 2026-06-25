@@ -41,10 +41,3 @@ function Footer(props: React.PropsWithChildren) {
 }
 
 export { Content, Description, Footer, Header, Root, Title };
-// export const AuthCard = Object.assign(Root, {
-//   Content,
-//   Header,
-//   Title,
-//   Description,
-//   Footer,
-// });

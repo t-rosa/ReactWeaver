@@ -1,28 +1,30 @@
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { Spinner } from "@/components/ui/spinner";
-import { $api } from "@/lib/api/client";
+import { getCurrentUserQueryKey, logoutMutation } from "@/lib/api/@tanstack/react-query.gen";
 import { SignOutIcon } from "@phosphor-icons/react";
+import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
+import { toast } from "sonner";
 
 export function LogoutView() {
   const navigate = useNavigate();
-
-  const { mutate, status } = $api.useMutation("post", "/api/auth/logout", {
-    meta: {
-      successMessage: "Logged out",
-      errorMessage: "An error has occurred",
-      invalidatesQuery: ["get", "manage/info"],
-    },
+  const logout = useMutation({
+    ...logoutMutation(),
     async onSuccess() {
+      toast.success("Logged out");
       await navigate({ to: "/" });
+    },
+    meta: {
+      errorMessage: "An error has occurred",
+      invalidatesQuery: getCurrentUserQueryKey(),
     },
   });
 
   function handleClick() {
-    mutate({});
+    logout.mutate({});
   }
 
-  if (status === "pending") {
+  if (logout.status === "pending") {
     return (
       <DropdownMenuItem disabled>
         <Spinner />

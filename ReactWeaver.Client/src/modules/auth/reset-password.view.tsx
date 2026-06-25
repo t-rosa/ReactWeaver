@@ -2,11 +2,13 @@ import { Button } from "@/components/ui/button";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
-import { $api } from "@/lib/api/client";
+import { resetPasswordMutation } from "@/lib/api/@tanstack/react-query.gen";
 import * as AuthCard from "@/modules/auth/components/auth-card";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { Controller, useForm } from "react-hook-form";
+import { toast } from "sonner";
 import * as z from "zod";
 
 const formSchema = z
@@ -54,12 +56,11 @@ export function ResetPasswordView() {
     },
   });
 
-  const resetPassword = $api.useMutation("post", "/api/auth/resetPassword", {
-    meta: {
-      errorMessage: "An error has occurred",
-    },
+  const resetPassword = useMutation({
+    ...resetPasswordMutation(),
     onError(error) {
       form.setError("root", { message: error.detail ?? "An error has occurred" });
+      toast.error("An error has occurred");
     },
   });
 
