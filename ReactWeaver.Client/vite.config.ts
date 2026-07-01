@@ -62,9 +62,6 @@ export default defineConfig({
               request: "zod",
               response: "zod",
             },
-            // operations: {
-            //   methods: "instance",
-            // },
           },
           {
             name: "@hey-api/typescript",
