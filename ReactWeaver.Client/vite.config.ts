@@ -49,7 +49,10 @@ export default defineConfig({
     heyApiPlugin({
       config: {
         input: "../ReactWeaver.Server/ReactWeaver.Server.json",
-        output: "src/lib/api",
+        output: {
+          postProcess: ["oxfmt"],
+          path: "src/lib/api",
+        },
         plugins: [
           "@hey-api/client-fetch",
           {
