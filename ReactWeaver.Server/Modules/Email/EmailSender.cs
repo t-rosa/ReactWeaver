@@ -27,7 +27,7 @@ public sealed class EmailSender(IOptions<SmtpOptions> options, IConfiguration co
         message.IsBodyHtml = true;
 
         using SmtpClient client = new(_options.Server, _options.Port);
-        client.EnableSsl = _options.EnableSSL;
+        client.EnableSsl = true;
         client.Credentials = new NetworkCredential(username, password);
 
         await client.SendMailAsync(message);
