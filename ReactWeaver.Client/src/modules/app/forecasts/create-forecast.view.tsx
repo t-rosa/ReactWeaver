@@ -101,9 +101,11 @@ export function CreateForecast() {
                 <FieldLabel htmlFor={field.name}>Date</FieldLabel>
                 <Popover>
                   <PopoverTrigger id={field.name} render={<Button variant="outline" />}>
-                    {field.value ?
+                    {field.value ? (
                       format(field.value, "P", { locale: fr })
-                    : <span>Pick a date</span>}
+                    ) : (
+                      <span>Pick a date</span>
+                    )}
                     <CalendarIcon className="ml-auto size-4 opacity-50" />
                   </PopoverTrigger>
                   <PopoverContent align="start">

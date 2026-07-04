@@ -62,12 +62,14 @@ function Content(props: ContentProps) {
           <Button variant="link" className="cursor-pointer" onClick={props.onCopyClick}>
             <CopyIcon /> Copy error message
           </Button>
-          {props.error ?
+          {props.error ? (
             <ScrollArea className="overflow-auto border bg-muted p-3 text-xs text-muted-foreground">
               {props.error.message ?? JSON.stringify(props.error.message, null, 2)}
               <ScrollBar orientation="horizontal" />
             </ScrollArea>
-          : <pre className="bg-muted p-2 text-xs text-muted-foreground">Unknown error.</pre>}
+          ) : (
+            <pre className="bg-muted p-2 text-xs text-muted-foreground">Unknown error.</pre>
+          )}
         </div>
       )}
     </div>

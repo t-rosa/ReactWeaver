@@ -35,9 +35,11 @@ function NumberInputScrubArea({
     >
       {children}
       <NumberInputPrimitive.ScrubAreaCursor data-slot="number-input-scrub-area-cursor">
-        {direction === "vertical" ?
+        {direction === "vertical" ? (
           <DotsThreeVerticalIcon className="size-5" />
-        : <DotsThreeIcon className="size-5" />}
+        ) : (
+          <DotsThreeIcon className="size-5" />
+        )}
       </NumberInputPrimitive.ScrubAreaCursor>
     </NumberInputPrimitive.ScrubArea>
   );
