@@ -9,11 +9,12 @@ Create `packages/playwright-core/src/tools/backend/<your-tool>.ts`.
 Import zod from the MCP bundle and use `defineTool` or `defineTabTool`:
 
 ```typescript
-import { z } from '../../zodBundle';
-import { defineTool, defineTabTool } from './tool';
+import { z } from "../../zodBundle";
+import { defineTool, defineTabTool } from "./tool";
 ```
 
 **Choose `defineTabTool` vs `defineTool`:**
+
 - `defineTabTool` — most tools use this. Receives a `Tab` object, auto-handles modal state (dialogs/file choosers).
 - `defineTool` — receives the full `Context`. Use when you need `context.ensureBrowserContext()` without a specific tab, or need custom tab management.
 
@@ -21,7 +22,7 @@ import { defineTool, defineTabTool } from './tool';
 
 ```typescript
 const myTool = defineTabTool({
-  capability: 'core',  // ToolCapability — see step 2
+  capability: "core", // ToolCapability — see step 2
 
   // Optional: only available in skill mode (not exposed via MCP)
   // skillOnly: true,
@@ -30,14 +31,14 @@ const myTool = defineTabTool({
   // clearsModalState: 'dialog',
 
   schema: {
-    name: 'browser_my_tool',       // MCP tool name (browser_ prefix)
-    title: 'My Tool',              // Human-readable title
-    description: 'Does something', // Description shown to LLM
+    name: "browser_my_tool", // MCP tool name (browser_ prefix)
+    title: "My Tool", // Human-readable title
+    description: "Does something", // Description shown to LLM
     inputSchema: z.object({
-      ref: z.string().describe('Element reference from snapshot'),
-      value: z.string().optional().describe('Optional value'),
+      ref: z.string().describe("Element reference from snapshot"),
+      value: z.string().optional().describe("Optional value"),
     }),
-    type: 'action',  // 'input' | 'assertion' | 'action' | 'readOnly'
+    type: "action", // 'input' | 'assertion' | 'action' | 'readOnly'
   },
 
   handle: async (tab, params, response) => {
@@ -51,7 +52,7 @@ const myTool = defineTabTool({
     response.setIncludeSnapshot();
 
     // Or add text result
-    response.addTextResult('Done');
+    response.addTextResult("Done");
   },
 });
 
@@ -59,12 +60,14 @@ export default [myTool];
 ```
 
 **Schema type values:**
+
 - `'action'` — state-changing operations (navigate, click, fill)
 - `'input'` — user input (typing, keyboard)
 - `'readOnly'` — queries that don't modify state (list cookies, get snapshot)
 - `'assertion'` — testing/verification tools
 
 **Response API:**
+
 - `response.addTextResult(text)` — add text to result section
 - `response.addError(error)` — add error message
 - `response.addCode(code)` — add generated Playwright code snippet
@@ -77,13 +80,13 @@ export default [myTool];
 
 ```typescript
 const myContextTool = defineTool({
-  capability: 'storage',
-  schema: { /* ... */ type: 'readOnly' },
+  capability: "storage",
+  schema: { /* ... */ type: "readOnly" },
 
   handle: async (context, params, response) => {
     const browserContext = await context.ensureBrowserContext();
     const cookies = await browserContext.cookies();
-    response.addTextResult(cookies.map(c => `${c.name}=${c.value}`).join('\n'));
+    response.addTextResult(cookies.map((c) => `${c.name}=${c.value}`).join("\n"));
   },
 });
 ```
@@ -94,21 +97,22 @@ If your tool doesn't fit an existing capability, add a new one to `packages/play
 
 ```typescript
 export type ToolCapability =
-  'config' |
-  'core' |           // Always enabled
-  'core-navigation' | // Always enabled
-  'core-tabs' |      // Always enabled
-  'core-input' |     // Always enabled
-  'core-install' |   // Always enabled
-  'network' |
-  'pdf' |
-  'storage' |
-  'testing' |
-  'vision' |
-  'devtools';        // Add yours here
+  | "config"
+  | "core" // Always enabled
+  | "core-navigation" // Always enabled
+  | "core-tabs" // Always enabled
+  | "core-input" // Always enabled
+  | "core-install" // Always enabled
+  | "network"
+  | "pdf"
+  | "storage"
+  | "testing"
+  | "vision"
+  | "devtools"; // Add yours here
 ```
 
 **Capability filtering rules:**
+
 - Tools with `core*` capabilities are always enabled
 - Other capabilities must be enabled via `--caps` or config `capabilities` array
 - `skillOnly: true` tools are only available in skill mode, never via MCP
@@ -118,7 +122,7 @@ export type ToolCapability =
 In `packages/playwright-core/src/tools/backend/tools.ts`:
 
 ```typescript
-import myTool from './myTool';
+import myTool from "./myTool";
 
 export const browserTools: Tool<any>[] = [
   // ... existing tools ...
@@ -131,47 +135,54 @@ export const browserTools: Tool<any>[] = [
 Create `tests/mcp/<category>.spec.ts`. Use the fixtures from `./fixtures`:
 
 ```typescript
-import { test, expect } from './fixtures';
+import { test, expect } from "./fixtures";
 
-test('browser_my_tool', async ({ client, server }) => {
+test("browser_my_tool", async ({ client, server }) => {
   // Setup: navigate to a page first
   await client.callTool({
-    name: 'browser_navigate',
+    name: "browser_navigate",
     arguments: { url: server.PREFIX },
   });
 
   // Call your tool
-  expect(await client.callTool({
-    name: 'browser_my_tool',
-    arguments: { ref: 'e1' },
-  })).toHaveResponse({
+  expect(
+    await client.callTool({
+      name: "browser_my_tool",
+      arguments: { ref: "e1" },
+    }),
+  ).toHaveResponse({
     code: `await page.click('[ref="e1"]');`,
-    snapshot: expect.stringContaining('some content'),
+    snapshot: expect.stringContaining("some content"),
   });
 });
 
-test('browser_my_tool error case', async ({ client }) => {
-  expect(await client.callTool({
-    name: 'browser_my_tool',
-    arguments: { ref: 'invalid' },
-  })).toHaveResponse({
-    error: expect.stringContaining('Error:'),
+test("browser_my_tool error case", async ({ client }) => {
+  expect(
+    await client.callTool({
+      name: "browser_my_tool",
+      arguments: { ref: "invalid" },
+    }),
+  ).toHaveResponse({
+    error: expect.stringContaining("Error:"),
     isError: true,
   });
 });
 ```
 
 **Test fixtures:**
+
 - `client` — MCP client, call tools via `client.callTool({ name, arguments })`
 - `startClient(options?)` — client factory, for custom config/args/roots
 - `server` — HTTP test server (`server.PREFIX`, `server.HELLO_WORLD`, `server.setContent(path, html, contentType)`)
 - `httpsServer` — HTTPS test server
 
 **Custom matchers:**
+
 - `toHaveResponse({ code?, snapshot?, page?, error?, isError?, result?, events?, modalState? })` — matches parsed response sections
 - `toHaveTextResponse(text)` — matches raw text with normalization
 
 **Parsed response sections:**
+
 - `code` — generated Playwright code (without ```js fences)
 - `snapshot` — ARIA page snapshot (with ```yaml fences)
 - `page` — page info (URL, title)
@@ -183,6 +194,7 @@ test('browser_my_tool error case', async ({ client }) => {
 - `isError` — boolean
 
 ### Testing MCP Tools
+
 - Run tests: `npm run ctest-mcp <category>`
 - Do not run `test --debug`
 
@@ -201,28 +213,28 @@ Implement the corresponding MCP tool first (see section above). CLI commands cal
 In `packages/playwright-core/src/tools/cli-daemon/commands.ts`, use `declareCommand()`:
 
 ```typescript
-import { z } from '../../zodBundle';
-import { declareCommand } from './command';
+import { z } from "../../zodBundle";
+import { declareCommand } from "./command";
 
 const myCommand = declareCommand({
-  name: 'my-command',           // CLI command name (kebab-case)
-  description: 'Does something', // Shown in help
-  category: 'core',             // Category for help grouping
+  name: "my-command", // CLI command name (kebab-case)
+  description: "Does something", // Shown in help
+  category: "core", // Category for help grouping
 
   // Positional arguments (ordered, parsed from CLI positional args)
   args: z.object({
-    url: z.string().describe('The URL to navigate to'),
-    ref: z.string().optional().describe('Optional element reference'),
+    url: z.string().describe("The URL to navigate to"),
+    ref: z.string().optional().describe("Optional element reference"),
   }),
 
   // Named options (parsed from --flag or --flag=value)
   options: z.object({
-    submit: z.boolean().optional().describe('Whether to submit'),
-    filename: z.string().optional().describe('Output filename'),
+    submit: z.boolean().optional().describe("Whether to submit"),
+    filename: z.string().optional().describe("Output filename"),
   }),
 
   // MCP tool name — string or function for dynamic routing
-  toolName: 'browser_my_tool',
+  toolName: "browser_my_tool",
   // OR dynamic:
   // toolName: ({ submit }) => submit ? 'browser_submit' : 'browser_type',
 
@@ -244,7 +256,7 @@ const commandsArray: AnyCommandSchema[] = [
   open,
   close,
   // ... existing commands ...
-  myCommand,   // <-- add here in the right category
+  myCommand, // <-- add here in the right category
   // ...
 ];
 ```
@@ -252,22 +264,34 @@ const commandsArray: AnyCommandSchema[] = [
 **Categories** (defined in `packages/playwright-core/src/tools/cli-daemon/command.ts`):
 
 ```typescript
-type Category = 'core' | 'navigation' | 'keyboard' | 'mouse' | 'export' |
-                'storage' | 'tabs' | 'network' | 'devtools' | 'browsers' |
-                'config' | 'install';
+type Category =
+  | "core"
+  | "navigation"
+  | "keyboard"
+  | "mouse"
+  | "export"
+  | "storage"
+  | "tabs"
+  | "network"
+  | "devtools"
+  | "browsers"
+  | "config"
+  | "install";
 ```
 
 To add a new category:
+
 1. Add it to `Category` type in `packages/playwright-core/src/tools/cli-daemon/command.ts`
 2. Add it to the `categories` array in `packages/playwright-core/src/tools/cli-daemon/helpGenerator.ts`:
    ```typescript
-   const categories: { name: Category, title: string }[] = [
+   const categories: { name: Category; title: string }[] = [
      // ... existing ...
-     { name: 'mycat', title: 'My Category' },
+     { name: "mycat", title: "My Category" },
    ];
    ```
 
 **Special tool patterns:**
+
 - `toolName: ''` — command handled specially by daemon (e.g., `close`, `list`, `install`)
 - Use `numberArg` for numeric CLI args: `x: numberArg.describe('X coordinate')`
 - Param renaming: `toolParams: ({ w: width, h: height }) => ({ width, height })`
@@ -285,20 +309,21 @@ Run `npm run playwright-cli -- --help` to verify the help output includes your n
 Create `tests/mcp/cli-<category>.spec.ts`. Use fixtures from `./cli-fixtures`:
 
 ```typescript
-import { test, expect } from './cli-fixtures';
+import { test, expect } from "./cli-fixtures";
 
-test('my-command', async ({ cli, server }) => {
+test("my-command", async ({ cli, server }) => {
   // Open a page first
-  await cli('open', server.PREFIX);
+  await cli("open", server.PREFIX);
 
   // Run your command
-  const { output, snapshot } = await cli('my-command', 'arg1', '--option=value');
-  expect(output).toContain('expected text');
-  expect(snapshot).toContain('expected snapshot content');
+  const { output, snapshot } = await cli("my-command", "arg1", "--option=value");
+  expect(output).toContain("expected text");
+  expect(snapshot).toContain("expected snapshot content");
 });
 ```
 
 **CLI test fixtures:**
+
 - `cli(...args)` — run CLI command, returns `{ output, error, exitCode, snapshot, attachments }`
   - `output` — stdout text
   - `snapshot` — extracted ARIA snapshot (if present)
@@ -307,6 +332,7 @@ test('my-command', async ({ cli, server }) => {
   - `exitCode` — process exit code
 
 ### Testing CLI Commands
+
 - Run tests: `npm run ctest-mcp cli-<category>`
 - Do not run `test --debug`
 
@@ -347,12 +373,12 @@ If the option needs to be in `FullConfig` (with required/resolved values), updat
 ```typescript
 export type FullConfig = Config & {
   // ... existing ...
-  myOption: string;  // required in resolved config
+  myOption: string; // required in resolved config
 };
 
 export const defaultConfig: FullConfig = {
   // ... existing ...
-  myOption: 'default-value',
+  myOption: "default-value",
 };
 ```
 
@@ -384,8 +410,7 @@ options.myOption = envToString(process.env.PLAYWRIGHT_MCP_MY_OPTION);
 Add CLI flag:
 
 ```typescript
-command
-  .option('--my-option <value>', 'description of option')
+command.option("--my-option <value>", "description of option");
 ```
 
 ### 6. Merge config (if nested)
@@ -401,6 +426,7 @@ If the option is nested, update `mergeConfig()` in `config.ts` to deep-merge it.
 The skill file is located at `packages/playwright/src/skill/SKILL.md`. It contains documentation for all available CLI commands and MCP tools. Update it whenever you add new commands or tools.
 
 Reference docs live in `packages/playwright/src/skill/references/`:
+
 - `request-mocking.md` — network mocking patterns
 - `running-code.md` — code execution
 - `session-management.md` — session handling

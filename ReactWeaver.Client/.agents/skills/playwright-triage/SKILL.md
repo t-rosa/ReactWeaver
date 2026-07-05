@@ -12,14 +12,14 @@ The goal is **a clear, verified status, not a fix.**
 ## First, classify the issue
 
 Judge by the content, not the label — a "[Feature]" is often really a bug (something already
-*should* work), and a "[Bug]" is sometimes expected behaviour. Work out what it actually is:
+_should_ work), and a "[Bug]" is sometimes expected behaviour. Work out what it actually is:
 
 - **Bug** — reproduce it. The bulk of this skill.
 - **Feature request** — nothing to reproduce. Check it doesn't already exist (search docs/API,
   maybe under another name), verify any source the reporter cites by reading it, and surface the
   real design question. If it's small and well-scoped (like "fail loudly instead of
   silently"), the ideal takeaway is an **acceptance test**: one self-contained spec asserting
-  *current* behaviour (passes today) with the *desired* behaviour alongside as a `fixme`/commented
+  _current_ behaviour (passes today) with the _desired_ behaviour alongside as a `fixme`/commented
   assertion.
 - **Upstream / environment** — a genuinely external owner (the Node project, a browser engine, a
   website's own server/cert config), not Playwright. Find the real owner, don't brute-force a repro,
@@ -40,7 +40,7 @@ Report "cannot reproduce" only after you've genuinely explored — and say what 
 If you have a hunch for what information would help, ask for it.
 
 Run across browsers, and watch for **divergence** — a bug that only reproduces in webkit, or
-everywhere *except* firefox, is a strong signal worth leading with. Plenty of bugs are
+everywhere _except_ firefox, is a strong signal worth leading with. Plenty of bugs are
 browser-agnostic, though, and those are just as real: reproducing on every browser is a good
 result to report, not a non-finding.
 
@@ -82,6 +82,7 @@ with the issue link. Crucially:
 Drop it into the repo (`tests/page/`) and run it with `npm run ctest`.
 
 Mirror real self-contained tests, e.g.:
+
 - [`tests/page/page-network-request.spec.ts`](../../../tests/page/page-network-request.spec.ts) — `should return event source`: `server.setRoute` SSE endpoint, no lifecycle hooks
 - [`tests/page/selectors-css.spec.ts`](../../../tests/page/selectors-css.spec.ts) — `should use light DOM structure for child combinator with slotted content`: `page.setContent` with inline shadow DOM ([#37768](https://github.com/microsoft/playwright/issues/37768))
 - [`tests/page/workers.spec.ts`](../../../tests/page/workers.spec.ts) — `should report worker script as network request after redirect`: `server` fixture with routes/redirects + a browser-gap `fixme` ([#35678](https://github.com/microsoft/playwright/issues/35678))

@@ -47,7 +47,7 @@ export function UserMenu() {
             Profile
           </DropdownMenuItem>
           <Authorize role="Admin">
-            <DropdownMenuItem nativeButton={false} render={<Link to="/users" />}>
+            <DropdownMenuItem nativeButton={false} render={<Link to="/admin/users" />}>
               <UsersIcon />
               Users
             </DropdownMenuItem>

@@ -20,28 +20,20 @@ import {
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Spinner } from "@/components/ui/spinner";
 import { Textarea } from "@/components/ui/textarea";
-import type { WeatherForecastResponse } from "@/lib/api";
+import type { UpdateWeatherForecastRequest, WeatherForecastResponse } from "@/lib/api";
 import {
   getWeatherForecastsQueryKey,
   updateWeatherForecastMutation,
 } from "@/lib/api/@tanstack/react-query.gen";
+import { zUpdateWeatherForecastRequest } from "@/lib/api/zod.gen";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CalendarIcon } from "@phosphor-icons/react";
 import { useMutation } from "@tanstack/react-query";
-import { format, formatISO } from "date-fns";
+import { format, formatISO, parseISO } from "date-fns";
 import { fr } from "date-fns/locale";
 import * as React from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
-import * as z from "zod";
-
-const formSchema = z.object({
-  date: z.date(),
-  temperatureC: z.number().int(),
-  summary: z.string(),
-});
-
-export type UpdateForecastFormSchema = z.infer<typeof formSchema>;
 
 interface UpdateForecastProps {
   open: boolean;
@@ -50,10 +42,10 @@ interface UpdateForecastProps {
 }
 
 export function UpdateForecast(props: UpdateForecastProps) {
-  const form = useForm<UpdateForecastFormSchema>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<UpdateWeatherForecastRequest>({
+    resolver: zodResolver(zUpdateWeatherForecastRequest),
     defaultValues: {
-      date: new Date(props.forecast.date),
+      date: new Date(props.forecast.date).toISOString(),
       temperatureC: props.forecast.temperatureC as number,
       summary: props.forecast.summary ?? "",
     },
@@ -73,14 +65,14 @@ export function UpdateForecast(props: UpdateForecastProps) {
     },
   });
 
-  function onSubmit(values: UpdateForecastFormSchema) {
+  function onSubmit(values: UpdateWeatherForecastRequest) {
     updateForecast.mutate({
       path: {
         id: props.forecast.id,
       },
       body: {
         temperatureC: values.temperatureC,
-        date: formatISO(values.date, { representation: "date" }),
+        date: values.date,
         summary: values.summary,
       },
     });
@@ -112,8 +104,12 @@ export function UpdateForecast(props: UpdateForecastProps) {
                   <PopoverContent align="start">
                     <Calendar
                       mode="single"
-                      selected={field.value}
-                      onSelect={field.onChange}
+                      selected={parseISO(field.value)}
+                      onSelect={(date) => {
+                        if (date) {
+                          field.onChange(formatISO(date, { representation: "date" }));
+                        }
+                      }}
                       disabled={(date) =>
                         date > new globalThis.Date() || date < new globalThis.Date("1900-01-01")
                       }
@@ -135,6 +131,7 @@ export function UpdateForecast(props: UpdateForecastProps) {
                   {...field}
                   id={field.name}
                   aria-invalid={fieldState.invalid}
+                  value={Number(field.value)}
                   onValueChange={(value) => field.onChange(value)}
                 >
                   <NumberInputGroup>
@@ -158,6 +155,7 @@ export function UpdateForecast(props: UpdateForecastProps) {
                   id={field.name}
                   aria-invalid={fieldState.invalid}
                   placeholder="Cool..."
+                  value={String(field.value)}
                 />
                 {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
               </Field>

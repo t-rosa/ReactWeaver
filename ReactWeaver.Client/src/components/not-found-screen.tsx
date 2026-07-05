@@ -10,11 +10,11 @@ export function NotFoundScreen() {
           <CardTitle>Page not found</CardTitle>
         </CardHeader>
         <CardContent>
-          <p>Désolé, la page n&apos;existe pas.</p>
+          <p>Sorry, this page does not exist</p>
         </CardContent>
         <CardFooter className="grid gap-3">
           <Link className={buttonVariants()} to="..">
-            &larr; Retour
+            &larr; Back
           </Link>
         </CardFooter>
       </Card>

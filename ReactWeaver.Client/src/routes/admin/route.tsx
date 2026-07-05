@@ -3,7 +3,7 @@ import { getCurrentUserOptions } from "@/lib/api/@tanstack/react-query.gen";
 import { AdminView } from "@/modules/admin/admin.view";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/_admin")({
+export const Route = createFileRoute("/admin")({
   async beforeLoad() {
     const query = await getCurrentUser();
 

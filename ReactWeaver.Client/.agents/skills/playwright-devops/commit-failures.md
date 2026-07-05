@@ -43,12 +43,15 @@ the report summary.
    Note if any workflows are still in progress.
 
    ### Possible regressions (may be related to this commit)
+
    - **N failures** in `test/file.spec.ts` across <browsers/platforms> — <brief description>
 
    ### Pre-existing / flaky
+
    - **N failures** in `test/file.spec.ts` — <brief description> (timeouts, infrastructure, platform-specific)
 
    ### Infrastructure issues
+
    - <description of non-test failures>
 
    ---
@@ -58,8 +61,9 @@ the report summary.
    ### Workflow: <name> (run <id>)
 
    #### <job name> (job <id>) -- N failures
-   | Test | Error |
-   |------|-------|
+
+   | Test                                      | Error         |
+   | ----------------------------------------- | ------------- |
    | `path/to/test.spec.ts:line` -- test title | error message |
    ```
 

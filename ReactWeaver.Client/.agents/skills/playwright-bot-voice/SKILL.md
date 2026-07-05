@@ -56,7 +56,7 @@ The big risk is the comment ballooning the way AI tends to. Put the **headline u
 announcement, verdict, the minimal repro, next step — and tuck everything verbose into a
 **closed** `<details>` so the thread stays scannable:
 
-~~~markdown
+````markdown
 Hi, I'm the Playwright bot and I took a first look.
 
 **Reproduced on 1.61.1 and tip-of-tree (npm `1.62.0-next`, sha `a1b2c3d`).** `networkidle` never resolves while the
@@ -67,18 +67,23 @@ browsers, so this isn't engine-specific. Looks like a real bug; minimal repro be
 <summary>Minimal repro</summary>
 
 ```ts
-test('networkidle resolves with an open EventSource', { annotation: { type: 'issue', description: '…/issues/41513' } }, async ({ page, server }) => {
-  server.setRoute('/sse', (req, res) => {
-    res.writeHead(200, { 'Content-Type': 'text/event-stream' });
-    res.write('data: hello\n\n'); // never res.end()
-  });
-  server.setRoute('/with-sse', (req, res) => {
-    res.writeHead(200, { 'Content-Type': 'text/html' });
-    res.end(`<script>new EventSource('/sse')</script>`);
-  });
-  await page.goto(server.PREFIX + '/with-sse', { waitUntil: 'networkidle' }); // hangs
-});
+test(
+  "networkidle resolves with an open EventSource",
+  { annotation: { type: "issue", description: "…/issues/41513" } },
+  async ({ page, server }) => {
+    server.setRoute("/sse", (req, res) => {
+      res.writeHead(200, { "Content-Type": "text/event-stream" });
+      res.write("data: hello\n\n"); // never res.end()
+    });
+    server.setRoute("/with-sse", (req, res) => {
+      res.writeHead(200, { "Content-Type": "text/html" });
+      res.end(`<script>new EventSource('/sse')</script>`);
+    });
+    await page.goto(server.PREFIX + "/with-sse", { waitUntil: "networkidle" }); // hangs
+  },
+);
 ```
+
 </details>
 
 <details>
@@ -91,7 +96,7 @@ test('networkidle resolves with an open EventSource', { annotation: { type: 'iss
 - raw `npx playwright test` output …
 - full run: <link to the GitHub Actions workflow run, when available>
 </details>
-~~~
+````
 
 A browser-specific result is the more interesting one — if it had hung only in webkit, that'd
 be the headline. "Hangs everywhere" is a fine result too — it's common and real, so state it
@@ -117,6 +122,6 @@ riff on "playwright" fits:
 
 ## Smell test
 
-Reread it: *would a maintainer be happy to have this posted under the project's name?*
+Reread it: _would a maintainer be happy to have this posted under the project's name?_
 If it reads like marketing copy, a template, or padding to look thorough — cut words, move
 detail into a collapsible, and keep the verdict sharp.

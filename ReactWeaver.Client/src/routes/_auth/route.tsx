@@ -6,7 +6,7 @@ export const Route = createFileRoute("/_auth")({
   async beforeLoad() {
     const query = await getCurrentUser();
     if (!query.error) {
-      redirect({ to: "/forecasts", throw: true });
+      redirect({ to: "/app/dashboard", throw: true });
     }
   },
   component: AuthView,

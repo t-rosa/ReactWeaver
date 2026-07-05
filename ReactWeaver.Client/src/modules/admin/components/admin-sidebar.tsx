@@ -1,75 +1,157 @@
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Item, ItemContent, ItemMedia } from "@/components/ui/item";
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarGroup,
-  SidebarGroupContent,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
-  sidebarMenuButtonVariants,
   SidebarMenuItem,
+  useSidebar,
 } from "@/components/ui/sidebar";
-import { UserMenu } from "@/modules/admin/user-menu.view";
-import { CodeSimpleIcon, UsersIcon } from "@phosphor-icons/react";
+import { useUser } from "@/modules/auth/authorize/authorize.hooks";
+import { Authorize } from "@/modules/auth/authorize/authorize.view";
+import { LogoutView } from "@/modules/auth/logout.view";
+import {
+  AppWindowIcon,
+  CommandIcon,
+  DotsThreeVerticalIcon,
+  GridFourIcon,
+  LifebuoyIcon,
+  PaperPlaneTiltIcon,
+  UserCircleIcon,
+  UsersIcon,
+} from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
+import * as React from "react";
 import { ThemeSwitcher } from "../theme-switcher/theme-switcher.view";
 
-function Root(props: React.PropsWithChildren) {
+const data = {
+  navMain: [
+    {
+      name: "Dashboard",
+      url: "/admin/dashboard",
+      icon: <GridFourIcon />,
+    },
+    {
+      name: "Users",
+      url: "/admin/users",
+      icon: <UsersIcon />,
+    },
+  ],
+  navSecondary: [
+    {
+      title: "Support",
+      url: "#",
+      icon: <LifebuoyIcon />,
+    },
+    {
+      title: "Feedback",
+      url: "#",
+      icon: <PaperPlaneTiltIcon />,
+    },
+  ],
+};
+
+export function AdminSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { user } = useUser();
+  const { isMobile } = useSidebar();
+
   return (
-    <Sidebar variant="floating" collapsible="icon">
-      {props.children}
+    <Sidebar variant="inset" {...props}>
+      <SidebarHeader>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton size="lg" render={<a href="#" />}>
+              <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
+                <CommandIcon className="size-4" />
+              </div>
+              <div className="grid flex-1 text-start text-sm leading-tight">
+                <span className="truncate font-medium">React Weaver</span>
+                <span className="truncate text-xs text-muted-foreground">Administration</span>
+              </div>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarHeader>
+      <SidebarContent>
+        <SidebarGroup>
+          <SidebarMenu>
+            {data.navMain.map((item) => (
+              <SidebarMenuItem key={item.name}>
+                <SidebarMenuButton
+                  render={<Link to={item.url} activeProps={{ className: "bg-muted" }} />}
+                >
+                  {item.icon}
+                  <span>{item.name}</span>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            ))}
+          </SidebarMenu>
+        </SidebarGroup>
+      </SidebarContent>
+      <SidebarFooter>
+        <SidebarMenu>
+          {data.navSecondary.map((item) => (
+            <SidebarMenuItem key={item.title}>
+              <SidebarMenuButton size="sm" render={<a href={item.url} />}>
+                {item.icon}
+                <span>{item.title}</span>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          ))}
+          <ThemeSwitcher />
+          <SidebarMenuItem>
+            <DropdownMenu>
+              <DropdownMenuTrigger render={<SidebarMenuButton size="lg" />}>
+                <Avatar>
+                  <AvatarFallback>{user.email.charAt(0).toUpperCase()}</AvatarFallback>
+                </Avatar>
+                <p className="truncate">{user.email}</p>
+                <DotsThreeVerticalIcon />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent side={isMobile ? "bottom" : "right"}>
+                <DropdownMenuGroup>
+                  <DropdownMenuLabel>
+                    <Item size="xs">
+                      <ItemMedia>
+                        <Avatar>
+                          <AvatarFallback>{user.email.charAt(0).toUpperCase()}</AvatarFallback>
+                        </Avatar>
+                      </ItemMedia>
+                      <ItemContent className="truncate">{user?.email}</ItemContent>
+                    </Item>
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem disabled>
+                    <UserCircleIcon />
+                    Profile
+                  </DropdownMenuItem>
+                  <Authorize role="Admin">
+                    <DropdownMenuItem nativeButton={false} render={<Link to="/app/dashboard" />}>
+                      <AppWindowIcon />
+                      Application
+                    </DropdownMenuItem>
+                  </Authorize>
+                  <DropdownMenuSeparator />
+                  <LogoutView />
+                </DropdownMenuGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarFooter>
     </Sidebar>
   );
 }
-
-function Header() {
-  return (
-    <SidebarHeader>
-      <SidebarMenu>
-        <SidebarMenuButton>
-          <CodeSimpleIcon />
-          ReactWeaver
-        </SidebarMenuButton>
-      </SidebarMenu>
-    </SidebarHeader>
-  );
-}
-
-function Content() {
-  return (
-    <SidebarContent>
-      <SidebarGroup>
-        <SidebarGroupContent>
-          <SidebarMenu>
-            <SidebarMenuItem>
-              <Link
-                className={sidebarMenuButtonVariants()}
-                to="/users"
-                activeProps={{ className: "bg-sidebar-accent font-bold" }}
-              >
-                <UsersIcon />
-                <span>Users</span>
-              </Link>
-            </SidebarMenuItem>
-          </SidebarMenu>
-        </SidebarGroupContent>
-      </SidebarGroup>
-    </SidebarContent>
-  );
-}
-
-function Footer() {
-  return (
-    <SidebarFooter>
-      <SidebarMenu>
-        <ThemeSwitcher />
-        <SidebarMenuItem>
-          <UserMenu />
-        </SidebarMenuItem>
-      </SidebarMenu>
-    </SidebarFooter>
-  );
-}
-
-export { Content, Footer, Header, Root };

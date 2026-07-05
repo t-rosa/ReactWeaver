@@ -1,10 +1,10 @@
-export type CandidateScope = 'route' | 'file' | 'account';
+export type CandidateScope = "route" | "file" | "account";
 
 export interface GateMetadata {
   id: string;
   threshold: string;
   billingDimension: string;
-  scope: CandidateScope | 'mixed';
+  scope: CandidateScope | "mixed";
   sourceCitation?: string;
   description?: string;
 }
@@ -29,8 +29,8 @@ export interface Candidate {
 export interface Signals {
   metrics?: Record<string, unknown>;
   codebase?: {
-    findings?: Array<Record<string, unknown>>;
-    routes?: Array<Record<string, unknown>>;
+    findings?: Record<string, unknown>[];
+    routes?: Record<string, unknown>[];
   };
   project?: Record<string, unknown>;
   usage?: Record<string, unknown>;

@@ -3,7 +3,9 @@ import { Link } from "@tanstack/react-router";
 
 function Root(props: React.PropsWithChildren) {
   return (
-    <div className="w-full max-w-md bg-card/50 shadow-md ring-1 ring-border">{props.children}</div>
+    <div className="w-full max-w-md rounded-xl bg-card/50 shadow-md ring-1 ring-border">
+      {props.children}
+    </div>
   );
 }
 
@@ -34,7 +36,7 @@ function Description(props: React.PropsWithChildren) {
 
 function Footer(props: React.PropsWithChildren) {
   return (
-    <div className="m-1.5 bg-card py-4 text-center text-sm/5 ring-1 ring-border">
+    <div className="m-1.5 rounded-lg bg-card py-4 text-center text-sm/5 ring-1 ring-border">
       {props.children}
     </div>
   );

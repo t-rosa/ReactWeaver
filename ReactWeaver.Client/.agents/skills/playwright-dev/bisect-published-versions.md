@@ -19,10 +19,10 @@ mkdir -p ~/tmp/<good>/tests ~/tmp/<bad>/tests
 Write a **minimal** `playwright.config.ts` with a single chromium project — the default scaffold's 3-project config will run the same spec 6 times and obscure output:
 
 ```ts
-import { defineConfig, devices } from '@playwright/test';
+import { defineConfig, devices } from "@playwright/test";
 export default defineConfig({
-  testDir: './tests',
-  projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
+  testDir: "./tests",
+  projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
 });
 ```
 
@@ -56,7 +56,7 @@ When the root cause is confirmed:
 
 1. Quote the offending lines from `node_modules/.../lib/...` of the **bad** version, with file path.
 2. Show the equivalent code from the **good** version for contrast.
-3. Explain *why* the change breaks the user's case (don't just point at the diff).
+3. Explain _why_ the change breaks the user's case (don't just point at the diff).
 4. Propose and verify a minimal fix by patching the bad install in place.
 
 Post the writeup as a comment on the original issue with `gh issue comment <number> --repo microsoft/playwright --body "$(cat <<'EOF' ... EOF)"`.

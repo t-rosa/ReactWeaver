@@ -66,7 +66,7 @@ function NumberInputDecrement({
     <NumberInputPrimitive.Decrement
       data-slot="number-input-decrement"
       className={cn(
-        "inline-flex size-8 shrink-0 cursor-pointer items-center justify-center border border-r-0 bg-background shadow-xs transition-all hover:bg-accent hover:text-accent-foreground disabled:pointer-events-none disabled:opacity-50 dark:border-input dark:bg-input/30 dark:hover:bg-input/50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "inline-flex size-8 shrink-0 cursor-pointer items-center justify-center border border-r-0 bg-background shadow-xs transition-all hover:bg-accent hover:text-accent-foreground disabled:pointer-events-none disabled:opacity-50 dark:border-input dark:bg-input/30 dark:hover:bg-input/50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 rounded-l-md",
         className,
       )}
       {...props}
@@ -102,7 +102,7 @@ function NumberInputIncrement({
     <NumberInputPrimitive.Increment
       data-slot="number-input-increment"
       className={cn(
-        "inline-flex size-8 shrink-0 cursor-pointer items-center justify-center border border-l-0 bg-background shadow-xs transition-all hover:bg-accent hover:text-accent-foreground disabled:pointer-events-none disabled:opacity-50 dark:border-input dark:bg-input/30 dark:hover:bg-input/50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "inline-flex size-8 shrink-0 cursor-pointer items-center justify-center border border-l-0 bg-background shadow-xs transition-all hover:bg-accent hover:text-accent-foreground disabled:pointer-events-none disabled:opacity-50 dark:border-input dark:bg-input/30 dark:hover:bg-input/50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 rounded-r-md",
         className,
       )}
       {...props}

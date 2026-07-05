@@ -10,6 +10,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import type { RemoveWeatherForecastsRequest } from "@/lib/api";
 import {
   getWeatherForecastsQueryKey,
   removeWeatherForecastsMutation,
@@ -17,11 +18,7 @@ import {
 import { TrashSimpleIcon } from "@phosphor-icons/react";
 import { useMutation } from "@tanstack/react-query";
 
-interface RemoveForecastsProps {
-  ids: string[];
-}
-
-export function RemoveForecasts(props: RemoveForecastsProps) {
+export function RemoveForecasts(props: RemoveWeatherForecastsRequest) {
   const removeForecasts = useMutation({
     ...removeWeatherForecastsMutation(),
     meta: {

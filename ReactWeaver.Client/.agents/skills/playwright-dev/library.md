@@ -26,16 +26,19 @@ Each directory has a `DEPS.list` constraining its imports. These are enforced by
 Entries can be relative paths, alias paths (`@isomorphic/**`, `@utils/**`), or `node_modules/<pkg>` to allow a specific npm package import. The `"strict"` marker disables inheritance from parent folders. Section headers like `[filename.ts]` scope rules to a single file.
 
 **client/** can import from:
+
 - `../protocol/` — validators and channel types
 - `../utils/isomorphic` — shared utilities
 
 **server/** can import from:
+
 - `../protocol/`, `../utils/`, `../utils/isomorphic/`, `../utilsBundle.ts`
 - `./` (own directory), `./codegen/`, `./isomorphic/`, `./har/`, `./recorder/`, `./registry/`, `./utils/`
 - Only `playwright.ts` can import browser engines (`./chromium/`, `./firefox/`, `./webkit/`, `./bidi/`, `./android/`, `./electron/`)
 - Only `devtoolsController.ts` can additionally import `./chromium/`
 
 **server/dispatchers/** can import from:
+
 - `../../protocol/`, `../../utils/`, `../../utils/isomorphic/`
 - `../**` — all server modules
 
@@ -74,6 +77,7 @@ Page:
 ### Code Generation
 
 Running `node utils/generate_channels.js` (or via watch) produces:
+
 - `packages/protocol/src/channels.d.ts` — TypeScript types: `PageChannel`, `PageGotoParams`, `PageGotoResult`, `PageInitializer`, event types
 - `packages/playwright-core/src/protocol/validator.ts` — runtime validators: `scheme.PageGotoParams = tObject({...})`
 - `packages/playwright-core/src/utils/isomorphic/protocolMetainfo.ts` — method flags (slowMo, snapshot, etc.)
@@ -100,6 +104,7 @@ packages/playwright-core/src/client/channelOwner.ts
 ```
 
 Key properties:
+
 - `_connection: Connection` — the RPC connection
 - `_channel: T` — Proxy that intercepts method calls and sends RPC messages
 - `_guid: string` — unique identifier matching the server-side object
@@ -109,6 +114,7 @@ Key properties:
 - `_initializer` — initial state received from server on creation
 
 How `_channel` works: It's a Proxy. When you call `this._channel.goto(params)`:
+
 1. Proxy intercepts the `goto` property access
 2. Finds the validator for `PageGotoParams`
 3. Returns an async function that validates params, wraps in `_wrapApiCall`, and calls `_connection.sendMessageToServer()`
@@ -122,6 +128,7 @@ packages/playwright-core/src/client/connection.ts
 ```
 
 Manages the client-server transport:
+
 - `_objects: Map<string, ChannelOwner>` — all live remote objects by GUID
 - `_callbacks: Map<number, {resolve, reject}>` — pending RPC calls by message ID
 - `sendMessageToServer(object, method, params, apiZone)` — sends RPC call, returns promise
@@ -134,16 +141,16 @@ Manages the client-server transport:
 
 ### Representative Client Classes
 
-| Class | File | Key delegation |
-|-------|------|----------------|
-| `Playwright` | `playwright.ts` | Root object; owns `chromium`, `firefox`, `webkit` BrowserTypes |
-| `BrowserType` | `browserType.ts` | `launch()` → `_channel.launch()` |
-| `Browser` | `browser.ts` | `newContext()` → `_channel.newContext()` |
-| `BrowserContext` | `browserContext.ts` | Owns pages, routes, tracing, cookies |
-| `Page` | `page.ts` | Delegates most calls to `_mainFrame`; owns keyboard/mouse/touchscreen |
-| `Frame` | `frame.ts` | `goto()`, `click()`, `evaluate()` → `_channel.*` |
-| `Locator` | `locator.ts` | Delegates to `Frame` methods with selector + `strict: true` |
-| `ElementHandle` | `elementHandle.ts` | DOM element reference |
+| Class            | File                | Key delegation                                                        |
+| ---------------- | ------------------- | --------------------------------------------------------------------- |
+| `Playwright`     | `playwright.ts`     | Root object; owns `chromium`, `firefox`, `webkit` BrowserTypes        |
+| `BrowserType`    | `browserType.ts`    | `launch()` → `_channel.launch()`                                      |
+| `Browser`        | `browser.ts`        | `newContext()` → `_channel.newContext()`                              |
+| `BrowserContext` | `browserContext.ts` | Owns pages, routes, tracing, cookies                                  |
+| `Page`           | `page.ts`           | Delegates most calls to `_mainFrame`; owns keyboard/mouse/touchscreen |
+| `Frame`          | `frame.ts`          | `goto()`, `click()`, `evaluate()` → `_channel.*`                      |
+| `Locator`        | `locator.ts`        | Delegates to `Frame` methods with selector + `strict: true`           |
+| `ElementHandle`  | `elementHandle.ts`  | DOM element reference                                                 |
 
 ## Server Layer
 
@@ -156,6 +163,7 @@ packages/playwright-core/src/server/instrumentation.ts
 ```
 
 Key properties:
+
 - `guid: string` — unique identifier (shared with client-side ChannelOwner)
 - `attribution: Attribution` — ownership chain: `{ playwright, browserType?, browser?, context?, page?, frame? }`
 - `instrumentation: Instrumentation` — hooks for tracing, debugging, test runner integration
@@ -165,17 +173,17 @@ Attribution is inherited from parent on construction. Instrumentation hooks incl
 
 ### Key Server Classes
 
-| Class | File | Purpose |
-|-------|------|---------|
-| `Playwright` | `playwright.ts` | Root entry point; creates BrowserTypes |
-| `BrowserType` | `browserType.ts` | Launches browser processes |
-| `Browser` | `browser.ts` | Abstract base; owns BrowserContexts |
-| `BrowserContext` | `browserContext.ts` | Isolation boundary; owns pages, cookies, routes |
-| `Page` | `page.ts` | Owns FrameManager, workers; delegates to `PageDelegate` |
-| `FrameManager` | `frames.ts` | Manages frame hierarchy |
-| `Frame` | `frames.ts` | Navigation, DOM queries, JavaScript evaluation |
-| `ElementHandle` | `dom.ts` | DOM element operations |
-| `ProgressController` | `progress.ts` | Wraps async operations with timeout/cancellation/logging |
+| Class                | File                | Purpose                                                  |
+| -------------------- | ------------------- | -------------------------------------------------------- |
+| `Playwright`         | `playwright.ts`     | Root entry point; creates BrowserTypes                   |
+| `BrowserType`        | `browserType.ts`    | Launches browser processes                               |
+| `Browser`            | `browser.ts`        | Abstract base; owns BrowserContexts                      |
+| `BrowserContext`     | `browserContext.ts` | Isolation boundary; owns pages, cookies, routes          |
+| `Page`               | `page.ts`           | Owns FrameManager, workers; delegates to `PageDelegate`  |
+| `FrameManager`       | `frames.ts`         | Manages frame hierarchy                                  |
+| `Frame`              | `frames.ts`         | Navigation, DOM queries, JavaScript evaluation           |
+| `ElementHandle`      | `dom.ts`            | DOM element operations                                   |
+| `ProgressController` | `progress.ts`       | Wraps async operations with timeout/cancellation/logging |
 
 ### PageDelegate Pattern
 
@@ -191,20 +199,21 @@ interface PageDelegate {
 ```
 
 Implementations:
+
 - `packages/playwright-core/src/server/chromium/crPage.ts` — uses CDP
 - `packages/playwright-core/src/server/firefox/ffPage.ts`
 - `packages/playwright-core/src/server/webkit/wkPage.ts`
 
 ### Browser Engine Directories
 
-| Directory | Protocol | Key files |
-|-----------|----------|-----------|
+| Directory   | Protocol                       | Key files                                      |
+| ----------- | ------------------------------ | ---------------------------------------------- |
 | `chromium/` | Chrome DevTools Protocol (CDP) | `crBrowser.ts`, `crPage.ts`, `crConnection.ts` |
-| `firefox/` | Firefox internal protocol | `ffBrowser.ts`, `ffPage.ts`, `ffConnection.ts` |
-| `webkit/` | WebKit internal protocol | `wkBrowser.ts`, `wkPage.ts`, `wkConnection.ts` |
-| `bidi/` | WebDriver BiDi | `bidiChromium.ts`, `bidiFirefox.ts` |
-| `android/` | ADB | `android.ts` |
-| `electron/` | Electron/CDP | `electron.ts` |
+| `firefox/`  | Firefox internal protocol      | `ffBrowser.ts`, `ffPage.ts`, `ffConnection.ts` |
+| `webkit/`   | WebKit internal protocol       | `wkBrowser.ts`, `wkPage.ts`, `wkConnection.ts` |
+| `bidi/`     | WebDriver BiDi                 | `bidiChromium.ts`, `bidiFirefox.ts`            |
+| `android/`  | ADB                            | `android.ts`                                   |
+| `electron/` | Electron/CDP                   | `electron.ts`                                  |
 
 ## Dispatcher Layer
 
@@ -223,6 +232,7 @@ class Dispatcher<Type extends SdkObject, ChannelType, ParentScopeType extends Di
 ```
 
 Key properties:
+
 - `connection: DispatcherConnection` — the server-side connection
 - `_object: Type` — the wrapped server object
 - `_guid: string` — same GUID as the server object
@@ -231,6 +241,7 @@ Key properties:
 - `_dispatchers: Map<string, DispatcherScope>` — child dispatchers
 
 Key methods:
+
 - `_dispatchEvent(method, params)` — sends event to client via `connection.sendEvent()`
 - `_runCommand(callMetadata, method, params)` — wraps method call in `ProgressController`, calls `this[method](params, progress)`
 - `_dispose()` — recursively disposes self and children, sends `__dispose__` to client
@@ -252,6 +263,7 @@ The constructor sends `__create__` to the client with the initializer data.
 ### DispatcherConnection
 
 Server-side counterpart to client's `Connection`:
+
 - `_dispatcherByGuid` — all dispatchers by GUID
 - `_dispatcherByObject` — maps server objects to their dispatchers (ensures 1:1)
 - `dispatch(message)` — validates params, creates `CallMetadata`, calls instrumentation hooks, runs dispatcher method, validates result, sends response
@@ -279,20 +291,20 @@ RootDispatcher
 
 ### Key Dispatcher Files
 
-| File | Dispatches for |
-|------|---------------|
-| `playwrightDispatcher.ts` | Playwright, BrowserType registration |
-| `browserTypeDispatcher.ts` | BrowserType (launch, connect) |
-| `browserDispatcher.ts` | Browser |
-| `browserContextDispatcher.ts` | BrowserContext |
-| `pageDispatcher.ts` | Page, Worker, BindingCall |
-| `frameDispatcher.ts` | Frame |
-| `networkDispatchers.ts` | Request, Response, Route, WebSocket, APIRequestContext |
-| `elementHandlerDispatcher.ts` | ElementHandle |
-| `jsHandleDispatcher.ts` | JSHandle |
-| `dialogDispatcher.ts` | Dialog |
-| `tracingDispatcher.ts` | Tracing |
-| `artifactDispatcher.ts` | Artifact |
+| File                          | Dispatches for                                         |
+| ----------------------------- | ------------------------------------------------------ |
+| `playwrightDispatcher.ts`     | Playwright, BrowserType registration                   |
+| `browserTypeDispatcher.ts`    | BrowserType (launch, connect)                          |
+| `browserDispatcher.ts`        | Browser                                                |
+| `browserContextDispatcher.ts` | BrowserContext                                         |
+| `pageDispatcher.ts`           | Page, Worker, BindingCall                              |
+| `frameDispatcher.ts`          | Frame                                                  |
+| `networkDispatchers.ts`       | Request, Response, Route, WebSocket, APIRequestContext |
+| `elementHandlerDispatcher.ts` | ElementHandle                                          |
+| `jsHandleDispatcher.ts`       | JSHandle                                               |
+| `dialogDispatcher.ts`         | Dialog                                                 |
+| `tracingDispatcher.ts`        | Tracing                                                |
+| `artifactDispatcher.ts`       | Artifact                                               |
 
 ## End-to-End Flow Example
 
@@ -344,9 +356,9 @@ Tests live in two directories under `tests/`, each with distinct scope and fixtu
 Tests the **Playwright public API surface**, browser lifecycle, and feature-level behavior. Uses `browserTest` fixtures which provide direct access to `browser`, `browserType`, `context`, and `contextFactory`.
 
 ```typescript
-import { browserTest as test, expect } from '../config/browserTest';
+import { browserTest as test, expect } from "../config/browserTest";
 
-test('should create new page', async ({ browser }) => {
+test("should create new page", async ({ browser }) => {
   const page = await browser.newPage();
   expect(browser.contexts().length).toBe(1);
   await page.close();
@@ -354,6 +366,7 @@ test('should create new page', async ({ browser }) => {
 ```
 
 **What belongs here:**
+
 - Browser and BrowserType API (`launch`, `connect`, `version`, `newContext`)
 - BrowserContext API (cookies, storage state, permissions, proxy, CSP, geolocation, network interception at context level)
 - Browser-specific features (`chromium/` for CDP, tracing, extensions, JS/CSS coverage, OOPIF; `firefox/` for launcher specifics)
@@ -369,16 +382,17 @@ test('should create new page', async ({ browser }) => {
 Tests **user-facing page interactions**: clicking, typing, navigation, locators, assertions, and DOM operations. Uses `pageTest` fixtures which provide a ready-to-use `page` plus test servers.
 
 ```typescript
-import { test as it, expect } from './pageTest';
+import { test as it, expect } from "./pageTest";
 
-it('should click button', async ({ page, server }) => {
-  await page.goto(server.PREFIX + '/input/button.html');
-  await page.locator('button').click();
-  expect(await page.evaluate(() => window['result'])).toBe('Clicked');
+it("should click button", async ({ page, server }) => {
+  await page.goto(server.PREFIX + "/input/button.html");
+  await page.locator("button").click();
+  expect(await page.evaluate(() => window["result"])).toBe("Clicked");
 });
 ```
 
 **What belongs here:**
+
 - Locator API (click, fill, type, select, query, filtering, convenience methods)
 - ElementHandle interactions (click, screenshot, selection, bounding box)
 - Expect/assertion matchers (boolean, text, value, accessibility)
@@ -392,14 +406,14 @@ it('should click button', async ({ page, server }) => {
 
 ### Decision Rule
 
-| Question | → Directory |
-|----------|-------------|
-| Does it test browser/context lifecycle or launch options? | `tests/library` |
-| Does it test a browser-specific protocol feature (CDP, etc.)? | `tests/library` |
-| Does it test user interaction with page content (click, type, assert)? | `tests/page` |
-| Does it test locators, selectors, or DOM queries? | `tests/page` |
-| Does the test need direct `browser` or `browserType` access? | `tests/library` |
-| Does the test just need a `page` and a test server? | `tests/page` |
+| Question                                                               | → Directory     |
+| ---------------------------------------------------------------------- | --------------- |
+| Does it test browser/context lifecycle or launch options?              | `tests/library` |
+| Does it test a browser-specific protocol feature (CDP, etc.)?          | `tests/library` |
+| Does it test user interaction with page content (click, type, assert)? | `tests/page`    |
+| Does it test locators, selectors, or DOM queries?                      | `tests/page`    |
+| Does the test need direct `browser` or `browserType` access?           | `tests/library` |
+| Does the test just need a `page` and a test server?                    | `tests/page`    |
 
 ### Running Tests
 
@@ -407,6 +421,7 @@ it('should click button', async ({ page, server }) => {
 - `npm run test <file>` — runs on all browsers (Chromium, Firefox, WebKit)
 
 Examples:
+
 ```bash
 npm run ctest tests/library/browser-context-cookies.spec.ts
 npm run ctest tests/page/locator-click.spec.ts

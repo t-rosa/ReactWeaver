@@ -9,27 +9,35 @@ Define (or update) API in `docs/src/api/class-xxx.md`. For the new methods, para
 ### Documentation Format
 
 **Method definition:**
+
 ```markdown
 ## async method: Page.methodName
-* since: v1.XX
-- returns: <[null]|[Response]>
+
+- since: v1.XX
+
+* returns: <[null]|[Response]>
 
 Description of the method.
 
 ### param: Page.methodName.paramName
-* since: v1.XX
-- `paramName` <[string]>
+
+- since: v1.XX
+
+* `paramName` <[string]>
 
 Description of the parameter.
 
 ### option: Page.methodName.optionName
-* since: v1.XX
-- `optionName` <[string]>
+
+- since: v1.XX
+
+* `optionName` <[string]>
 
 Description of the option.
 ```
 
 **Key syntax rules:**
+
 - `* since: v1.XX` — always take the version from package.json (without -next)
 - `* langs: js, python` — language filter (optional)
 - `* langs: alias-java: navigate` — language-specific method name
@@ -43,19 +51,25 @@ Description of the option.
 - `= %%-placeholder-name-%%` — reuse shared param definition from `docs/src/api/params.md`
 
 **Property definition:**
+
 ```markdown
 ## property: Page.propName
-* since: v1.XX
-- type: <[string]>
+
+- since: v1.XX
+
+* type: <[string]>
 
 Description.
 ```
 
 **Event definition:**
+
 ```markdown
 ## event: Page.eventName
-* since: v1.XX
-- argument: <[Dialog]>
+
+- since: v1.XX
+
+* argument: <[Dialog]>
 
 Description.
 ```
@@ -63,6 +77,7 @@ Description.
 Keep methods, events and property definitions sorted alphabetically within the file.
 
 Watch will kick in and auto-generate:
+
 - `packages/playwright-core/types/types.d.ts` — public API types
 - `packages/playwright/types/test.d.ts` — test API types
 
@@ -89,6 +104,7 @@ async goto(url: string, options: channels.FrameGotoOptions = {}): Promise<networ
 ```
 
 **Key patterns:**
+
 - Parameters are assembled into a single object for the channel call
 - Timeout is processed through `this._timeout(options)` or `this._navigationTimeout(options)`
 - Return values from channel are unwrapped/converted: `Response.fromNullable()`, `ElementHandle.from()`, etc.
@@ -112,33 +128,33 @@ Page:
     methodName:
       title: Short description for tracing
       parameters:
-        url: string                    # required string
-        timeout: float                 # required float
-        referer: string?               # optional string (? suffix)
-        waitUntil: LifecycleEvent?     # optional reference to another type
-        button:                        # optional enum
+        url: string # required string
+        timeout: float # required float
+        referer: string? # optional string (? suffix)
+        waitUntil: LifecycleEvent? # optional reference to another type
+        button: # optional enum
           type: enum?
           literals:
-          - left
-          - right
-          - middle
-        modifiers:                     # optional array of enums
+            - left
+            - right
+            - middle
+        modifiers: # optional array of enums
           type: array?
           items:
             type: enum
             literals:
-            - Alt
-            - Control
-            - Meta
-            - Shift
-        position: Point?               # optional reference type
-        viewportSize:                  # required inline object
+              - Alt
+              - Control
+              - Meta
+              - Shift
+        position: Point? # optional reference type
+        viewportSize: # required inline object
           type: object
           properties:
             width: int
             height: int
       returns:
-        response: Response?            # optional return value
+        response: Response? # optional return value
       flags:
         slowMo: true
         snapshot: true
@@ -153,6 +169,7 @@ Page:
 **Flags:** `slowMo`, `snapshot`, `pausesBeforeAction`, `pausesBeforeInput`
 
 Watch will kick in and auto-generate:
+
 - `packages/protocol/src/channels.d.ts` — channel TypeScript interfaces
 - `packages/playwright-core/src/protocol/validator.ts` — runtime validators
 - `packages/playwright-core/src/utils/isomorphic/protocolMetainfo.ts` — method metadata
@@ -194,6 +211,7 @@ async querySelectorAll(params: channels.FrameQuerySelectorAllParams, progress: P
 ```
 
 **Key patterns:**
+
 - Method signature: `async method(params: channels.XxxMethodParams, progress: Progress): Promise<channels.XxxMethodResult>`
 - Extract params: `params.url`, `params.selector`, etc.
 - Convert dispatcher refs to server objects: `(params.frame as FrameDispatcher)._object`
@@ -218,6 +236,7 @@ async goto(progress: Progress, url: string, options: types.GotoOptions = {}): Pr
 ```
 
 Browser-specific implementations live in:
+
 - `packages/playwright-core/src/server/chromium/crPage.ts` — Chromium (uses CDP: `this._client.send('Page.navigate', { ... })`)
 - `packages/playwright-core/src/server/firefox/ffPage.ts` — Firefox
 - `packages/playwright-core/src/server/webkit/wkPage.ts` — WebKit
@@ -225,33 +244,39 @@ Browser-specific implementations live in:
 ## Step 6: Write Tests
 
 ### Test Location
+
 - Page-only tests: `tests/page/xxx.spec.ts` — use `page` fixture
 - Context tests: `tests/library/xxx.spec.ts` — use `context` fixture
 
 ### Test Patterns
 
 **Page test:**
-```typescript
-import { test as it, expect } from './pageTest';
 
-it('should do something @smoke', async ({ page, server }) => {
+```typescript
+import { test as it, expect } from "./pageTest";
+
+it("should do something @smoke", async ({ page, server }) => {
   await page.goto(server.EMPTY_PAGE);
   // ... assertions ...
   expect(page.url()).toBe(server.EMPTY_PAGE);
 });
 
-it('should handle options', async ({ page, server, browserName, isAndroid }) => {
-  it.skip(isAndroid, 'Not supported on Android');
-  it.info().annotations.push({ type: 'issue', description: 'https://github.com/user/repo/issues/123' });
+it("should handle options", async ({ page, server, browserName, isAndroid }) => {
+  it.skip(isAndroid, "Not supported on Android");
+  it.info().annotations.push({
+    type: "issue",
+    description: "https://github.com/user/repo/issues/123",
+  });
   // ...
 });
 ```
 
 **Library/context test:**
-```typescript
-import { contextTest as it, expect } from '../config/browserTest';
 
-it('should work with context', async ({ context, server }) => {
+```typescript
+import { contextTest as it, expect } from "../config/browserTest";
+
+it("should work with context", async ({ context, server }) => {
   const page = await context.newPage();
   await page.goto(server.EMPTY_PAGE);
   // ...
@@ -259,6 +284,7 @@ it('should work with context', async ({ context, server }) => {
 ```
 
 ### Available Fixtures
+
 - `page` — isolated page instance
 - `context` — browser context (library tests)
 - `server` — HTTP test server (`server.EMPTY_PAGE`, `server.PREFIX`, `server.CROSS_PROCESS_PREFIX`)
@@ -271,6 +297,7 @@ it('should work with context', async ({ context, server }) => {
 - `mode` — test mode (`'default'`, `'service'`, etc.)
 
 ### Running Tests
+
 ```bash
 npm run ctest tests/page/xxx.spec.ts          # Chromium only
 npm run test tests/page/xxx.spec.ts           # All browsers

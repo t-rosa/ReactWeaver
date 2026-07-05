@@ -47,7 +47,7 @@ export function LoginView() {
     },
     async onSuccess() {
       toast.success("Connected");
-      await navigate({ to: "/forecasts" });
+      await navigate({ to: "/app/dashboard" });
     },
   });
 

@@ -10,24 +10,24 @@ and how the dependency checker enforces the contract.
 
 ### playwright-core
 
-| Output | Entry | Purpose |
-|---|---|---|
-| `lib/utilsBundle.js` | `src/utilsBundle.ts` | Vendored npm packages (`debug`, `mime`, `ws`, `yauzl`, `yazl`, `@modelcontextprotocol/sdk`, `graceful-fs`, …). The single home for third-party runtime code in playwright-core. |
-| `lib/coreBundle.js` | `src/coreBundle.ts` | Re-exports of playwright-core's own modules (`client`, `iso`, `utils`, `cli`, `server`, `registry`, …) as namespaces. Inlines almost all playwright-core source except `utilsBundle`. |
-| `lib/server/electron/loader.js` | `src/server/electron/loader.ts` | Tiny Electron preload shim. |
+| Output                          | Entry                           | Purpose                                                                                                                                                                               |
+| ------------------------------- | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `lib/utilsBundle.js`            | `src/utilsBundle.ts`            | Vendored npm packages (`debug`, `mime`, `ws`, `yauzl`, `yazl`, `@modelcontextprotocol/sdk`, `graceful-fs`, …). The single home for third-party runtime code in playwright-core.       |
+| `lib/coreBundle.js`             | `src/coreBundle.ts`             | Re-exports of playwright-core's own modules (`client`, `iso`, `utils`, `cli`, `server`, `registry`, …) as namespaces. Inlines almost all playwright-core source except `utilsBundle`. |
+| `lib/server/electron/loader.js` | `src/server/electron/loader.ts` | Tiny Electron preload shim.                                                                                                                                                           |
 
 The `dynamicImportToRequirePlugin` in `utils/build/build.js` rewrites
 vendored npm imports at **bundle time**. For example, a playwright-core
 source file containing
 
 ```ts
-import debug from 'debug';
+import debug from "debug";
 ```
 
 gets rewritten to
 
 ```js
-const debug = require('./utilsBundle').debug;
+const debug = require("./utilsBundle").debug;
 ```
 
 before the bundler sees it — so the vendored package never gets inlined
@@ -36,16 +36,16 @@ export key lives in `utils/build/utilsBundleMapping.js`.
 
 ### playwright
 
-| Output | Entry | Purpose |
-|---|---|---|
-| `lib/transform/babelBundle.js` | `src/transform/babelBundle.ts` | Wraps `@babel/core`, `@babel/traverse`, `@babel/code-frame`, plugins. Shared by every consumer that needs babel. |
-| `lib/transform/esmLoader.js` | `src/transform/esmLoader.ts` | Node ESM loader registered via `node:module.register()`. Output sits next to `babelBundle.js` so its `./babelBundle` sibling require resolves correctly. |
-| `lib/common/index.js` | `src/common/index.ts` | Barrel of `common/*` + `transform/*` (compilationCache, test, configLoader, fixtures, globals, …). State-holding singletons (currentTestInfo, memoryCache, …) live here. |
-| `lib/runner/index.js` | `src/runner/index.ts` | Barrel of `runner/*` + `reporters/*` + `plugins/*`. |
-| `lib/matchers/expect.js` | `src/matchers/expect.ts` | Jest-style matchers with `expect` inlined. |
-| `lib/worker/workerProcessEntry.js` | `src/worker/workerProcessEntry.ts` | Entry point spawned per test worker. |
-| `lib/loader/loaderProcessEntry.js` | `src/loader/loaderProcessEntry.ts` | Entry point for the test file loader sub-process. |
-| `lib/runner/uiModeReporter.js` | `src/runner/uiModeReporter.ts` | Loaded by `require.resolve` from testServer; passed to child workers as a file path. |
+| Output                             | Entry                              | Purpose                                                                                                                                                                  |
+| ---------------------------------- | ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `lib/transform/babelBundle.js`     | `src/transform/babelBundle.ts`     | Wraps `@babel/core`, `@babel/traverse`, `@babel/code-frame`, plugins. Shared by every consumer that needs babel.                                                         |
+| `lib/transform/esmLoader.js`       | `src/transform/esmLoader.ts`       | Node ESM loader registered via `node:module.register()`. Output sits next to `babelBundle.js` so its `./babelBundle` sibling require resolves correctly.                 |
+| `lib/common/index.js`              | `src/common/index.ts`              | Barrel of `common/*` + `transform/*` (compilationCache, test, configLoader, fixtures, globals, …). State-holding singletons (currentTestInfo, memoryCache, …) live here. |
+| `lib/runner/index.js`              | `src/runner/index.ts`              | Barrel of `runner/*` + `reporters/*` + `plugins/*`.                                                                                                                      |
+| `lib/matchers/expect.js`           | `src/matchers/expect.ts`           | Jest-style matchers with `expect` inlined.                                                                                                                               |
+| `lib/worker/workerProcessEntry.js` | `src/worker/workerProcessEntry.ts` | Entry point spawned per test worker.                                                                                                                                     |
+| `lib/loader/loaderProcessEntry.js` | `src/loader/loaderProcessEntry.ts` | Entry point for the test file loader sub-process.                                                                                                                        |
+| `lib/runner/uiModeReporter.js`     | `src/runner/uiModeReporter.ts`     | Loaded by `require.resolve` from testServer; passed to child workers as a file path.                                                                                     |
 
 The `common` and `runner` bundles externalize `../transform/babelBundle`
 (among other things) so babel code is not duplicated across them. The
@@ -90,19 +90,22 @@ inlined into `utilsBundle` (i.e., loaded through `require('./utilsBundle').<key>
    into `utilsBundle.js`.
 
 2. **Export it from `src/utilsBundle.ts`.** Pick one of:
+
    ```ts
-   import fooLibrary from 'foo';
-   export const foo = fooLibrary;             // default
+   import fooLibrary from "foo";
+   export const foo = fooLibrary; // default
 
-   import * as fooLibrary from 'foo';
-   export const foo = fooLibrary;             // namespace
+   import * as fooLibrary from "foo";
+   export const foo = fooLibrary; // namespace
 
-   export { namedSymbol } from 'foo';         // named
+   export { namedSymbol } from "foo"; // named
    ```
+
    Type-only exports (`export type { X } from 'foo'`) are valid and
    don't affect runtime.
 
 3. **Add a mapping entry to `utils/build/utilsBundleMapping.js`**:
+
    ```js
    'foo': { default: 'foo' },
    // or:
@@ -141,7 +144,7 @@ node_modules. They're exposed to callers via two different routes:
   `src/server/utils/index.ts` via `export * from './third_party/extractZip'`
   etc. Callers import via the `@utils/*` path alias:
   ```ts
-  import { extractZip } from '@utils/third_party/extractZip';
+  import { extractZip } from "@utils/third_party/extractZip";
   ```
   The alias is rewritten at bundle time to
   `require('playwright-core/lib/coreBundle').utils.extractZip`.
@@ -156,11 +159,11 @@ node_modules. They're exposed to callers via two different routes:
 Every directory under `packages/*/src/` has a `DEPS.list` constraining
 its imports. Three kinds of entries:
 
-| Syntax | Meaning |
-|---|---|
-| `./somefile.ts`, `@isomorphic/**` | Relative or alias source import allowed |
-| `node_modules/<pkg>` | npm package import allowed (exact specifier match) |
-| `"strict"` | No other DEPS inherited; only what's listed is allowed |
+| Syntax                            | Meaning                                                |
+| --------------------------------- | ------------------------------------------------------ |
+| `./somefile.ts`, `@isomorphic/**` | Relative or alias source import allowed                |
+| `node_modules/<pkg>`              | npm package import allowed (exact specifier match)     |
+| `"strict"`                        | No other DEPS inherited; only what's listed is allowed |
 
 Section headers `[filename.ts]` scope rules to a single file. The
 top-level `[*]` (or no header) applies to everything in the folder plus
@@ -189,6 +192,7 @@ authorized there.
 5. Anything left is reported with the specific file(s) that import it.
 
 The missing-dep error now includes file paths:
+
 ```
 Dependencies are not declared in package.json:
   expect
