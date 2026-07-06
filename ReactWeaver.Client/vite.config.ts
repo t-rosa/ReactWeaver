@@ -50,7 +50,6 @@ export default defineConfig({
       config: {
         input: "../ReactWeaver.Server/ReactWeaver.Server.json",
         output: {
-          postProcess: ["oxfmt"],
           path: "src/lib/api",
         },
         plugins: [
