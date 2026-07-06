@@ -185,8 +185,26 @@ rm -rf ReactWeaver.Server/bin/Publish && dotnet publish ReactWeaver.Server -t:Pu
 
 From ReactWeaver.Server
 
+- Add a new migration
+
 ```bash
-dotnet ef migrations add MigrationName --project ReactWeaver.Server
+dotnet ef migrations add MigrationName
+```
+
+- Delete the most recent migration that was not applied
+
+```bash
+dotnet ef migrations remove
+```
+
+- Revert the last migration
+
+```bash
+dotnet ef database update PreviousMigrationName
+```
+
+```bash
+dotnet ef migrations remove
 ```
 
 ## Technologies
