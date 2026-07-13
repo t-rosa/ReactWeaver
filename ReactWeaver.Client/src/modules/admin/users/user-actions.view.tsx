@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "#/components/ui/button.tsx";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,8 +7,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import type { UserResponse } from "@/lib/api";
+} from "#/components/ui/dropdown-menu.tsx";
+import type { UserResponse } from "#/lib/api/index.ts";
 import { DotsThreeIcon } from "@phosphor-icons/react";
 import type { CellContext } from "@tanstack/react-table";
 import * as React from "react";

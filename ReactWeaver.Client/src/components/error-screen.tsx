@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { Button } from "#/components/ui/button.tsx";
+import { ScrollArea, ScrollBar } from "#/components/ui/scroll-area.tsx";
 import { CodeSimpleIcon, CopyIcon } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
 import * as React from "react";

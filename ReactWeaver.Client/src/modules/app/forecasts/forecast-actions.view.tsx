@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "#/components/ui/button.tsx";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,9 +7,9 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import type { WeatherForecastResponse } from "@/lib/api";
-import { RemoveForecast } from "@/modules/app/forecasts/remove-forecast.view";
+} from "#/components/ui/dropdown-menu.tsx";
+import type { WeatherForecastResponse } from "#/lib/api/index.ts";
+import { RemoveForecast } from "#/modules/app/forecasts/remove-forecast.view.tsx";
 import { DotsThreeIcon } from "@phosphor-icons/react";
 import type { CellContext } from "@tanstack/react-table";
 import * as React from "react";

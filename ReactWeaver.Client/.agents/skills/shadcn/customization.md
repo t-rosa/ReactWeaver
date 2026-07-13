@@ -52,7 +52,7 @@ Colors use OKLCH: `--primary: oklch(0.205 0 0)` where values are lightness (0–
 Class-based toggle via `.dark` on the root element.:
 
 ```tsx
-import { ThemeProvider } from "@/components/theme/theme.provider";
+import { ThemeProvider } from "#/components/theme/theme.provider";
 
 <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
   {children}

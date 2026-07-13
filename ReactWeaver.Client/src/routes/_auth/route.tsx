@@ -1,5 +1,5 @@
-import { getCurrentUser } from "@/lib/api";
-import { AuthView } from "@/modules/auth/auth.view";
+import { getCurrentUser } from "#/lib/api/index.ts";
+import { AuthView } from "#/modules/auth/auth.view.tsx";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_auth")({

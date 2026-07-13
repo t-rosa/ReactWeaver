@@ -1,9 +1,9 @@
 import { readdir, readFile } from "node:fs/promises";
-import { dirname, join, basename } from "node:path";
+import { basename, dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { loadLibrary, lookupSkillRule, lookupUrl, matchesFrameworkVersion } from "./citations.mjs";
 import { gates } from "./gates/index.mjs";
 import { SCANNER_GATES } from "./gates/scanner-driven.mjs";
-import { loadLibrary, lookupSkillRule, lookupUrl, matchesFrameworkVersion } from "./citations.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const TOPICS_DIR = join(HERE, "..", "references", "support-topics");
@@ -219,7 +219,7 @@ async function validateSupportTopic(topic) {
     errors.push(`${label}: frameworks must be a non-empty array`);
   } else {
     for (const fw of topic.frameworks) {
-      if (fw !== "*" && !/^[\w-]+@/.test(fw)) {
+      if (fw !== "*" && !/^[\w-]+#/.test(fw)) {
         errors.push(`${label}: framework "${fw}" must be "*" or "framework@range"`);
       }
     }

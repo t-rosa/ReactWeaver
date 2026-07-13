@@ -1,13 +1,13 @@
 # React Best Practices
 
-**Version 1.0.0**  
-Vercel Engineering  
+**Version 1.0.0**
+Vercel Engineering
 January 2026
 
-> **Note:**  
-> This document is mainly for agents and LLMs to follow when maintaining,  
-> generating, or refactoring React and Next.js codebases. Humans  
-> may also find it useful, but guidance here is optimized for automation  
+> **Note:**
+> This document is mainly for agents and LLMs to follow when maintaining,
+> generating, or refactoring React and Next.js codebases. Humans
+> may also find it useful, but guidance here is optimized for automation
 > and consistency by AI-assisted workflows.
 
 ---
@@ -705,8 +705,8 @@ export async function deleteUser(userId: string) {
 ```typescript
 "use server";
 
-import { verifySession } from "@/lib/auth";
-import { unauthorized } from "@/lib/errors";
+import { verifySession } from "#/lib/auth";
+import { unauthorized } from "#/lib/errors";
 
 export async function deleteUser(userId: string) {
   // Always check auth inside the action
@@ -731,7 +731,7 @@ export async function deleteUser(userId: string) {
 ```typescript
 "use server";
 
-import { verifySession } from "@/lib/auth";
+import { verifySession } from "#/lib/auth";
 import { z } from "zod";
 
 const updateProfileSchema = z.object({
@@ -1273,7 +1273,7 @@ Use Next.js's `after()` to schedule work that should execute after a response is
 **Incorrect: blocks response**
 
 ```tsx
-import { logUserAction } from "@/app/utils";
+import { logUserAction } from "#/app/utils";
 
 export async function POST(request: Request) {
   // Perform mutation
@@ -1295,7 +1295,7 @@ export async function POST(request: Request) {
 ```tsx
 import { after } from "next/server";
 import { headers, cookies } from "next/headers";
-import { logUserAction } from "@/app/utils";
+import { logUserAction } from "#/app/utils";
 
 export async function POST(request: Request) {
   // Perform mutation
@@ -1496,7 +1496,7 @@ function UserList() {
 **For immutable data:**
 
 ```tsx
-import { useImmutableSWR } from "@/lib/swr";
+import { useImmutableSWR } from "#/lib/swr";
 
 function StaticContent() {
   const { data } = useImmutableSWR("/api/config", fetcher);

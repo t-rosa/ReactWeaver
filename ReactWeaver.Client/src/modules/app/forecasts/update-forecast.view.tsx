@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
+import { Button } from "#/components/ui/button.tsx";
+import { Calendar } from "#/components/ui/calendar.tsx";
 import {
   Dialog,
   DialogClose,
@@ -8,24 +8,24 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
-import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
+} from "#/components/ui/dialog.tsx";
+import { Field, FieldError, FieldGroup, FieldLabel } from "#/components/ui/field.tsx";
 import {
   NumberInput,
   NumberInputDecrement,
   NumberInputField,
   NumberInputGroup,
   NumberInputIncrement,
-} from "@/components/ui/number-input";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Spinner } from "@/components/ui/spinner";
-import { Textarea } from "@/components/ui/textarea";
-import type { UpdateWeatherForecastRequest, WeatherForecastResponse } from "@/lib/api";
+} from "#/components/ui/number-input.tsx";
+import { Popover, PopoverContent, PopoverTrigger } from "#/components/ui/popover.tsx";
+import { Spinner } from "#/components/ui/spinner.tsx";
+import { Textarea } from "#/components/ui/textarea.tsx";
 import {
   getWeatherForecastsQueryKey,
   updateWeatherForecastMutation,
-} from "@/lib/api/@tanstack/react-query.gen";
-import { zUpdateWeatherForecastRequest } from "@/lib/api/zod.gen";
+} from "#/lib/api/@tanstack/react-query.gen.ts";
+import type { UpdateWeatherForecastRequest, WeatherForecastResponse } from "#/lib/api/index.ts";
+import { zUpdateWeatherForecastRequest } from "#/lib/api/zod.gen.ts";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CalendarIcon } from "@phosphor-icons/react";
 import { useMutation } from "@tanstack/react-query";

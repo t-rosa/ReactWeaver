@@ -8,9 +8,9 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
-import { getUsersQueryKey, removeUsersMutation } from "@/lib/api/@tanstack/react-query.gen";
+} from "#/components/ui/alert-dialog.tsx";
+import { Button } from "#/components/ui/button.tsx";
+import { getUsersQueryKey, removeUsersMutation } from "#/lib/api/@tanstack/react-query.gen.ts";
 import { TrashSimpleIcon } from "@phosphor-icons/react";
 import { useMutation } from "@tanstack/react-query";
 

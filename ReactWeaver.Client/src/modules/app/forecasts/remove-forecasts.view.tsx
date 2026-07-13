@@ -8,13 +8,13 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
-import type { RemoveWeatherForecastsRequest } from "@/lib/api";
+} from "#/components/ui/alert-dialog.tsx";
+import { Button } from "#/components/ui/button.tsx";
 import {
   getWeatherForecastsQueryKey,
   removeWeatherForecastsMutation,
-} from "@/lib/api/@tanstack/react-query.gen";
+} from "#/lib/api/@tanstack/react-query.gen.ts";
+import type { RemoveWeatherForecastsRequest } from "#/lib/api/index.ts";
 import { TrashSimpleIcon } from "@phosphor-icons/react";
 import { useMutation } from "@tanstack/react-query";
 

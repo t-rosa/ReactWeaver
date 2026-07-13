@@ -230,7 +230,7 @@ const fs = require('fs');
 const config = JSON.parse(fs.readFileSync('tsconfig.json', 'utf8'));
 config.compilerOptions = config.compilerOptions || {};
 config.compilerOptions.baseUrl = '.';
-config.compilerOptions.paths = { '@/*': ['./src/*'] };
+config.compilerOptions.paths = { '#/*': ['./src/*'] };
 fs.writeFileSync('tsconfig.json', JSON.stringify(config, null, 2));
 "
 
@@ -246,7 +246,7 @@ const jsonContent = lines.join('\n');
 const config = JSON.parse(jsonContent.replace(/\/\*[\s\S]*?\*\//g, '').replace(/,(\s*[}\]])/g, '\$1'));
 config.compilerOptions = config.compilerOptions || {};
 config.compilerOptions.baseUrl = '.';
-config.compilerOptions.paths = { '@/*': ['./src/*'] };
+config.compilerOptions.paths = { '#/*': ['./src/*'] };
 fs.writeFileSync(path, JSON.stringify(config, null, 2));
 "
 
@@ -292,11 +292,11 @@ cat > components.json << 'EOF'
     "prefix": ""
   },
   "aliases": {
-    "components": "@/components",
-    "utils": "@/lib/utils",
-    "ui": "@/components/ui",
-    "lib": "@/lib",
-    "hooks": "@/hooks"
+    "components": "#/components",
+    "utils": "#/lib/utils",
+    "ui": "#/components/ui",
+    "lib": "#/lib",
+    "hooks": "#/hooks"
   }
 }
 EOF
@@ -317,6 +317,6 @@ echo "  cd $PROJECT_NAME"
 echo "  pnpm dev"
 echo ""
 echo "📚 Import components like:"
-echo "  import { Button } from '@/components/ui/button'"
-echo "  import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'"
-echo "  import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'"
+echo "  import { Button } from '#/components/ui/button'"
+echo "  import { Card, CardHeader, CardTitle, CardContent } from '#/components/ui/card'"
+echo "  import { Dialog, DialogContent, DialogTrigger } from '#/components/ui/dialog'"

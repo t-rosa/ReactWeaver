@@ -1,9 +1,9 @@
-import { Button } from "@/components/ui/button";
-import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
-import { Spinner } from "@/components/ui/spinner";
-import { resetPasswordMutation } from "@/lib/api/@tanstack/react-query.gen";
-import * as AuthCard from "@/modules/auth/components/auth-card";
+import { Button } from "#/components/ui/button.tsx";
+import { Field, FieldError, FieldGroup, FieldLabel } from "#/components/ui/field.tsx";
+import { Input } from "#/components/ui/input.tsx";
+import { Spinner } from "#/components/ui/spinner.tsx";
+import { resetPasswordMutation } from "#/lib/api/@tanstack/react-query.gen.ts";
+import * as AuthCard from "#/modules/auth/components/auth-card.tsx";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";

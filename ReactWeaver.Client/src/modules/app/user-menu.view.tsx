@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "#/components/ui/avatar.tsx";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,12 +7,12 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Item, ItemContent, ItemMedia } from "@/components/ui/item";
-import { SidebarMenuButton, useSidebar } from "@/components/ui/sidebar";
-import { useUser } from "@/modules/auth/authorize/authorize.hooks";
-import { Authorize } from "@/modules/auth/authorize/authorize.view";
-import { LogoutView } from "@/modules/auth/logout.view";
+} from "#/components/ui/dropdown-menu.tsx";
+import { Item, ItemContent, ItemMedia } from "#/components/ui/item.tsx";
+import { SidebarMenuButton, useSidebar } from "#/components/ui/sidebar.tsx";
+import { useUser } from "#/modules/auth/authorize/authorize.hooks.tsx";
+import { Authorize } from "#/modules/auth/authorize/authorize.view.tsx";
+import { LogoutView } from "#/modules/auth/logout.view.tsx";
 import { DotsThreeVerticalIcon, UserCircleIcon, UsersIcon } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
 

@@ -8,9 +8,9 @@ import { join, relative } from "node:path";
 import { scanners } from "../lib/scanners/index.mjs";
 import { detectStack } from "../lib/vercel.mjs";
 import {
+  buildResolver,
   detectMonorepoRoot,
   listWorkspacePackages,
-  buildResolver,
   resolveWorkspaceImports,
 } from "../lib/workspace-resolver.mjs";
 
@@ -205,7 +205,7 @@ async function enumerateRoutes(root) {
     if (m) {
       const stripped = m[1]
         .split("/")
-        .filter((seg) => !/^\([^)]+\)$/.test(seg) && !/^@/.test(seg) && !/^_/.test(seg))
+        .filter((seg) => !/^\([^)]+\)$/.test(seg) && !/^#/.test(seg) && !/^_/.test(seg))
         .join("/")
         .replace(/^\/+|\/+$/g, "");
       const routePath = stripped === "" ? "/" : `/${stripped}`;

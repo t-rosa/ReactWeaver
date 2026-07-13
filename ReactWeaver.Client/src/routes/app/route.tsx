@@ -1,6 +1,6 @@
-import { getCurrentUser } from "@/lib/api";
-import { getWeatherForecastsOptions } from "@/lib/api/@tanstack/react-query.gen";
-import { AppView } from "@/modules/app/app.view";
+import { getWeatherForecastsOptions } from "#/lib/api/@tanstack/react-query.gen.ts";
+import { getCurrentUser } from "#/lib/api/index.ts";
+import { AppView } from "#/modules/app/app.view.tsx";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/app")({

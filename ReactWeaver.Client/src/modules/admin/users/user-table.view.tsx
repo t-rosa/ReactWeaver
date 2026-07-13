@@ -1,13 +1,13 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "#/components/ui/button.tsx";
 import {
   Empty,
   EmptyDescription,
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
-} from "@/components/ui/empty";
-import { Input } from "@/components/ui/input";
-import { Item, ItemActions, ItemContent, ItemGroup } from "@/components/ui/item";
+} from "#/components/ui/empty.tsx";
+import { Input } from "#/components/ui/input.tsx";
+import { Item, ItemActions, ItemContent, ItemGroup } from "#/components/ui/item.tsx";
 import {
   Table,
   TableBody,
@@ -15,9 +15,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import type { UserResponse } from "@/lib/api";
-import { useUser } from "@/modules/auth/authorize/authorize.hooks";
+} from "#/components/ui/table.tsx";
+import type { UserResponse } from "#/lib/api/index.ts";
+import { useUser } from "#/modules/auth/authorize/authorize.hooks.tsx";
 import { FolderIcon } from "@phosphor-icons/react";
 import { type ColumnDef, useTable } from "@tanstack/react-table";
 import { RemoveUsers } from "./remove-users.view";

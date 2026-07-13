@@ -1,7 +1,7 @@
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import type { UserResponse } from "@/lib/api";
-import { useUser } from "@/modules/auth/authorize/authorize.hooks";
+import { Button } from "#/components/ui/button.tsx";
+import { Checkbox } from "#/components/ui/checkbox.tsx";
+import type { UserResponse } from "#/lib/api/index.ts";
+import { useUser } from "#/modules/auth/authorize/authorize.hooks.tsx";
 import { ArrowsDownUpIcon } from "@phosphor-icons/react";
 import { createColumnHelper } from "@tanstack/react-table";
 import type { userTableFeatures } from "./table-features";

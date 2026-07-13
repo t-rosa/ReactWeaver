@@ -1,8 +1,8 @@
-import * as React from "react";
 import { Dialog as SheetPrimitive } from "@base-ui/react/dialog";
+import * as React from "react";
 
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import { Button } from "#/components/ui/button.tsx";
+import { cn } from "#/lib/utils.ts";
 import { XIcon } from "@phosphor-icons/react";
 
 function Sheet({ ...props }: SheetPrimitive.Root.Props) {
@@ -113,11 +113,11 @@ function SheetDescription({ className, ...props }: SheetPrimitive.Description.Pr
 
 export {
   Sheet,
-  SheetTrigger,
   SheetClose,
   SheetContent,
-  SheetHeader,
-  SheetFooter,
-  SheetTitle,
   SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
 };

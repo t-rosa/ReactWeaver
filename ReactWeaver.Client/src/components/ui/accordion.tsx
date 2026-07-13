@@ -1,6 +1,6 @@
 import { Accordion as AccordionPrimitive } from "@base-ui/react/accordion";
 
-import { cn } from "@/lib/utils";
+import { cn } from "#/lib/utils.ts";
 import { CaretDownIcon, CaretUpIcon } from "@phosphor-icons/react";
 
 function Accordion({ className, ...props }: AccordionPrimitive.Root.Props) {
@@ -67,4 +67,4 @@ function AccordionContent({ className, children, ...props }: AccordionPrimitive.
   );
 }
 
-export { Accordion, AccordionItem, AccordionTrigger, AccordionContent };
+export { Accordion, AccordionContent, AccordionItem, AccordionTrigger };

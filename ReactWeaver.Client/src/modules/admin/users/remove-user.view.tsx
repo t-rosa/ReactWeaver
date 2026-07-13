@@ -7,8 +7,8 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
-import { getUsersQueryKey, removeUserMutation } from "@/lib/api/@tanstack/react-query.gen";
+} from "#/components/ui/alert-dialog.tsx";
+import { getUsersQueryKey, removeUserMutation } from "#/lib/api/@tanstack/react-query.gen.ts";
 import { useMutation } from "@tanstack/react-query";
 
 interface RemoveUserProps {

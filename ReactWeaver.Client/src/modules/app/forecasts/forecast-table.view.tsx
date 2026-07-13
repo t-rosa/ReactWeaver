@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "#/components/ui/button.tsx";
 import {
   Empty,
   EmptyContent,
@@ -6,9 +6,9 @@ import {
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
-} from "@/components/ui/empty";
-import { Input } from "@/components/ui/input";
-import { Item, ItemActions, ItemContent, ItemGroup } from "@/components/ui/item";
+} from "#/components/ui/empty.tsx";
+import { Input } from "#/components/ui/input.tsx";
+import { Item, ItemActions, ItemContent, ItemGroup } from "#/components/ui/item.tsx";
 import {
   Table,
   TableBody,
@@ -16,8 +16,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import type { WeatherForecastResponse } from "@/lib/api";
+} from "#/components/ui/table.tsx";
+import type { WeatherForecastResponse } from "#/lib/api/index.ts";
 import { FolderIcon } from "@phosphor-icons/react";
 import { type ColumnDef, useTable } from "@tanstack/react-table";
 import { CreateForecast } from "./create-forecast.view";

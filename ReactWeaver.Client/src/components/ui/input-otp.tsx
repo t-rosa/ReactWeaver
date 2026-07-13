@@ -1,7 +1,7 @@
-import * as React from "react";
 import { OTPInput, OTPInputContext } from "input-otp";
+import * as React from "react";
 
-import { cn } from "@/lib/utils";
+import { cn } from "#/lib/utils.ts";
 import { MinusIcon } from "@phosphor-icons/react";
 
 function InputOTP({
@@ -81,4 +81,4 @@ function InputOTPSeparator({ ...props }: React.ComponentProps<"div">) {
   );
 }
 
-export { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator };
+export { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot };

@@ -1,4 +1,4 @@
-import { SidebarInset } from "@/components/ui/sidebar";
+import { SidebarInset } from "#/components/ui/sidebar.tsx";
 
 export function AppInset(props: React.PropsWithChildren) {
   return (

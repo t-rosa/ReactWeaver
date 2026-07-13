@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "#/lib/utils.ts";
 
 export function Container(props: React.ComponentPropsWithoutRef<"div">) {
   return (

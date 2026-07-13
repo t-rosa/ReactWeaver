@@ -1,6 +1,6 @@
-import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
-import { Spinner } from "@/components/ui/spinner";
-import { getCurrentUserQueryKey, logoutMutation } from "@/lib/api/@tanstack/react-query.gen";
+import { DropdownMenuItem } from "#/components/ui/dropdown-menu.tsx";
+import { Spinner } from "#/components/ui/spinner.tsx";
+import { getCurrentUserQueryKey, logoutMutation } from "#/lib/api/@tanstack/react-query.gen.ts";
 import { SignOutIcon } from "@phosphor-icons/react";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";

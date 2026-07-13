@@ -7,11 +7,11 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
+} from "#/components/ui/alert-dialog.tsx";
 import {
   getWeatherForecastsQueryKey,
   removeWeatherForecastMutation,
-} from "@/lib/api/@tanstack/react-query.gen";
+} from "#/lib/api/@tanstack/react-query.gen.ts";
 import { useMutation } from "@tanstack/react-query";
 
 interface RemoveForecastProps {

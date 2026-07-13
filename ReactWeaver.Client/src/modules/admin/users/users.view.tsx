@@ -1,8 +1,8 @@
-import { Container } from "@/components/container";
-import { BreadcrumbItem, BreadcrumbLink } from "@/components/ui/breadcrumb";
-import { getUsersOptions } from "@/lib/api/@tanstack/react-query.gen";
-import { AppHeader } from "@/modules/app/components/app-header";
-import { AppInset } from "@/modules/app/components/app-inset";
+import { Container } from "#/components/container.tsx";
+import { BreadcrumbItem, BreadcrumbLink } from "#/components/ui/breadcrumb.tsx";
+import { getUsersOptions } from "#/lib/api/@tanstack/react-query.gen.ts";
+import { AppHeader } from "#/modules/app/components/app-header.tsx";
+import { AppInset } from "#/modules/app/components/app-inset.tsx";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { USER_COLUMNS } from "./user-table.columns";
 import { UserTable } from "./user-table.view";

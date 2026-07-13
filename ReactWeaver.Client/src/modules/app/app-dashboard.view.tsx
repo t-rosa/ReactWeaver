@@ -1,4 +1,4 @@
-import { BreadcrumbItem, BreadcrumbLink } from "@/components/ui/breadcrumb";
+import { BreadcrumbItem, BreadcrumbLink } from "#/components/ui/breadcrumb.tsx";
 import { AppHeader } from "./components/app-header";
 import { AppInset } from "./components/app-inset";
 

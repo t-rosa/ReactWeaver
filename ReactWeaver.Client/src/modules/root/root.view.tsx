@@ -1,6 +1,6 @@
-import { ThemeProvider } from "@/components/theme/theme.provider";
-import { Toaster } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
+import { ThemeProvider } from "#/components/theme/theme.provider.tsx";
+import { Toaster } from "#/components/ui/sonner.tsx";
+import { TooltipProvider } from "#/components/ui/tooltip.tsx";
 import { Outlet } from "@tanstack/react-router";
 
 export function RootView() {

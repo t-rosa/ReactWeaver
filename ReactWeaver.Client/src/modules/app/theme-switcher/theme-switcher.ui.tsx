@@ -1,5 +1,5 @@
-import { SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
-import { Switch } from "@/components/ui/switch";
+import { SidebarMenuButton, SidebarMenuItem } from "#/components/ui/sidebar.tsx";
+import { Switch } from "#/components/ui/switch.tsx";
 import * as React from "react";
 
 interface SidebarThemeToggleProps {

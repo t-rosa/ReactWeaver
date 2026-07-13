@@ -1,6 +1,6 @@
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import type { WeatherForecastResponse } from "@/lib/api";
+import { Button } from "#/components/ui/button.tsx";
+import { Checkbox } from "#/components/ui/checkbox.tsx";
+import type { WeatherForecastResponse } from "#/lib/api/index.ts";
 import { ArrowsDownUpIcon } from "@phosphor-icons/react";
 import { createColumnHelper, type ColumnDef } from "@tanstack/react-table";
 import { ForecastActions } from "./forecast-actions.view";
