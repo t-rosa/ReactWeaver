@@ -1,7 +1,7 @@
-using ReactWeaver.Server.Extensions;
+using ReactWeaver.Resources.Extensions;
 using Scalar.AspNetCore;
 
-namespace ReactWeaver.Server;
+namespace ReactWeaver.Resources;
 
 public interface IProgram
 {
@@ -11,13 +11,11 @@ public interface IProgram
 
         builder
             .AddControllers()
-            .AddDatabase()
             .AddErrorHandling()
-            // .AddObservability()
+            .AddDatabase()
             .AddOpenApi()
-            .AddAuthentication()
-            .AddMailing()
-            .AddResourcesClient()
+            .AddApiKeyAuthentication()
+            .AddStorage()
             .AddApplicationServices();
 
         WebApplication app = builder.Build();
@@ -28,7 +26,6 @@ public interface IProgram
             app.MapScalarApiReference();
 
             await app.ApplyMigrationAsync();
-            await app.SeedInitialDataAsync();
         }
 
         app.UseResponseCompression();
@@ -42,8 +39,6 @@ public interface IProgram
         app.UseAuthorization();
 
         app.MapControllers();
-
-        app.MapFallbackToFile("/index.html");
 
         await app.RunAsync();
     }

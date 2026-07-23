@@ -29,5 +29,20 @@ services:
       timeout: 5s
       retries: 5
 
+  # react-weaver.resources:
+  #   image: react-weaver-resources:latest
+  #   restart: always
+  #   ports:
+  #     - 127.0.0.1:3001:8080
+  #   environment:
+  #     - ConnectionStrings:Default=Host=react-weaver.db;Port=5432;Database=react-weaver-resources;Username=postgres;Password=postgres
+  #     - ApiKey:Keys:0=change-me-in-production
+  #     - Storage:RootPath=/app/storage
+  #   depends_on:
+  #     - react-weaver.db
+  #   volumes:
+  #     - react-weaver.resources-storage:/app/storage
+
 volumes:
   react-weaver.db-data:
+  react-weaver.resources-storage:

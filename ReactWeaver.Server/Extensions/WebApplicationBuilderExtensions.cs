@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.Extensions.Options;
 using OpenTelemetry;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
@@ -11,6 +12,7 @@ using ReactWeaver.Server.Database;
 using ReactWeaver.Server.Extensions;
 using ReactWeaver.Server.Middlewares;
 using ReactWeaver.Server.Modules.Email;
+using ReactWeaver.Server.Modules.Resources;
 using ReactWeaver.Server.Modules.Users;
 
 namespace ReactWeaver.Server.Extensions;
@@ -135,6 +137,30 @@ public static class WebApplicationBuilderExtensions
             builder.Services.AddValidatorsFromAssemblyContaining<IProgram>();
 
             builder.Services.AddHttpContextAccessor();
+
+            return builder;
+        }
+
+        public WebApplicationBuilder AddResourcesClient()
+        {
+            builder.Services.Configure<ResourcesServiceOptions>(
+                builder.Configuration.GetSection(ResourcesServiceOptions.SectionName));
+
+            builder.Services.AddTransient<ResourcesApiKeyHandler>();
+
+            builder.Services
+                .AddHttpClient<IResourcesClient, ResourcesClient>((serviceProvider, client) =>
+                {
+                    ResourcesServiceOptions options = serviceProvider
+                        .GetRequiredService<IOptions<ResourcesServiceOptions>>()
+                        .Value;
+
+                    if (!string.IsNullOrWhiteSpace(options.BaseUrl))
+                    {
+                        client.BaseAddress = new Uri(options.BaseUrl, UriKind.Absolute);
+                    }
+                })
+                .AddHttpMessageHandler<ResourcesApiKeyHandler>();
 
             return builder;
         }

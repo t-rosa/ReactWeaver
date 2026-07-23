@@ -14,6 +14,7 @@
     <Project Path="ReactWeaver.Client/ReactWeaver.Client.esproj">
       <Platform Project="AnyCPU" />
     </Project>
+    <Project Path="ReactWeaver.Resources/ReactWeaver.Resources.csproj" Id="a563f644-37b0-41d4-86bf-7ceca0ada326" />
     <Project Path="ReactWeaver.Server/ReactWeaver.Server.csproj" />
     <Project Path="ReactWeaver.Tests/ReactWeaver.Tests.csproj" />
   </Folder>

@@ -7,6 +7,12 @@
       "projectPath": "${workspaceFolder}/ReactWeaver.Server/ReactWeaver.Server.csproj"
     },
     {
+      "name": "Resources",
+      "type": "dotnet",
+      "request": "launch",
+      "projectPath": "${workspaceFolder}/ReactWeaver.Resources/ReactWeaver.Resources.csproj"
+    },
+    {
       "name": "Client",
       "runtimeArgs": ["run-script", "dev"],
       "runtimeExecutable": "npm",
