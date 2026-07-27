@@ -24,31 +24,41 @@ import { useUser } from "#/modules/auth/authorize/authorize.hooks.tsx";
 import { Authorize } from "#/modules/auth/authorize/authorize.view.tsx";
 import { LogoutView } from "#/modules/auth/logout.view.tsx";
 import {
+  AppWindowIcon,
   ChartPieSliceIcon,
   CommandIcon,
   DotsThreeVerticalIcon,
-  GridFourIcon,
   LifebuoyIcon,
   PaperPlaneTiltIcon,
-  UserCircleIcon,
-  WindIcon,
 } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
 import * as React from "react";
-import { ThemeSwitcher } from "../theme-switcher/theme-switcher.view";
+import { ThemeSwitcher } from "../../theme-switcher/theme-switcher.view";
 
-const data = {
+interface NavItem {
+  name?: string;
+  title?: string;
+  url: string;
+  icon: React.JSX.Element;
+}
+
+interface Data {
+  navMain: NavItem[];
+  navSecondary: NavItem[];
+}
+
+const data: Data = {
   navMain: [
-    {
-      name: "Dashboard",
-      url: "/app/dashboard",
-      icon: <GridFourIcon />,
-    },
-    {
-      name: "Forecasts",
-      url: "/app/forecasts",
-      icon: <WindIcon />,
-    },
+    // {
+    //   name: "Dashboard",
+    //   url: "/app/dashboard",
+    // icon: <GridFourIcon />,
+    // },
+    // {
+    //   name: "Forecasts",
+    //   url: "/app/forecasts",
+    //   icon: <WindIcon />,
+    // },
   ],
   navSecondary: [
     {
@@ -64,7 +74,7 @@ const data = {
   ],
 };
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function UserSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { user } = useUser();
   const { isMobile } = useSidebar();
 
@@ -136,16 +146,16 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     </Item>
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem nativeButton={false} render={<Link to={"/user/profile"} />}>
-                    <UserCircleIcon />
-                    Profile
-                  </DropdownMenuItem>
                   <Authorize role="Admin">
                     <DropdownMenuItem nativeButton={false} render={<Link to="/admin/dashboard" />}>
                       <ChartPieSliceIcon />
                       Administration
                     </DropdownMenuItem>
                   </Authorize>
+                  <DropdownMenuItem nativeButton={false} render={<Link to="/app/dashboard" />}>
+                    <AppWindowIcon />
+                    Application
+                  </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <LogoutView />
                 </DropdownMenuGroup>

@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback } from "#/components/ui/avatar.tsx";
+import { Avatar, AvatarFallback, AvatarImage } from "#/components/ui/avatar.tsx";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -116,6 +116,7 @@ export function AdminSidebar({ ...props }: React.ComponentProps<typeof Sidebar>)
             <DropdownMenu>
               <DropdownMenuTrigger render={<SidebarMenuButton size="lg" />}>
                 <Avatar>
+                  {user.avatar && <AvatarImage src={user.avatar} alt={user.email} />}
                   <AvatarFallback>{user.email.charAt(0).toUpperCase()}</AvatarFallback>
                 </Avatar>
                 <p className="truncate">{user.email}</p>
@@ -127,6 +128,7 @@ export function AdminSidebar({ ...props }: React.ComponentProps<typeof Sidebar>)
                     <Item size="xs">
                       <ItemMedia>
                         <Avatar>
+                          {user.avatar && <AvatarImage src={user.avatar} alt={user.email} />}
                           <AvatarFallback>{user.email.charAt(0).toUpperCase()}</AvatarFallback>
                         </Avatar>
                       </ItemMedia>
@@ -134,7 +136,7 @@ export function AdminSidebar({ ...props }: React.ComponentProps<typeof Sidebar>)
                     </Item>
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem disabled>
+                  <DropdownMenuItem nativeButton={false} render={<Link to={"/user/profile"} />}>
                     <UserCircleIcon />
                     Profile
                   </DropdownMenuItem>

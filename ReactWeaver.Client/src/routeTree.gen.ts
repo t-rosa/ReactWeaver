@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as UserRouteRouteImport } from './routes/user/route'
 import { Route as AppRouteRouteImport } from './routes/app/route'
 import { Route as AdminRouteRouteImport } from './routes/admin/route'
 import { Route as AuthRouteRouteImport } from './routes/_auth/route'
@@ -17,11 +18,17 @@ import { Route as AuthResetPasswordRouteImport } from './routes/_auth/reset-pass
 import { Route as AuthRegisterRouteImport } from './routes/_auth/register'
 import { Route as AuthLoginRouteImport } from './routes/_auth/login'
 import { Route as AuthForgotPasswordRouteImport } from './routes/_auth/forgot-password'
+import { Route as UserProfileIndexRouteImport } from './routes/user/profile/index'
 import { Route as AppForecastsIndexRouteImport } from './routes/app/forecasts/index'
 import { Route as AppDashboardIndexRouteImport } from './routes/app/dashboard/index'
 import { Route as AdminUsersIndexRouteImport } from './routes/admin/users/index'
 import { Route as AdminDashboardIndexRouteImport } from './routes/admin/dashboard/index'
 
+const UserRouteRoute = UserRouteRouteImport.update({
+  id: '/user',
+  path: '/user',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AppRouteRoute = AppRouteRouteImport.update({
   id: '/app',
   path: '/app',
@@ -61,6 +68,11 @@ const AuthForgotPasswordRoute = AuthForgotPasswordRouteImport.update({
   path: '/forgot-password',
   getParentRoute: () => AuthRouteRoute,
 } as any)
+const UserProfileIndexRoute = UserProfileIndexRouteImport.update({
+  id: '/profile/',
+  path: '/profile/',
+  getParentRoute: () => UserRouteRoute,
+} as any)
 const AppForecastsIndexRoute = AppForecastsIndexRouteImport.update({
   id: '/forecasts/',
   path: '/forecasts/',
@@ -86,6 +98,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteRouteWithChildren
   '/app': typeof AppRouteRouteWithChildren
+  '/user': typeof UserRouteRouteWithChildren
   '/forgot-password': typeof AuthForgotPasswordRoute
   '/login': typeof AuthLoginRoute
   '/register': typeof AuthRegisterRoute
@@ -94,11 +107,13 @@ export interface FileRoutesByFullPath {
   '/admin/users/': typeof AdminUsersIndexRoute
   '/app/dashboard/': typeof AppDashboardIndexRoute
   '/app/forecasts/': typeof AppForecastsIndexRoute
+  '/user/profile/': typeof UserProfileIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteRouteWithChildren
   '/app': typeof AppRouteRouteWithChildren
+  '/user': typeof UserRouteRouteWithChildren
   '/forgot-password': typeof AuthForgotPasswordRoute
   '/login': typeof AuthLoginRoute
   '/register': typeof AuthRegisterRoute
@@ -107,6 +122,7 @@ export interface FileRoutesByTo {
   '/admin/users': typeof AdminUsersIndexRoute
   '/app/dashboard': typeof AppDashboardIndexRoute
   '/app/forecasts': typeof AppForecastsIndexRoute
+  '/user/profile': typeof UserProfileIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -114,6 +130,7 @@ export interface FileRoutesById {
   '/_auth': typeof AuthRouteRouteWithChildren
   '/admin': typeof AdminRouteRouteWithChildren
   '/app': typeof AppRouteRouteWithChildren
+  '/user': typeof UserRouteRouteWithChildren
   '/_auth/forgot-password': typeof AuthForgotPasswordRoute
   '/_auth/login': typeof AuthLoginRoute
   '/_auth/register': typeof AuthRegisterRoute
@@ -122,6 +139,7 @@ export interface FileRoutesById {
   '/admin/users/': typeof AdminUsersIndexRoute
   '/app/dashboard/': typeof AppDashboardIndexRoute
   '/app/forecasts/': typeof AppForecastsIndexRoute
+  '/user/profile/': typeof UserProfileIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -129,6 +147,7 @@ export interface FileRouteTypes {
     | '/'
     | '/admin'
     | '/app'
+    | '/user'
     | '/forgot-password'
     | '/login'
     | '/register'
@@ -137,11 +156,13 @@ export interface FileRouteTypes {
     | '/admin/users/'
     | '/app/dashboard/'
     | '/app/forecasts/'
+    | '/user/profile/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/admin'
     | '/app'
+    | '/user'
     | '/forgot-password'
     | '/login'
     | '/register'
@@ -150,12 +171,14 @@ export interface FileRouteTypes {
     | '/admin/users'
     | '/app/dashboard'
     | '/app/forecasts'
+    | '/user/profile'
   id:
     | '__root__'
     | '/'
     | '/_auth'
     | '/admin'
     | '/app'
+    | '/user'
     | '/_auth/forgot-password'
     | '/_auth/login'
     | '/_auth/register'
@@ -164,6 +187,7 @@ export interface FileRouteTypes {
     | '/admin/users/'
     | '/app/dashboard/'
     | '/app/forecasts/'
+    | '/user/profile/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -171,10 +195,18 @@ export interface RootRouteChildren {
   AuthRouteRoute: typeof AuthRouteRouteWithChildren
   AdminRouteRoute: typeof AdminRouteRouteWithChildren
   AppRouteRoute: typeof AppRouteRouteWithChildren
+  UserRouteRoute: typeof UserRouteRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/user': {
+      id: '/user'
+      path: '/user'
+      fullPath: '/user'
+      preLoaderRoute: typeof UserRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/app': {
       id: '/app'
       path: '/app'
@@ -230,6 +262,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/forgot-password'
       preLoaderRoute: typeof AuthForgotPasswordRouteImport
       parentRoute: typeof AuthRouteRoute
+    }
+    '/user/profile/': {
+      id: '/user/profile/'
+      path: '/profile'
+      fullPath: '/user/profile/'
+      preLoaderRoute: typeof UserProfileIndexRouteImport
+      parentRoute: typeof UserRouteRoute
     }
     '/app/forecasts/': {
       id: '/app/forecasts/'
@@ -308,11 +347,24 @@ const AppRouteRouteWithChildren = AppRouteRoute._addFileChildren(
   AppRouteRouteChildren,
 )
 
+interface UserRouteRouteChildren {
+  UserProfileIndexRoute: typeof UserProfileIndexRoute
+}
+
+const UserRouteRouteChildren: UserRouteRouteChildren = {
+  UserProfileIndexRoute: UserProfileIndexRoute,
+}
+
+const UserRouteRouteWithChildren = UserRouteRoute._addFileChildren(
+  UserRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRouteRoute: AuthRouteRouteWithChildren,
   AdminRouteRoute: AdminRouteRouteWithChildren,
   AppRouteRoute: AppRouteRouteWithChildren,
+  UserRouteRoute: UserRouteRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
