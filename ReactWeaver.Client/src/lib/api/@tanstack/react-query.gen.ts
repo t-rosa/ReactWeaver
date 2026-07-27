@@ -3,8 +3,8 @@
 import { type DefaultError, queryOptions, type UseMutationOptions } from '@tanstack/react-query';
 
 import { client } from '../client.gen';
-import { confirmEmail, createWeatherForecast, forgotPassword, getCurrentUser, getUsers, getWeatherForecast, getWeatherForecasts, login, logout, type Options, register, removeUser, removeUsers, removeWeatherForecast, removeWeatherForecasts, resendConfirmationEmail, resetPassword, updateInfo, updateWeatherForecast } from '../sdk.gen';
-import type { ConfirmEmailData, ConfirmEmailError, CreateWeatherForecastData, CreateWeatherForecastError, CreateWeatherForecastResponse, ForgotPasswordData, ForgotPasswordError, GetCurrentUserData, GetCurrentUserResponse, GetUsersData, GetUsersResponse, GetWeatherForecastData, GetWeatherForecastError, GetWeatherForecastResponse, GetWeatherForecastsData, GetWeatherForecastsError, GetWeatherForecastsResponse, LoginData, LoginError, LoginResponse, LogoutData, LogoutError, RegisterData, RegisterError, RemoveUserData, RemoveUserError, RemoveUserResponse, RemoveUsersData, RemoveUsersResponse, RemoveWeatherForecastData, RemoveWeatherForecastError, RemoveWeatherForecastResponse, RemoveWeatherForecastsData, RemoveWeatherForecastsError, RemoveWeatherForecastsResponse, ResendConfirmationEmailData, ResendConfirmationEmailError, ResetPasswordData, ResetPasswordError, UpdateInfoData, UpdateInfoError, UpdateInfoResponse, UpdateWeatherForecastData, UpdateWeatherForecastError, UpdateWeatherForecastResponse } from '../types.gen';
+import { confirmEmail, createWeatherForecast, forgotPassword, getCurrentUser, getUsers, getWeatherForecast, getWeatherForecasts, login, logout, type Options, register, removeUser, removeUsers, removeWeatherForecast, removeWeatherForecasts, resendConfirmationEmail, resetPassword, updateInfo, updateWeatherForecast, uploadAvatar } from '../sdk.gen';
+import type { ConfirmEmailData, ConfirmEmailError, CreateWeatherForecastData, CreateWeatherForecastError, CreateWeatherForecastResponse, ForgotPasswordData, ForgotPasswordError, GetCurrentUserData, GetCurrentUserResponse, GetUsersData, GetUsersResponse, GetWeatherForecastData, GetWeatherForecastError, GetWeatherForecastResponse, GetWeatherForecastsData, GetWeatherForecastsError, GetWeatherForecastsResponse, LoginData, LoginError, LoginResponse, LogoutData, LogoutError, RegisterData, RegisterError, RemoveUserData, RemoveUserError, RemoveUserResponse, RemoveUsersData, RemoveUsersResponse, RemoveWeatherForecastData, RemoveWeatherForecastError, RemoveWeatherForecastResponse, RemoveWeatherForecastsData, RemoveWeatherForecastsError, RemoveWeatherForecastsResponse, ResendConfirmationEmailData, ResendConfirmationEmailError, ResetPasswordData, ResetPasswordError, UpdateInfoData, UpdateInfoError, UpdateInfoResponse, UpdateWeatherForecastData, UpdateWeatherForecastError, UpdateWeatherForecastResponse, UploadAvatarData } from '../types.gen';
 
 export type QueryKey<TOptions extends Options> = [
     Pick<TOptions, 'baseUrl' | 'body' | 'headers' | 'path' | 'query'> & {
@@ -173,6 +173,20 @@ export const removeUsersMutation = (options?: Partial<Options<RemoveUsersData>>)
     const mutationOptions: UseMutationOptions<RemoveUsersResponse, DefaultError, Options<RemoveUsersData>> = {
         mutationFn: async (fnOptions) => {
             const { data } = await removeUsers({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const uploadAvatarMutation = (options?: Partial<Options<UploadAvatarData>>): UseMutationOptions<unknown, DefaultError, Options<UploadAvatarData>> => {
+    const mutationOptions: UseMutationOptions<unknown, DefaultError, Options<UploadAvatarData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await uploadAvatar({
                 ...options,
                 ...fnOptions,
                 throwOnError: true

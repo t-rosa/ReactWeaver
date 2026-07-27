@@ -14,6 +14,8 @@ export type ForgotPasswordRequest = {
     email: string;
 };
 
+export type IFormFile = Blob | File;
+
 export type LoginRequest = {
     email: string;
     password: string;
@@ -65,6 +67,7 @@ export type UserResponse = {
     email: string;
     roles: Array<string>;
     isEmailConfirmed: boolean;
+    avatar?: null | string;
 };
 
 export type WeatherForecastResponse = {
@@ -360,6 +363,22 @@ export type RemoveUsersResponses = {
 };
 
 export type RemoveUsersResponse = RemoveUsersResponses[keyof RemoveUsersResponses];
+
+export type UploadAvatarData = {
+    body: {
+        file?: IFormFile;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/users/me/avatar';
+};
+
+export type UploadAvatarResponses = {
+    /**
+     * OK
+     */
+    200: unknown;
+};
 
 export type RegisterData = {
     body: RegisterRequest;

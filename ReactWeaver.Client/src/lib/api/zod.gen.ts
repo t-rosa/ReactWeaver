@@ -15,6 +15,8 @@ export const zForgotPasswordRequest = z.object({
     email: z.string()
 });
 
+export const zIFormFile = z.string();
+
 export const zLoginRequest = z.object({
     email: z.string(),
     password: z.string(),
@@ -39,7 +41,7 @@ export const zRegisterRequest = z.object({
 });
 
 export const zRemoveWeatherForecastsRequest = z.object({
-    ids: z.array(z.string())
+    ids: z.array(z.uuid())
 });
 
 export const zResendConfirmationEmailRequest = z.object({
@@ -71,11 +73,12 @@ export const zUserResponse = z.object({
     id: z.string(),
     email: z.string(),
     roles: z.array(z.string()),
-    isEmailConfirmed: z.boolean()
+    isEmailConfirmed: z.boolean(),
+    avatar: z.string().nullish()
 });
 
 export const zWeatherForecastResponse = z.object({
-    id: z.string(),
+    id: z.uuid(),
     date: z.iso.date(),
     temperatureC: z.union([
         z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
@@ -97,7 +100,7 @@ export const zCreateWeatherForecastBody = zCreateWeatherForecastRequest;
 export const zCreateWeatherForecastResponse = zWeatherForecastResponse;
 
 export const zRemoveWeatherForecastPath = z.object({
-    id: z.string()
+    id: z.uuid()
 });
 
 /**
@@ -106,7 +109,7 @@ export const zRemoveWeatherForecastPath = z.object({
 export const zRemoveWeatherForecastResponse = z.void();
 
 export const zGetWeatherForecastPath = z.object({
-    id: z.string()
+    id: z.uuid()
 });
 
 /**
@@ -117,7 +120,7 @@ export const zGetWeatherForecastResponse = zWeatherForecastResponse;
 export const zUpdateWeatherForecastBody = zUpdateWeatherForecastRequest;
 
 export const zUpdateWeatherForecastPath = z.object({
-    id: z.string()
+    id: z.uuid()
 });
 
 /**
@@ -157,6 +160,10 @@ export const zRemoveUsersBody = z.array(z.string());
  * No Content
  */
 export const zRemoveUsersResponse = z.void();
+
+export const zUploadAvatarBody = z.object({
+    file: zIFormFile.optional()
+});
 
 export const zRegisterBody = zRegisterRequest;
 

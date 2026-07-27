@@ -40,6 +40,11 @@ export const ForgotPasswordRequestSchema = {
     }
 } as const;
 
+export const IFormFileSchema = {
+    type: 'string',
+    format: 'binary'
+} as const;
+
 export const LoginRequestSchema = {
     required: [
         'email',
@@ -132,7 +137,8 @@ export const RemoveWeatherForecastsRequestSchema = {
         ids: {
             type: 'array',
             items: {
-                type: 'string'
+                type: 'string',
+                format: 'uuid'
             }
         }
     }
@@ -241,6 +247,12 @@ export const UserResponseSchema = {
         },
         isEmailConfirmed: {
             type: 'boolean'
+        },
+        avatar: {
+            type: [
+                'null',
+                'string'
+            ]
         }
     }
 } as const;
@@ -255,7 +267,8 @@ export const WeatherForecastResponseSchema = {
     type: 'object',
     properties: {
         id: {
-            type: 'string'
+            type: 'string',
+            format: 'uuid'
         },
         date: {
             type: 'string',
