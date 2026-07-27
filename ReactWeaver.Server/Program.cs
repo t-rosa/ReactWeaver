@@ -13,10 +13,10 @@ public interface IProgram
             .AddControllers()
             .AddDatabase()
             .AddErrorHandling()
-            // .AddObservability()
             .AddOpenApi()
             .AddAuthentication()
             .AddMailing()
+            .AddStorage()
             .AddApplicationServices();
 
         WebApplication app = builder.Build();

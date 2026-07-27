@@ -373,3 +373,7 @@ keys/
 
 # Tanstack Router
 .tanstack
+
+# Garage
+garage/data
+garage/meta

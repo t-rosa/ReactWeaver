@@ -60,10 +60,6 @@ export default defineConfig({
           "zod",
           {
             name: "@hey-api/sdk",
-            validator: {
-              request: "zod",
-              response: "zod",
-            },
           },
           {
             name: "@hey-api/typescript",

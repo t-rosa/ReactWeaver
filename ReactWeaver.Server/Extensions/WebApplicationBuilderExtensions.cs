@@ -1,3 +1,5 @@
+using Amazon.Runtime;
+using Amazon.S3;
 using FluentValidation;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
@@ -11,6 +13,7 @@ using ReactWeaver.Server.Database;
 using ReactWeaver.Server.Extensions;
 using ReactWeaver.Server.Middlewares;
 using ReactWeaver.Server.Modules.Email;
+using ReactWeaver.Server.Modules.Storage;
 using ReactWeaver.Server.Modules.Users;
 
 namespace ReactWeaver.Server.Extensions;
@@ -129,6 +132,33 @@ public static class WebApplicationBuilderExtensions
 
             return builder;
         }
+
+        public WebApplicationBuilder AddStorage()
+        {
+            builder.Services.Configure<StorageOptions>(builder.Configuration.GetSection("Storage"));
+
+            builder.Services.AddSingleton<IAmazonS3>(options =>
+            {
+                IConfiguration config = options.GetRequiredService<IConfiguration>();
+
+                return new AmazonS3Client(
+                    config["Storage:AccessKey"],
+                    config["Storage:SecretKey"],
+                    new AmazonS3Config
+                    {
+                        ServiceURL = config["Storage:ServiceUrl"],
+                        ForcePathStyle = true,
+                        RequestChecksumCalculation = RequestChecksumCalculation.WHEN_REQUIRED,
+                        ResponseChecksumValidation = ResponseChecksumValidation.WHEN_REQUIRED,
+                        AuthenticationRegion = "garage"
+                    });
+            });
+
+            builder.Services.AddScoped<IStorageService, StorageService>();
+
+            return builder;
+        }
+
 
         public WebApplicationBuilder AddApplicationServices()
         {

@@ -83,6 +83,37 @@ dotnet user-secrets set "SmtpOptions:Username" "value" --project ReactWeaver.Ser
 dotnet user-secrets set "SmtpOptions:Password" "value" --project ReactWeaver.Server
 ```
 
+- Enable File Storage
+
+Create a new bucket.
+
+```bash
+docker exec -it react-weaver.garage ./garage bucket create uploads
+```
+
+Create a new S3 key
+
+```bash
+docker exec -it react-weaver.garage ./garage key create react-weaver
+```
+
+Copy the “Key ID” and “Secret key” and paste them into the appsettings.Development.json file.
+
+```bash
+  "Storage": {
+    "ServiceUrl": "http://localhost:3900",
+    "AccessKey": "paste-key-id-here",
+    "SecretKey": "paste-secret-key-here",
+    "Bucket": "uploads"
+  },
+```
+
+Add permissions to the bucket.
+
+```bash
+docker exec -it react-weaver.garage ./garage bucket allow uploads --key react-weaver --read --write --owner
+```
+
 - Execute automated tests:
 
 Run the server end-to-end commands from the root, `ReactWeaver` directory.
@@ -240,3 +271,7 @@ dotnet ef migrations remove
 - [Oxfmt](https://oxc.rs/docs/guide/usage/formatter.html)
 - [Vitest](https://vitest.dev/)
 - [Playwright](https://playwright.dev/)
+
+### Services
+
+- [Garage](https://garagehq.deuxfleurs.fr/)

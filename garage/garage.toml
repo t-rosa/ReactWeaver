@@ -1,0 +1,19 @@
+metadata_dir = "/var/lib/garage/meta"
+data_dir = "/var/lib/garage/data"
+
+db_engine = "sqlite"
+
+replication_factor = 1
+
+rpc_bind_addr = "[::]:3901"
+rpc_public_addr = "react-weaver.garage:3901"
+rpc_secret = "3b0010ca36828e082702f5fdc655300018634c5cba6a7054a81477b1f77a548d"
+
+[s3_api]
+s3_region = "garage"
+api_bind_addr = "[::]:3900"
+
+[admin]
+api_bind_addr = "[::]:3903"
+admin_token = "ADMIN_TOKEN"
+metrics_token = "METRICS_TOKEN"

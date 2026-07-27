@@ -1,18 +1,7 @@
 services:
-  # react-weaver.preview:
-  #   image: react-weaver-server:latest
-  #   restart: always
-  #   ports:
-  #     - 127.0.0.1:3000:8080
-  #   environment:
-  #     - ConnectionStrings:Default=Host=react-weaver.db;Port=5432;Database=react-weaver;Username=postgres;Password=postgres
-  #   depends_on:
-  #     - react-weaver.db
-  #   volumes:
-  #     - ./ReactWeaver.Server/keys/storage:/app/keys/storage
-
   react-weaver.db:
     image: postgres:18.1
+    container_name: react-weaver.db
     restart: always
     user: postgres
     volumes:
@@ -28,6 +17,20 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
+  react-weaver.garage:
+    image: dxflrs/garage:v2.3.0
+    container_name: react-weaver.garage
+    restart: unless-stopped
+    ports:
+      - "3900:3900"
+      - "3903:3903"
+    environment:
+      GARAGE_DEFAULT_BUCKET: uploads
+    volumes:
+      - ./garage/garage.toml:/etc/garage.toml:ro
+      - ./garage/data:/var/lib/garage/data
+      - ./garage/meta:/var/lib/garage/meta
 
 volumes:
   react-weaver.db-data:
