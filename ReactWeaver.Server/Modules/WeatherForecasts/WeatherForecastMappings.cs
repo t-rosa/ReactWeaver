@@ -33,7 +33,7 @@ internal static class WeatherForecastMappings
         {
             return new WeatherForecast
             {
-                Id = $"wf_{Guid.CreateVersion7()}",
+                Id = Guid.CreateVersion7(),
                 UserId = userId,
                 Date = request.Date,
                 TemperatureC = request.TemperatureC,

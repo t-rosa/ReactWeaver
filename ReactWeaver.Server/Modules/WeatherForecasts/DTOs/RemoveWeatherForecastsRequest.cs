@@ -4,7 +4,7 @@ namespace ReactWeaver.Server.Modules.WeatherForecasts.DTOs;
 
 public sealed record RemoveWeatherForecastsRequest
 {
-    public required List<string> Ids { get; init; }
+    public required List<Guid> Ids { get; init; }
 }
 
 public class RemoveWeatherForecastsRequestValidator : AbstractValidator<RemoveWeatherForecastsRequest>

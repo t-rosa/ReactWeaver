@@ -9,7 +9,7 @@ using ReactWeaver.Server.Modules.WeatherForecasts.DTOs;
 
 namespace ReactWeaver.Server.Modules.WeatherForecasts;
 
-[Authorize()]
+[Authorize]
 [ApiController]
 [Route("api/weather-forecasts")]
 public sealed class WeatherForecastsController(ApplicationDbContext db, UserManager<User> userManager) : ControllerBase
@@ -34,12 +34,12 @@ public sealed class WeatherForecastsController(ApplicationDbContext db, UserMana
         return Ok(response);
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("{id:guid}")]
     [ProducesResponseType(typeof(WeatherForecastResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> GetWeatherForecast([FromRoute] string id)
+    public async Task<IActionResult> GetWeatherForecast([FromRoute] Guid id)
     {
         User? user = await userManager.GetUserAsync(HttpContext.User);
         if (user is null)
@@ -89,14 +89,14 @@ public sealed class WeatherForecastsController(ApplicationDbContext db, UserMana
         return CreatedAtAction(nameof(GetWeatherForecast), new { id = response.Id }, response);
     }
 
-    [HttpPut("{id}")]
+    [HttpPut("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> UpdateWeatherForecast(
-        [FromRoute] string id,
+        [FromRoute] Guid id,
         [FromBody] UpdateWeatherForecastRequest request,
         [FromServices] IValidator<UpdateWeatherForecastRequest> validator)
     {
@@ -125,12 +125,12 @@ public sealed class WeatherForecastsController(ApplicationDbContext db, UserMana
         return NoContent();
     }
 
-    [HttpDelete("{id}")]
+    [HttpDelete("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> RemoveWeatherForecast([FromRoute] string id)
+    public async Task<IActionResult> RemoveWeatherForecast([FromRoute] Guid id)
     {
         User? user = await userManager.GetUserAsync(User);
         if (user == null)

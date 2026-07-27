@@ -86,7 +86,7 @@ public class WeatherForecastsControllerTests : IAsyncLifetime
     [Fact]
     public async Task GetWeatherForecast_ReturnNotFound()
     {
-        HttpResponseMessage response = await _client.GetAsync($"/api/weather-forecasts/wf_{Guid.CreateVersion7()}");
+        HttpResponseMessage response = await _client.GetAsync($"/api/weather-forecasts/{Guid.CreateVersion7()}");
         response.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }
 
@@ -107,7 +107,7 @@ public class WeatherForecastsControllerTests : IAsyncLifetime
     public async Task UpdateWeatherForecast_ReturnNotFound()
     {
         UpdateWeatherForecastRequest updateRequest = _updateWeatherForecastFaker.Generate();
-        HttpResponseMessage response = await _client.PutAsJsonAsync($"/api/weather-forecasts/wf_{Guid.CreateVersion7()}", updateRequest);
+        HttpResponseMessage response = await _client.PutAsJsonAsync($"/api/weather-forecasts/{Guid.CreateVersion7()}", updateRequest);
         response.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }
 
@@ -128,7 +128,7 @@ public class WeatherForecastsControllerTests : IAsyncLifetime
     [Fact]
     public async Task DeleteWeatherForecast_ReturnNotFound()
     {
-        HttpResponseMessage response = await _client.DeleteAsync($"/api/weather-forecasts/wf_{Guid.CreateVersion7()}");
+        HttpResponseMessage response = await _client.DeleteAsync($"/api/weather-forecasts/{Guid.CreateVersion7()}");
         response.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }
 
@@ -167,7 +167,7 @@ public class WeatherForecastsControllerTests : IAsyncLifetime
     {
         RemoveWeatherForecastsRequest bulkRequest = new()
         {
-            Ids = [$"wf_{Guid.CreateVersion7()}", $"wf_{Guid.CreateVersion7()}"]
+            Ids = [Guid.CreateVersion7(), Guid.CreateVersion7()]
         };
 
         HttpResponseMessage response = await _client.PostAsJsonAsync("/api/weather-forecasts/bulk-delete", bulkRequest);
@@ -184,7 +184,7 @@ public class WeatherForecastsControllerTests : IAsyncLifetime
 
         RemoveWeatherForecastsRequest bulkRequest = new()
         {
-            Ids = [created.Id, $"wf_{Guid.CreateVersion7()}"]
+            Ids = [created.Id, Guid.CreateVersion7()]
         };
 
         HttpResponseMessage response = await _client.PostAsJsonAsync("/api/weather-forecasts/bulk-delete", bulkRequest);

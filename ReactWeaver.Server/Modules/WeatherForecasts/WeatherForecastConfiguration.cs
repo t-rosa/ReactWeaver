@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using ReactWeaver.Server.Database;
 using ReactWeaver.Server.Modules.Users;
 
 namespace ReactWeaver.Server.Modules.WeatherForecasts;
@@ -9,6 +10,10 @@ public sealed class WeatherForecastConfiguration : IEntityTypeConfiguration<Weat
     public void Configure(EntityTypeBuilder<WeatherForecast> builder)
     {
         builder.HasKey(e => e.Id);
+
+        builder
+            .Property(e => e.Id)
+            .ValueGeneratedNever();
 
         builder
               .Property(e => e.Id)
