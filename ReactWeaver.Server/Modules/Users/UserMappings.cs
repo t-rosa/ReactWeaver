@@ -6,14 +6,15 @@ internal static class UsersMappings
 {
     extension(User user)
     {
-        public UserResponse ToResponse(IList<string> roles)
+        public UserResponse ToResponse(IList<string> roles, string avatar)
         {
             return new UserResponse
             {
                 Id = user.Id,
                 Email = user.Email ?? "",
                 IsEmailConfirmed = user.EmailConfirmed,
-                Roles = roles
+                Roles = roles,
+                Avatar = avatar
             };
         }
     }

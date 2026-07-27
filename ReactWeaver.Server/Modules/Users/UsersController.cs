@@ -1,9 +1,12 @@
+using Amazon.S3;
+using Amazon.S3.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ReactWeaver.Server.Database;
 using ReactWeaver.Server.Modules.Auth;
+using ReactWeaver.Server.Modules.Storage;
 using ReactWeaver.Server.Modules.Users.DTOs;
 
 namespace ReactWeaver.Server.Modules.Users;
@@ -11,7 +14,7 @@ namespace ReactWeaver.Server.Modules.Users;
 [Authorize]
 [ApiController]
 [Route("api/users")]
-public class UsersController(ApplicationDbContext db, UserManager<User> userManager) : ControllerBase
+public class UsersController(ApplicationDbContext db, UserManager<User> userManager, IStorageService storage) : ControllerBase
 {
     [HttpGet("me")]
     [ProducesResponseType(typeof(UserResponse), StatusCodes.Status200OK)]
@@ -23,13 +26,9 @@ public class UsersController(ApplicationDbContext db, UserManager<User> userMana
             return Unauthorized();
         }
 
-        var response = new UserResponse
-        {
-            Id = await userManager.GetUserIdAsync(user) ?? throw new NotSupportedException("Users must have an Id."),
-            Email = await userManager.GetEmailAsync(user) ?? throw new NotSupportedException("Users must have an email."),
-            Roles = await userManager.GetRolesAsync(user) ?? throw new NotSupportedException("Users must have a role."),
-            IsEmailConfirmed = await userManager.IsEmailConfirmedAsync(user)
-        };
+        string avatar = string.IsNullOrEmpty(user.Avatar) ? "" : await storage.GetDownloadUrlAsync(user.Avatar);
+        IList<string> roles = await userManager.GetRolesAsync(user);
+        UserResponse response = user.ToResponse(roles, avatar);
 
         return Ok(response);
     }
@@ -45,8 +44,10 @@ public class UsersController(ApplicationDbContext db, UserManager<User> userMana
 
         foreach (User user in users)
         {
+            string avatar = string.IsNullOrEmpty(user.Avatar) ? "" : await storage.GetDownloadUrlAsync(user.Avatar);
             IList<string> roles = await userManager.GetRolesAsync(user);
-            response.Add(user.ToResponse(roles));
+
+            response.Add(user.ToResponse(roles, avatar));
         }
 
         return Ok(response);
@@ -107,5 +108,35 @@ public class UsersController(ApplicationDbContext db, UserManager<User> userMana
         }
 
         return NoContent();
+    }
+
+    [HttpPost("me/avatar")]
+    [Consumes("multipart/form-data")]
+    public async Task<IActionResult> UploadAvatar(IFormFile file)
+    {
+        User? user = await userManager.GetUserAsync(User);
+
+        if (user is null)
+        {
+            return Unauthorized();
+        }
+
+        if (file.Length == 0)
+        {
+            return BadRequest("Empty file.");
+        }
+
+        string key = $"avatars/{user.Id}{Path.GetExtension(file.FileName)}";
+
+        await storage.UploadAsync(
+            file.OpenReadStream(),
+            key,
+            file.ContentType);
+
+        user.Avatar = key;
+
+        await db.SaveChangesAsync();
+
+        return Ok();
     }
 }

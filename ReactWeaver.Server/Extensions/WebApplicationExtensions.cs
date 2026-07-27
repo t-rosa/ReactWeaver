@@ -34,7 +34,6 @@ public static class WebApplicationExtensions
             UserManager<User> userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
             IConfiguration configuration = scope.ServiceProvider.GetRequiredService<IConfiguration>();
 
-
             try
             {
                 if (!await roleManager.RoleExistsAsync(Roles.Member))
@@ -61,7 +60,7 @@ public static class WebApplicationExtensions
                 {
                     var admin = new User
                     {
-                        Id = $"u_{Guid.CreateVersion7()}",
+                        Id = Guid.NewGuid().ToString(),
                         Email = adminEmail,
                         UserName = adminEmail,
                         EmailConfirmed = true,

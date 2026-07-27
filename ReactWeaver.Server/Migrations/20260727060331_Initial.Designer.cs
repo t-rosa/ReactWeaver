@@ -11,7 +11,7 @@ using ReactWeaver.Server.Database;
 namespace ReactWeaver.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260106102653_Initial")]
+    [Migration("20260727060331_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace ReactWeaver.Server.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("application")
-                .HasAnnotation("ProductVersion", "9.0.10")
+                .HasAnnotation("ProductVersion", "10.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);

@@ -12,7 +12,8 @@ internal static class UserQueries
             Id = user.Id,
             Email = user.Email ?? "",
             IsEmailConfirmed = user.EmailConfirmed,
-            Roles = roles
+            Roles = roles,
+            Avatar = user.Avatar
         };
     }
 }

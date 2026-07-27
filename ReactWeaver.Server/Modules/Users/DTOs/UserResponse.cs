@@ -6,4 +6,5 @@ public sealed record UserResponse
     public required string Email { get; init; }
     public required IList<string> Roles { get; init; }
     public required bool IsEmailConfirmed { get; init; }
+    public string? Avatar { get; init; }
 }

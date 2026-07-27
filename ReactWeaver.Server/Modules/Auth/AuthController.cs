@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
+using ReactWeaver.Server.Modules.Storage;
 using ReactWeaver.Server.Modules.Users;
 using ReactWeaver.Server.Modules.Users.DTOs;
 
@@ -15,7 +16,7 @@ namespace ReactWeaver.Server.Modules.Auth;
 [ApiController]
 [Route("api/auth")]
 #pragma warning disable S6960 // Controllers should not have mixed responsibilities
-public class AuthController(UserManager<User> userManager, SignInManager<User> signInManager, IEmailSender<User> emailSender) : ControllerBase
+public class AuthController(UserManager<User> userManager, SignInManager<User> signInManager, IEmailSender<User> emailSender, IStorageService storage) : ControllerBase
 #pragma warning restore S6960 // Controllers should not have mixed responsibilities
 {
     private static readonly EmailAddressAttribute emailAddressAttribute = new();
@@ -34,7 +35,7 @@ public class AuthController(UserManager<User> userManager, SignInManager<User> s
 
         var user = new User()
         {
-            Id = $"u_{Guid.CreateVersion7()}"
+            Id = Guid.NewGuid().ToString()
         };
 
         await userManager.SetUserNameAsync(user, registration.Email);
@@ -259,13 +260,9 @@ public class AuthController(UserManager<User> userManager, SignInManager<User> s
             }
         }
 
-        var response = new UserResponse
-        {
-            Id = await userManager.GetUserIdAsync(user) ?? throw new NotSupportedException("Users must have an Id."),
-            Email = await userManager.GetEmailAsync(user) ?? throw new NotSupportedException("Users must have an email."),
-            Roles = await userManager.GetRolesAsync(user) ?? throw new NotSupportedException("Users must have a role."),
-            IsEmailConfirmed = await userManager.IsEmailConfirmedAsync(user)
-        };
+        string avatar = string.IsNullOrEmpty(user.Avatar) ? "" : await storage.GetDownloadUrlAsync(user.Avatar);
+        IList<string> roles = await userManager.GetRolesAsync(user);
+        UserResponse response = user.ToResponse(roles, avatar);
 
         return Ok(response);
     }
