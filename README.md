@@ -85,10 +85,22 @@ dotnet user-secrets set "SmtpOptions:Password" "value" --project ReactWeaver.Ser
 
 - Enable File Storage
 
-Create a new bucket.
+Find node ID.
 
 ```bash
-docker exec -it react-weaver.garage ./garage bucket create uploads
+docker exec -it hexalink.garage ./garage status
+```
+
+Assign capacity.
+
+```bash
+docker exec -it hexalink.garage ./garage layout assign node_id -r z1 -c 1G
+```
+
+Apply layout.
+
+```bash
+docker exec -it hexalink.garage ./garage layout apply
 ```
 
 Create a new S3 key
@@ -106,6 +118,12 @@ Copy the “Key ID” and “Secret key” and paste them into the appsettings.D
     "SecretKey": "paste-secret-key-here",
     "Bucket": "uploads"
   },
+```
+
+Create a new bucket
+
+```bash
+docker exec -it react-weaver.garage ./garage bucket create uploads
 ```
 
 Add permissions to the bucket.
