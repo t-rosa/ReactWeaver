@@ -4,7 +4,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/admin/users/")({
   loader({ context }) {
-    return context.queryClient.ensureQueryData(getUsersOptions());
+    return context.queryClient.query({ ...getUsersOptions(), staleTime: "static" });
   },
   component: UsersView,
 });

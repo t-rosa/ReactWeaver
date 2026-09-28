@@ -14,7 +14,7 @@ export const Route = createFileRoute("/app")({
     }
   },
   loader({ context }) {
-    return context.queryClient.ensureQueryData(getWeatherForecastsOptions());
+    return context.queryClient.query({ ...getWeatherForecastsOptions(), staleTime: "static" });
   },
   component: AppView,
 });

@@ -4,7 +4,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/app/forecasts/")({
   loader({ context }) {
-    return context.queryClient.ensureQueryData(getWeatherForecastsOptions());
+    return context.queryClient.query({ ...getWeatherForecastsOptions(), staleTime: "static" });
   },
   component: ForecastsView,
 });

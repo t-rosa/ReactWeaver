@@ -2,23 +2,28 @@ import { Button } from "#src/components/ui/button.tsx";
 import { ScrollArea, ScrollBar } from "#src/components/ui/scroll-area.tsx";
 import { m } from "#src/paraglide/messages.js";
 import { CodeSimpleIcon, CopyIcon } from "@phosphor-icons/react";
-import { Link } from "@tanstack/react-router";
+import { Link, type ErrorComponentProps } from "@tanstack/react-router";
 import * as React from "react";
 
-interface ErrorProps {
-  error?: { message: string };
-  reset?: () => void;
-}
-
-export function ErrorScreen(props: ErrorProps) {
+export function ErrorScreen(props: ErrorComponentProps) {
   const [showDetails, setShowDetails] = React.useState(false);
+
   function handleShowDetailsClick() {
     setShowDetails(!showDetails);
   }
 
+  const errorMessage =
+    props.error instanceof Error
+      ? props.error.message
+      : typeof props.error === "string"
+        ? props.error
+        : props.error
+          ? JSON.stringify(props.error, null, 2)
+          : undefined;
+
   async function handleCopyClick() {
-    if (props.error?.message) {
-      await navigator.clipboard.writeText(props.error.message);
+    if (errorMessage) {
+      await navigator.clipboard.writeText(errorMessage);
     }
   }
 
@@ -36,16 +41,20 @@ export function ErrorScreen(props: ErrorProps) {
                 <CodeSimpleIcon />
               </Link>
             </div>
+
             <h1 className="mt-4 text-base/6 font-medium">{m.error_title()}</h1>
+
             <p className="mt-1 text-sm/5 text-muted-foreground">{m.common_error_occurred()}</p>
           </div>
 
           <div className="mt-8 space-y-6">
             <p>{m.error_intro()}</p>
+
             <div className="grid gap-2">
               <Button onClick={handleReload} className="cursor-pointer">
                 {m.error_reload()}
               </Button>
+
               <Button
                 variant="outline"
                 className="cursor-pointer text-xs text-muted-foreground"
@@ -54,15 +63,16 @@ export function ErrorScreen(props: ErrorProps) {
                 {showDetails ? m.error_hide_details() : m.error_show_details()}
               </Button>
             </div>
+
             {showDetails && (
               <div>
                 <Button variant="link" className="cursor-pointer" onClick={handleCopyClick}>
                   <CopyIcon /> {m.error_copy()}
                 </Button>
 
-                {props.error ? (
+                {errorMessage ? (
                   <ScrollArea className="overflow-auto rounded-lg border bg-muted p-3 text-xs text-muted-foreground">
-                    {props.error.message ?? JSON.stringify(props.error.message, null, 2)}
+                    {errorMessage}
                     <ScrollBar orientation="horizontal" />
                   </ScrollArea>
                 ) : (

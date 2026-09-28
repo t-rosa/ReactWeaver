@@ -22,7 +22,7 @@ export const Route = createFileRoute("/admin")({
     }
   },
   loader({ context }) {
-    return context.queryClient.ensureQueryData(getCurrentUserOptions());
+    return context.queryClient.query({ ...getCurrentUserOptions(), staleTime: "static" });
   },
   component: AdminView,
 });
