@@ -1,4 +1,5 @@
-import { Avatar, AvatarFallback, AvatarImage } from "#/components/ui/avatar.tsx";
+import { LanguageSwitcher } from "#src/components/language-switcher.tsx";
+import { Avatar, AvatarFallback, AvatarImage } from "#src/components/ui/avatar.tsx";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,8 +8,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "#/components/ui/dropdown-menu.tsx";
-import { Item, ItemContent, ItemMedia } from "#/components/ui/item.tsx";
+} from "#src/components/ui/dropdown-menu.tsx";
+import { Item, ItemContent, ItemMedia } from "#src/components/ui/item.tsx";
 import {
   Sidebar,
   SidebarContent,
@@ -19,10 +20,11 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from "#/components/ui/sidebar.tsx";
-import { useUser } from "#/modules/auth/authorize/authorize.hooks.tsx";
-import { Authorize } from "#/modules/auth/authorize/authorize.view.tsx";
-import { LogoutView } from "#/modules/auth/logout.view.tsx";
+} from "#src/components/ui/sidebar.tsx";
+import { useUser } from "#src/modules/auth/authorize/authorize.hooks.tsx";
+import { Authorize } from "#src/modules/auth/authorize/authorize.view.tsx";
+import { LogoutView } from "#src/modules/auth/logout.view.tsx";
+import { m } from "#src/paraglide/messages.js";
 import {
   AppWindowIcon,
   ChartPieSliceIcon,
@@ -36,8 +38,7 @@ import * as React from "react";
 import { ThemeSwitcher } from "../../theme-switcher/theme-switcher.view";
 
 interface NavItem {
-  name?: string;
-  title?: string;
+  label: () => string;
   url: string;
   icon: React.JSX.Element;
 }
@@ -48,26 +49,15 @@ interface Data {
 }
 
 const data: Data = {
-  navMain: [
-    // {
-    //   name: "Dashboard",
-    //   url: "/app/dashboard",
-    // icon: <GridFourIcon />,
-    // },
-    // {
-    //   name: "Forecasts",
-    //   url: "/app/forecasts",
-    //   icon: <WindIcon />,
-    // },
-  ],
+  navMain: [],
   navSecondary: [
     {
-      title: "Support",
+      label: () => m.nav_support(),
       url: "#",
       icon: <LifebuoyIcon />,
     },
     {
-      title: "Feedback",
+      label: () => m.nav_feedback(),
       url: "#",
       icon: <PaperPlaneTiltIcon />,
     },
@@ -88,8 +78,10 @@ export function UserSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
                 <CommandIcon className="size-4" />
               </div>
               <div className="grid flex-1 text-start text-sm leading-tight">
-                <span className="truncate font-medium">React Weaver</span>
-                <span className="truncate text-xs text-muted-foreground">Application</span>
+                <span className="truncate font-medium">{m.app_name()}</span>
+                <span className="truncate text-xs text-muted-foreground">
+                  {m.nav_application()}
+                </span>
               </div>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -99,12 +91,12 @@ export function UserSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
         <SidebarGroup>
           <SidebarMenu>
             {data.navMain.map((item) => (
-              <SidebarMenuItem key={item.name}>
+              <SidebarMenuItem key={item.url}>
                 <SidebarMenuButton
                   render={<Link to={item.url} activeProps={{ className: "bg-muted" }} />}
                 >
                   {item.icon}
-                  <span>{item.name}</span>
+                  <span>{item.label()}</span>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             ))}
@@ -114,13 +106,14 @@ export function UserSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
       <SidebarFooter>
         <SidebarMenu>
           {data.navSecondary.map((item) => (
-            <SidebarMenuItem key={item.title}>
+            <SidebarMenuItem key={item.url + item.label()}>
               <SidebarMenuButton size="sm" render={<a href={item.url} />}>
                 {item.icon}
-                <span>{item.title}</span>
+                <span>{item.label()}</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
           ))}
+          <LanguageSwitcher />
           <ThemeSwitcher />
           <SidebarMenuItem>
             <DropdownMenu>
@@ -149,12 +142,12 @@ export function UserSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
                   <Authorize role="Admin">
                     <DropdownMenuItem nativeButton={false} render={<Link to="/admin/dashboard" />}>
                       <ChartPieSliceIcon />
-                      Administration
+                      {m.nav_administration()}
                     </DropdownMenuItem>
                   </Authorize>
                   <DropdownMenuItem nativeButton={false} render={<Link to="/app/dashboard" />}>
                     <AppWindowIcon />
-                    Application
+                    {m.nav_application()}
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <LogoutView />

@@ -1,3 +1,4 @@
+import { m } from "#src/paraglide/messages.js";
 import { CodeSimpleIcon } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
 
@@ -17,7 +18,7 @@ function Header(props: React.PropsWithChildren) {
   return (
     <div className="mb-8">
       <div className="flex items-start">
-        <Link to="/" title="Accueil">
+        <Link to="/" title={m.common_home()}>
           <CodeSimpleIcon />
         </Link>
       </div>

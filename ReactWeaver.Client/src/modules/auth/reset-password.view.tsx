@@ -1,9 +1,10 @@
-import { Button } from "#/components/ui/button.tsx";
-import { Field, FieldError, FieldGroup, FieldLabel } from "#/components/ui/field.tsx";
-import { Input } from "#/components/ui/input.tsx";
-import { Spinner } from "#/components/ui/spinner.tsx";
-import { resetPasswordMutation } from "#/lib/api/@tanstack/react-query.gen.ts";
-import * as AuthCard from "#/modules/auth/components/auth-card.tsx";
+import { Button } from "#src/components/ui/button.tsx";
+import { Field, FieldError, FieldGroup, FieldLabel } from "#src/components/ui/field.tsx";
+import { Input } from "#src/components/ui/input.tsx";
+import { Spinner } from "#src/components/ui/spinner.tsx";
+import { resetPasswordMutation } from "#src/lib/api/@tanstack/react-query.gen.ts";
+import * as AuthCard from "#src/modules/auth/components/auth-card.tsx";
+import { m } from "#src/paraglide/messages.js";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
@@ -14,32 +15,32 @@ import * as z from "zod";
 const formSchema = z
   .object({
     email: z.email({
-      error: "Invalid email address",
+      error: () => m.validation_email_invalid(),
     }),
     resetCode: z.string({
-      error: "Invalid code",
+      error: () => m.validation_code_invalid(),
     }),
     newPassword: z
       .string({
-        error: "Invalid password",
+        error: () => m.validation_password_invalid(),
       })
-      .min(6, "Password must be at least 6 characters long.")
-      .regex(/[A-Z]/, "Password must contain at least one uppercase letter.")
-      .regex(/[a-z]/, "Password must contain at least one lowercase letter.")
-      .regex(/[0-9]/, "Password must contain at least one digit.")
-      .regex(/[^a-zA-Z0-9]/, "Password must contain at least one special character."),
+      .min(6, { error: () => m.validation_password_min() })
+      .regex(/[A-Z]/, { error: () => m.validation_password_uppercase() })
+      .regex(/[a-z]/, { error: () => m.validation_password_lowercase() })
+      .regex(/[0-9]/, { error: () => m.validation_password_digit() })
+      .regex(/[^a-zA-Z0-9]/, { error: () => m.validation_password_special() }),
     confirmPassword: z
       .string({
-        error: "Invalid password",
+        error: () => m.validation_password_invalid(),
       })
-      .min(6, "Password must be at least 6 characters long.")
-      .regex(/[A-Z]/, "Password must contain at least one uppercase letter.")
-      .regex(/[a-z]/, "Password must contain at least one lowercase letter.")
-      .regex(/[0-9]/, "Password must contain at least one digit.")
-      .regex(/[^a-zA-Z0-9]/, "Password must contain at least one special character."),
+      .min(6, { error: () => m.validation_password_min() })
+      .regex(/[A-Z]/, { error: () => m.validation_password_uppercase() })
+      .regex(/[a-z]/, { error: () => m.validation_password_lowercase() })
+      .regex(/[0-9]/, { error: () => m.validation_password_digit() })
+      .regex(/[^a-zA-Z0-9]/, { error: () => m.validation_password_special() }),
   })
   .refine((values) => values.newPassword === values.confirmPassword, {
-    error: "Passwords do not match.",
+    error: () => m.validation_passwords_mismatch(),
     path: ["confirmPassword"],
   });
 
@@ -59,8 +60,8 @@ export function ResetPasswordView() {
   const resetPassword = useMutation({
     ...resetPasswordMutation(),
     onError(error) {
-      form.setError("root", { message: error.detail ?? "An error has occurred" });
-      toast.error("An error has occurred");
+      form.setError("root", { message: error.detail ?? m.common_error_occurred() });
+      toast.error(m.common_error_occurred());
     },
   });
 
@@ -79,14 +80,14 @@ export function ResetPasswordView() {
       <AuthCard.Root>
         <AuthCard.Content>
           <AuthCard.Header>
-            <AuthCard.Title>Reset password.</AuthCard.Title>
-            <AuthCard.Description>A reset code has been sent to you by email.</AuthCard.Description>
+            <AuthCard.Title>{m.auth_reset_title()}</AuthCard.Title>
+            <AuthCard.Description>{m.auth_reset_description()}</AuthCard.Description>
           </AuthCard.Header>
-          <p>Password successfully reset!</p>
-          <p>You can now log in with your new password.</p>
+          <p>{m.auth_password_reset_success()}</p>
+          <p>{m.auth_password_reset_login_hint()}</p>
         </AuthCard.Content>
         <AuthCard.Footer>
-          <Link to="/login">Log in</Link>
+          <Link to="/login">{m.auth_login()}</Link>
         </AuthCard.Footer>
       </AuthCard.Root>
     );
@@ -96,8 +97,8 @@ export function ResetPasswordView() {
     <AuthCard.Root>
       <AuthCard.Content>
         <AuthCard.Header>
-          <AuthCard.Title>Reset password.</AuthCard.Title>
-          <AuthCard.Description>A reset code has been sent to you by email.</AuthCard.Description>
+          <AuthCard.Title>{m.auth_reset_title()}</AuthCard.Title>
+          <AuthCard.Description>{m.auth_reset_description()}</AuthCard.Description>
         </AuthCard.Header>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <FieldGroup>
@@ -106,12 +107,12 @@ export function ResetPasswordView() {
               name="email"
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor={field.name}>Email</FieldLabel>
+                  <FieldLabel htmlFor={field.name}>{m.common_email()}</FieldLabel>
                   <Input
                     {...field}
                     id={field.name}
                     type="email"
-                    placeholder="name@example.com"
+                    placeholder={m.placeholder_email()}
                     autoComplete="username"
                   />
                   {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
@@ -123,12 +124,12 @@ export function ResetPasswordView() {
               name="resetCode"
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor={field.name}>Reset code</FieldLabel>
+                  <FieldLabel htmlFor={field.name}>{m.auth_reset_code()}</FieldLabel>
                   <Input
                     {...field}
                     id={field.name}
                     type="password"
-                    placeholder="••••••••"
+                    placeholder={m.placeholder_password()}
                     autoComplete="one-time-code"
                   />
                   {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
@@ -140,12 +141,12 @@ export function ResetPasswordView() {
               name="newPassword"
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor={field.name}>New password</FieldLabel>
+                  <FieldLabel htmlFor={field.name}>{m.auth_new_password()}</FieldLabel>
                   <Input
                     {...field}
                     id={field.name}
                     type="password"
-                    placeholder="••••••••"
+                    placeholder={m.placeholder_password()}
                     autoComplete="new-password"
                   />
                   {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
@@ -157,12 +158,12 @@ export function ResetPasswordView() {
               name="confirmPassword"
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor={field.name}>Confirm password</FieldLabel>
+                  <FieldLabel htmlFor={field.name}>{m.auth_confirm_password()}</FieldLabel>
                   <Input
                     {...field}
                     id={field.name}
                     type="password"
-                    placeholder="••••••••"
+                    placeholder={m.placeholder_password()}
                     autoComplete="new-password"
                   />
                   {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
@@ -171,7 +172,7 @@ export function ResetPasswordView() {
             />
             {form.formState.errors?.root && <FieldError errors={[form.formState.errors.root]} />}
             <Button type="submit" disabled={resetPassword.isPending}>
-              {resetPassword.isPending ? "Reseting..." : "Reset password"}
+              {resetPassword.isPending ? m.auth_resetting() : m.auth_reset_password_button()}
               {resetPassword.isPending && <Spinner />}
             </Button>
           </FieldGroup>

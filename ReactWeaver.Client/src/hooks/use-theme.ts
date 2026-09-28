@@ -1,4 +1,4 @@
-import { ThemeContext } from "#/components/theme/theme.context.ts";
+import { ThemeContext } from "#src/components/theme/theme.context.ts";
 import * as React from "react";
 
 export function useTheme() {

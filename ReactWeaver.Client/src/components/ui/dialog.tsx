@@ -1,8 +1,8 @@
 import { Dialog as DialogPrimitive } from "@base-ui/react/dialog";
 import * as React from "react";
 
-import { Button } from "#/components/ui/button.tsx";
-import { cn } from "#/lib/utils.ts";
+import { Button } from "#src/components/ui/button.tsx";
+import { cn } from "#src/lib/utils.ts";
 import { XIcon } from "@phosphor-icons/react";
 
 function Dialog({ ...props }: DialogPrimitive.Root.Props) {

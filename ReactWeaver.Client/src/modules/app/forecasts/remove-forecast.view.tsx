@@ -7,11 +7,12 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "#/components/ui/alert-dialog.tsx";
+} from "#src/components/ui/alert-dialog.tsx";
 import {
   getWeatherForecastsQueryKey,
   removeWeatherForecastMutation,
-} from "#/lib/api/@tanstack/react-query.gen.ts";
+} from "#src/lib/api/@tanstack/react-query.gen.ts";
+import { m } from "#src/paraglide/messages.js";
 import { useMutation } from "@tanstack/react-query";
 
 interface RemoveForecastProps {
@@ -47,14 +48,12 @@ export function RemoveForecast(props: RemoveForecastProps) {
     <AlertDialog open={props.open} onOpenChange={props.setOpen}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-          <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete the selected forecast.
-          </AlertDialogDescription>
+          <AlertDialogTitle>{m.common_confirm_title()}</AlertDialogTitle>
+          <AlertDialogDescription>{m.forecasts_confirm_delete_one()}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={handleRemoveClick}>Continue</AlertDialogAction>
+          <AlertDialogCancel>{m.common_cancel()}</AlertDialogCancel>
+          <AlertDialogAction onClick={handleRemoveClick}>{m.common_continue()}</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

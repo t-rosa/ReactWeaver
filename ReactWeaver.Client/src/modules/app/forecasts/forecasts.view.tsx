@@ -1,6 +1,7 @@
-import { Container } from "#/components/container.tsx";
-import { BreadcrumbItem, BreadcrumbLink } from "#/components/ui/breadcrumb.tsx";
-import { getWeatherForecastsOptions } from "#/lib/api/@tanstack/react-query.gen.ts";
+import { Container } from "#src/components/container.tsx";
+import { BreadcrumbItem, BreadcrumbLink } from "#src/components/ui/breadcrumb.tsx";
+import { getWeatherForecastsOptions } from "#src/lib/api/@tanstack/react-query.gen.ts";
+import { m } from "#src/paraglide/messages.js";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { AppHeader } from "../components/app-header";
 import { AppInset } from "../components/app-inset";
@@ -14,7 +15,7 @@ export function ForecastsView() {
     <AppInset>
       <AppHeader>
         <BreadcrumbItem>
-          <BreadcrumbLink>Forecast</BreadcrumbLink>
+          <BreadcrumbLink>{m.forecasts_title()}</BreadcrumbLink>
         </BreadcrumbItem>
       </AppHeader>
       <Container>

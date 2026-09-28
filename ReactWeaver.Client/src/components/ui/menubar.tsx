@@ -16,8 +16,8 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "#/components/ui/dropdown-menu.tsx";
-import { cn } from "#/lib/utils.ts";
+} from "#src/components/ui/dropdown-menu.tsx";
+import { cn } from "#src/lib/utils.ts";
 import { CheckIcon } from "@phosphor-icons/react";
 
 function Menubar({ className, ...props }: MenubarPrimitive.Props) {

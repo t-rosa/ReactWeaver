@@ -1,6 +1,6 @@
-import { Breadcrumb, BreadcrumbList } from "#/components/ui/breadcrumb.tsx";
-import { Separator } from "#/components/ui/separator.tsx";
-import { SidebarTrigger } from "#/components/ui/sidebar.tsx";
+import { Breadcrumb, BreadcrumbList } from "#src/components/ui/breadcrumb.tsx";
+import { Separator } from "#src/components/ui/separator.tsx";
+import { SidebarTrigger } from "#src/components/ui/sidebar.tsx";
 
 export function AdminHeader(props: React.PropsWithChildren) {
   return (

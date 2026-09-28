@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback } from "#/components/ui/avatar.tsx";
+import { Avatar, AvatarFallback } from "#src/components/ui/avatar.tsx";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,12 +7,13 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "#/components/ui/dropdown-menu.tsx";
-import { Item, ItemContent, ItemMedia } from "#/components/ui/item.tsx";
-import { SidebarMenuButton, useSidebar } from "#/components/ui/sidebar.tsx";
-import { useUser } from "#/modules/auth/authorize/authorize.hooks.tsx";
-import { Authorize } from "#/modules/auth/authorize/authorize.view.tsx";
-import { LogoutView } from "#/modules/auth/logout.view.tsx";
+} from "#src/components/ui/dropdown-menu.tsx";
+import { Item, ItemContent, ItemMedia } from "#src/components/ui/item.tsx";
+import { SidebarMenuButton, useSidebar } from "#src/components/ui/sidebar.tsx";
+import { useUser } from "#src/modules/auth/authorize/authorize.hooks.tsx";
+import { Authorize } from "#src/modules/auth/authorize/authorize.view.tsx";
+import { LogoutView } from "#src/modules/auth/logout.view.tsx";
+import { m } from "#src/paraglide/messages.js";
 import { DotsThreeVerticalIcon, UserCircleIcon, UsersIcon } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
 
@@ -44,12 +45,12 @@ export function UserMenu() {
           <DropdownMenuSeparator />
           <DropdownMenuItem disabled>
             <UserCircleIcon />
-            Profile
+            {m.nav_profile()}
           </DropdownMenuItem>
           <Authorize role="Admin">
             <DropdownMenuItem nativeButton={false} render={<Link to="/admin/users" />}>
               <UsersIcon />
-              Users
+              {m.nav_users()}
             </DropdownMenuItem>
           </Authorize>
           <DropdownMenuSeparator />

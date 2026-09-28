@@ -1,6 +1,7 @@
-import { Button } from "#/components/ui/button.tsx";
-import { Checkbox } from "#/components/ui/checkbox.tsx";
-import type { WeatherForecastResponse } from "#/lib/api/index.ts";
+import { Button } from "#src/components/ui/button.tsx";
+import { Checkbox } from "#src/components/ui/checkbox.tsx";
+import type { WeatherForecastResponse } from "#src/lib/api/index.ts";
+import { m } from "#src/paraglide/messages.js";
 import { ArrowsDownUpIcon } from "@phosphor-icons/react";
 import { createColumnHelper, type ColumnDef } from "@tanstack/react-table";
 import { ForecastActions } from "./forecast-actions.view";
@@ -18,14 +19,14 @@ export const FORECAST_COLUMNS: ColumnDef<typeof forecastTableFeatures, WeatherFo
             context.table.getIsAllPageRowsSelected() || context.table.getIsSomePageRowsSelected()
           }
           onCheckedChange={(value) => context.table.toggleAllPageRowsSelected(!!value)}
-          aria-label="Select all"
+          aria-label={m.common_select_all()}
         />
       ),
       cell: (context) => (
         <Checkbox
           checked={context.row.getIsSelected()}
           onCheckedChange={(value) => context.row.toggleSelected(!!value)}
-          aria-label="Select row"
+          aria-label={m.common_select_row()}
         />
       ),
       enableSorting: false,
@@ -38,7 +39,7 @@ export const FORECAST_COLUMNS: ColumnDef<typeof forecastTableFeatures, WeatherFo
             variant="ghost"
             onClick={() => context.column.toggleSorting(context.column.getIsSorted() === "asc")}
           >
-            Date
+            {m.common_date()}
             <ArrowsDownUpIcon />
           </Button>
         );
@@ -51,14 +52,14 @@ export const FORECAST_COLUMNS: ColumnDef<typeof forecastTableFeatures, WeatherFo
             variant="ghost"
             onClick={() => context.column.toggleSorting(context.column.getIsSorted() === "asc")}
           >
-            Temperature C
+            {m.forecasts_column_temperature()}
             <ArrowsDownUpIcon />
           </Button>
         );
       },
     }),
     columnHelper.accessor("summary", {
-      header: "Summary",
+      header: () => m.common_summary(),
     }),
     columnHelper.accessor("id", {
       id: "actions",

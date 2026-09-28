@@ -1,3 +1,4 @@
+import { m } from "#src/paraglide/messages.js";
 import { Item, ItemContent, ItemMedia, ItemTitle } from "./ui/item";
 import { Spinner } from "./ui/spinner";
 
@@ -10,7 +11,7 @@ export function PendingScreen() {
             <Spinner />
           </ItemMedia>
           <ItemContent>
-            <ItemTitle className="line-clamp-1">Loading...</ItemTitle>
+            <ItemTitle className="line-clamp-1">{m.pending_loading()}</ItemTitle>
           </ItemContent>
         </Item>
       </div>

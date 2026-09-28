@@ -1,6 +1,7 @@
-import { DropdownMenuItem } from "#/components/ui/dropdown-menu.tsx";
-import { Spinner } from "#/components/ui/spinner.tsx";
-import { getCurrentUserQueryKey, logoutMutation } from "#/lib/api/@tanstack/react-query.gen.ts";
+import { DropdownMenuItem } from "#src/components/ui/dropdown-menu.tsx";
+import { Spinner } from "#src/components/ui/spinner.tsx";
+import { getCurrentUserQueryKey, logoutMutation } from "#src/lib/api/@tanstack/react-query.gen.ts";
+import { m } from "#src/paraglide/messages.js";
 import { SignOutIcon } from "@phosphor-icons/react";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
@@ -11,11 +12,11 @@ export function LogoutView() {
   const logout = useMutation({
     ...logoutMutation(),
     async onSuccess() {
-      toast.success("Logged out");
+      toast.success(m.auth_logged_out());
       await navigate({ to: "/" });
     },
     meta: {
-      errorMessage: "An error has occurred",
+      errorMessage: m.common_error_occurred(),
       invalidatesQuery: getCurrentUserQueryKey(),
     },
   });
@@ -28,7 +29,7 @@ export function LogoutView() {
     return (
       <DropdownMenuItem disabled>
         <Spinner />
-        Logging out
+        {m.auth_logging_out()}
       </DropdownMenuItem>
     );
   }
@@ -36,7 +37,7 @@ export function LogoutView() {
   return (
     <DropdownMenuItem onClick={handleClick}>
       <SignOutIcon />
-      Log out
+      {m.auth_logout()}
     </DropdownMenuItem>
   );
 }

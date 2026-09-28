@@ -1,4 +1,5 @@
 import { heyApiPlugin } from "@hey-api/vite-plugin";
+import { paraglideVitePlugin } from "@inlang/paraglide-js";
 import tailwindcss from "@tailwindcss/vite";
 import { tanstackRouter } from "@tanstack/router-plugin/vite";
 import react from "@vitejs/plugin-react";
@@ -44,6 +45,12 @@ const target = env.ASPNETCORE_HTTPS_PORT
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
+    paraglideVitePlugin({
+      project: "./project.inlang",
+      outdir: "./src/paraglide",
+      strategy: ["localStorage", "preferredLanguage", "baseLocale"],
+      emitTsDeclarations: true,
+    }),
     ViteImageOptimizer(),
     heyApiPlugin({
       config: {

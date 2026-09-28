@@ -1,5 +1,6 @@
-import { SidebarMenuButton, SidebarMenuItem } from "#/components/ui/sidebar.tsx";
-import { Switch } from "#/components/ui/switch.tsx";
+import { SidebarMenuButton, SidebarMenuItem } from "#src/components/ui/sidebar.tsx";
+import { Switch } from "#src/components/ui/switch.tsx";
+import { m } from "#src/paraglide/messages.js";
 import * as React from "react";
 
 interface SidebarThemeToggleProps {
@@ -38,7 +39,7 @@ export function ThemeSwitcherMenuItem(props: SidebarThemeToggleProps) {
                   d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0-18 0m9-9v18m0-12l4.65-4.65M12 14.3l7.37-7.37M12 19.6l8.85-8.85"
                 ></path>
               </svg>
-              <span>Switch theme</span>
+              <span>{m.theme_switch()}</span>
               <Switch
                 className="ml-auto"
                 checked={props.isDark}

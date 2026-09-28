@@ -8,9 +8,10 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "#/components/ui/alert-dialog.tsx";
-import { Button } from "#/components/ui/button.tsx";
-import { getUsersQueryKey, removeUsersMutation } from "#/lib/api/@tanstack/react-query.gen.ts";
+} from "#src/components/ui/alert-dialog.tsx";
+import { Button } from "#src/components/ui/button.tsx";
+import { getUsersQueryKey, removeUsersMutation } from "#src/lib/api/@tanstack/react-query.gen.ts";
+import { m } from "#src/paraglide/messages.js";
 import { TrashSimpleIcon } from "@phosphor-icons/react";
 import { useMutation } from "@tanstack/react-query";
 
@@ -40,19 +41,16 @@ export function RemoveUsers(props: RemoveUsersProps) {
     <AlertDialog>
       <AlertDialogTrigger render={<Button variant="destructive" />}>
         <TrashSimpleIcon />
-        Remove
+        {m.common_remove()}
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-          <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete your account and remove your
-            data from our servers.
-          </AlertDialogDescription>
+          <AlertDialogTitle>{m.common_confirm_title()}</AlertDialogTitle>
+          <AlertDialogDescription>{m.confirm_delete_account()}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={handleRemoveClick}>Continue</AlertDialogAction>
+          <AlertDialogCancel>{m.common_cancel()}</AlertDialogCancel>
+          <AlertDialogAction onClick={handleRemoveClick}>{m.common_continue()}</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

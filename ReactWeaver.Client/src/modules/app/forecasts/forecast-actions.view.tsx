@@ -1,4 +1,4 @@
-import { Button } from "#/components/ui/button.tsx";
+import { Button } from "#src/components/ui/button.tsx";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,13 +7,14 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "#/components/ui/dropdown-menu.tsx";
-import type { WeatherForecastResponse } from "#/lib/api/index.ts";
-import { RemoveForecast } from "#/modules/app/forecasts/remove-forecast.view.tsx";
+} from "#src/components/ui/dropdown-menu.tsx";
+import type { WeatherForecastResponse } from "#src/lib/api/index.ts";
+import { m } from "#src/paraglide/messages.js";
 import { DotsThreeIcon } from "@phosphor-icons/react";
 import type { CellContext } from "@tanstack/react-table";
 import * as React from "react";
 import type { forecastTableFeatures } from "./table-features";
+import { RemoveForecast } from "./remove-forecast.view";
 import { UpdateForecast } from "./update-forecast.view";
 
 type ForecastActionsProps = CellContext<
@@ -40,11 +41,15 @@ export function ForecastActions(props: ForecastActionsProps) {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuGroup>
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem onClick={handleCopyIdClick}>Copy ID</DropdownMenuItem>
+            <DropdownMenuLabel>{m.common_actions()}</DropdownMenuLabel>
+            <DropdownMenuItem onClick={handleCopyIdClick}>{m.common_copy_id()}</DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => setDialogOpen(true)}>Edit</DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setAlertOpen(true)}>Remove</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setDialogOpen(true)}>
+              {m.common_edit()}
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setAlertOpen(true)}>
+              {m.common_remove()}
+            </DropdownMenuItem>
           </DropdownMenuGroup>
         </DropdownMenuContent>
       </DropdownMenu>

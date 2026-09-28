@@ -1,5 +1,6 @@
-import { Button } from "#/components/ui/button.tsx";
-import { ScrollArea, ScrollBar } from "#/components/ui/scroll-area.tsx";
+import { Button } from "#src/components/ui/button.tsx";
+import { ScrollArea, ScrollBar } from "#src/components/ui/scroll-area.tsx";
+import { m } from "#src/paraglide/messages.js";
 import { CodeSimpleIcon, CopyIcon } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
 import * as React from "react";
@@ -35,28 +36,28 @@ export function ErrorScreen(props: ErrorProps) {
                 <CodeSimpleIcon />
               </Link>
             </div>
-            <h1 className="mt-4 text-base/6 font-medium">Oups.</h1>
-            <p className="mt-1 text-sm/5 text-muted-foreground">An error has occurred</p>
+            <h1 className="mt-4 text-base/6 font-medium">{m.error_title()}</h1>
+            <p className="mt-1 text-sm/5 text-muted-foreground">{m.common_error_occurred()}</p>
           </div>
 
           <div className="mt-8 space-y-6">
-            <p>We encountered an error, please excuse us for the inconvenience.</p>
+            <p>{m.error_intro()}</p>
             <div className="grid gap-2">
               <Button onClick={handleReload} className="cursor-pointer">
-                Reload page
+                {m.error_reload()}
               </Button>
               <Button
                 variant="outline"
                 className="cursor-pointer text-xs text-muted-foreground"
                 onClick={handleShowDetailsClick}
               >
-                {showDetails ? "Hide details" : "Show details"}
+                {showDetails ? m.error_hide_details() : m.error_show_details()}
               </Button>
             </div>
             {showDetails && (
               <div>
                 <Button variant="link" className="cursor-pointer" onClick={handleCopyClick}>
-                  <CopyIcon /> Copy error message
+                  <CopyIcon /> {m.error_copy()}
                 </Button>
 
                 {props.error ? (
@@ -66,7 +67,7 @@ export function ErrorScreen(props: ErrorProps) {
                   </ScrollArea>
                 ) : (
                   <pre className="rounded-lg border bg-muted p-2 text-xs text-muted-foreground">
-                    Unknown error.
+                    {m.error_unknown()}
                   </pre>
                 )}
               </div>

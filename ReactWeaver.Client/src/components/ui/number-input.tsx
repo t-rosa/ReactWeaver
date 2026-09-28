@@ -1,7 +1,7 @@
 import { NumberField as NumberInputPrimitive } from "@base-ui/react";
 import * as React from "react";
 
-import { cn } from "#/lib/utils.ts";
+import { cn } from "#src/lib/utils.ts";
 import { DotsThreeIcon, DotsThreeVerticalIcon, MinusIcon, PlusIcon } from "@phosphor-icons/react";
 
 function NumberInput({

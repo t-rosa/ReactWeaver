@@ -1,8 +1,8 @@
-import { Container } from "#/components/container.tsx";
-import { Avatar, AvatarFallback, AvatarImage } from "#/components/ui/avatar.tsx";
-import { Badge } from "#/components/ui/badge.tsx";
-import { BreadcrumbItem, BreadcrumbLink } from "#/components/ui/breadcrumb.tsx";
-import { Input } from "#/components/ui/input.tsx";
+import { Container } from "#src/components/container.tsx";
+import { Avatar, AvatarFallback, AvatarImage } from "#src/components/ui/avatar.tsx";
+import { Badge } from "#src/components/ui/badge.tsx";
+import { BreadcrumbItem, BreadcrumbLink } from "#src/components/ui/breadcrumb.tsx";
+import { Input } from "#src/components/ui/input.tsx";
 import {
   Item,
   ItemActions,
@@ -10,11 +10,12 @@ import {
   ItemDescription,
   ItemGroup,
   ItemTitle,
-} from "#/components/ui/item.tsx";
+} from "#src/components/ui/item.tsx";
 import {
   getCurrentUserQueryKey,
   uploadAvatarMutation,
-} from "#/lib/api/@tanstack/react-query.gen.ts";
+} from "#src/lib/api/@tanstack/react-query.gen.ts";
+import { m } from "#src/paraglide/messages.js";
 import { useMutation } from "@tanstack/react-query";
 import * as React from "react";
 import { useUser } from "../auth/authorize/authorize.hooks";
@@ -53,24 +54,24 @@ export function UserProfileView() {
     <UserInset>
       <UserHeader>
         <BreadcrumbItem>
-          <BreadcrumbLink>Profile</BreadcrumbLink>
+          <BreadcrumbLink>{m.nav_profile()}</BreadcrumbLink>
         </BreadcrumbItem>
       </UserHeader>
       <Container>
         <ItemGroup>
           <Item variant="outline">
             <ItemContent>
-              <ItemTitle>Email</ItemTitle>
+              <ItemTitle>{m.common_email()}</ItemTitle>
               <ItemDescription>{user.email}</ItemDescription>
             </ItemContent>
             <Badge variant={user.isEmailConfirmed ? "secondary" : "outline"}>
-              {user.isEmailConfirmed ? "Verified" : "Unverified"}
+              {user.isEmailConfirmed ? m.general_verified() : m.general_unverified()}
             </Badge>
           </Item>
           <Item variant="outline">
             <ItemContent>
-              <ItemTitle>Roles</ItemTitle>
-              <ItemDescription>The roles assigned to your account.</ItemDescription>
+              <ItemTitle>{m.common_roles()}</ItemTitle>
+              <ItemDescription>{m.general_roles_description()}</ItemDescription>
             </ItemContent>
             {user.roles.map((role) => (
               <Badge key={role} variant="secondary">
@@ -80,8 +81,8 @@ export function UserProfileView() {
           </Item>
           <Item variant="outline">
             <ItemContent>
-              <ItemTitle>Avatar</ItemTitle>
-              <ItemDescription>Upload a new profile picture.</ItemDescription>
+              <ItemTitle>{m.general_avatar()}</ItemTitle>
+              <ItemDescription>{m.general_avatar_description()}</ItemDescription>
             </ItemContent>
             <ItemActions
               onClick={() => {

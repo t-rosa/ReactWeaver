@@ -1,9 +1,10 @@
-import { Button } from "#/components/ui/button.tsx";
-import { Field, FieldError, FieldGroup, FieldLabel } from "#/components/ui/field.tsx";
-import { Input } from "#/components/ui/input.tsx";
-import { Spinner } from "#/components/ui/spinner.tsx";
-import { loginMutation } from "#/lib/api/@tanstack/react-query.gen.ts";
-import * as AuthCard from "#/modules/auth/components/auth-card.tsx";
+import { Button } from "#src/components/ui/button.tsx";
+import { Field, FieldError, FieldGroup, FieldLabel } from "#src/components/ui/field.tsx";
+import { Input } from "#src/components/ui/input.tsx";
+import { Spinner } from "#src/components/ui/spinner.tsx";
+import { loginMutation } from "#src/lib/api/@tanstack/react-query.gen.ts";
+import * as AuthCard from "#src/modules/auth/components/auth-card.tsx";
+import { m } from "#src/paraglide/messages.js";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { Link, useNavigate } from "@tanstack/react-router";
@@ -13,17 +14,17 @@ import * as z from "zod";
 
 const formSchema = z.object({
   email: z.email({
-    error: "Invalid email address",
+    error: () => m.validation_email_invalid(),
   }),
   password: z
     .string({
-      error: "Invalid password",
+      error: () => m.validation_password_invalid(),
     })
-    .min(6, "Password must be at least 6 characters long.")
-    .regex(/[A-Z]/, "Password must contain at least one uppercase letter.")
-    .regex(/[a-z]/, "Password must contain at least one lowercase letter.")
-    .regex(/[0-9]/, "Password must contain at least one digit.")
-    .regex(/[^a-zA-Z0-9]/, "Password must contain at least one special character."),
+    .min(6, { error: () => m.validation_password_min() })
+    .regex(/[A-Z]/, { error: () => m.validation_password_uppercase() })
+    .regex(/[a-z]/, { error: () => m.validation_password_lowercase() })
+    .regex(/[0-9]/, { error: () => m.validation_password_digit() })
+    .regex(/[^a-zA-Z0-9]/, { error: () => m.validation_password_special() }),
 });
 
 export type LoginFormSchema = z.infer<typeof formSchema>;
@@ -42,11 +43,11 @@ export function LoginView() {
   const login = useMutation({
     ...loginMutation(),
     onError(error) {
-      toast.error("An error has occurred");
-      form.setError("root", { message: error.detail ?? "An error has occurred" });
+      toast.error(m.common_error_occurred());
+      form.setError("root", { message: error.detail ?? m.common_error_occurred() });
     },
     async onSuccess() {
-      toast.success("Connected");
+      toast.success(m.auth_connected());
       await navigate({ to: "/app/dashboard" });
     },
   });
@@ -64,8 +65,8 @@ export function LoginView() {
     <AuthCard.Root>
       <AuthCard.Content>
         <AuthCard.Header>
-          <AuthCard.Title>Welcome!</AuthCard.Title>
-          <AuthCard.Description>Log in to continue.</AuthCard.Description>
+          <AuthCard.Title>{m.auth_welcome()}</AuthCard.Title>
+          <AuthCard.Description>{m.auth_login_to_continue()}</AuthCard.Description>
         </AuthCard.Header>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <FieldGroup>
@@ -74,12 +75,12 @@ export function LoginView() {
               name="email"
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor={field.name}>Email</FieldLabel>
+                  <FieldLabel htmlFor={field.name}>{m.common_email()}</FieldLabel>
                   <Input
                     {...field}
                     id={field.name}
                     type="email"
-                    placeholder="name@example.com"
+                    placeholder={m.placeholder_email()}
                     autoComplete="username"
                   />
                   {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
@@ -91,12 +92,12 @@ export function LoginView() {
               name="password"
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor={field.name}>Password</FieldLabel>
+                  <FieldLabel htmlFor={field.name}>{m.common_password()}</FieldLabel>
                   <Input
                     {...field}
                     id={field.name}
                     type="password"
-                    placeholder="••••••••"
+                    placeholder={m.placeholder_password()}
                     autoComplete="current-password"
                   />
                   {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
@@ -105,17 +106,17 @@ export function LoginView() {
             />
             {form.formState.errors?.root && <FieldError errors={[form.formState.errors.root]} />}
             <Button type="submit" disabled={login.isPending}>
-              {login.isPending ? "Logging in..." : "Log in"}
+              {login.isPending ? m.auth_logging_in() : m.auth_login()}
               {login.isPending && <Spinner />}
             </Button>
             <Button variant="link" nativeButton={false} render={<Link to="/forgot-password" />}>
-              Forgot your password?
+              {m.auth_forgot_password_link()}
             </Button>
           </FieldGroup>
         </form>
       </AuthCard.Content>
       <AuthCard.Footer>
-        <Link to="/register">Create account</Link>
+        <Link to="/register">{m.auth_create_account()}</Link>
       </AuthCard.Footer>
     </AuthCard.Root>
   );

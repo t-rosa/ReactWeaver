@@ -3,20 +3,20 @@ import { useRender } from "@base-ui/react/use-render";
 import { cva, type VariantProps } from "class-variance-authority";
 import * as React from "react";
 
-import { Button } from "#/components/ui/button.tsx";
-import { Input } from "#/components/ui/input.tsx";
-import { Separator } from "#/components/ui/separator.tsx";
+import { Button } from "#src/components/ui/button.tsx";
+import { Input } from "#src/components/ui/input.tsx";
+import { Separator } from "#src/components/ui/separator.tsx";
 import {
   Sheet,
   SheetContent,
   SheetDescription,
   SheetHeader,
   SheetTitle,
-} from "#/components/ui/sheet.tsx";
-import { Skeleton } from "#/components/ui/skeleton.tsx";
-import { Tooltip, TooltipContent, TooltipTrigger } from "#/components/ui/tooltip.tsx";
-import { useIsMobile } from "#/hooks/use-mobile.ts";
-import { cn } from "#/lib/utils.ts";
+} from "#src/components/ui/sheet.tsx";
+import { Skeleton } from "#src/components/ui/skeleton.tsx";
+import { Tooltip, TooltipContent, TooltipTrigger } from "#src/components/ui/tooltip.tsx";
+import { useIsMobile } from "#src/hooks/use-mobile.ts";
+import { cn } from "#src/lib/utils.ts";
 import { SidebarIcon } from "@phosphor-icons/react";
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state";

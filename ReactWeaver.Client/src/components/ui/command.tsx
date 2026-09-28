@@ -7,9 +7,9 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "#/components/ui/dialog.tsx";
-import { InputGroup, InputGroupAddon } from "#/components/ui/input-group.tsx";
-import { cn } from "#/lib/utils.ts";
+} from "#src/components/ui/dialog.tsx";
+import { InputGroup, InputGroupAddon } from "#src/components/ui/input-group.tsx";
+import { cn } from "#src/lib/utils.ts";
 import { CheckIcon, MagnifyingGlassIcon } from "@phosphor-icons/react";
 
 function Command({ className, ...props }: React.ComponentProps<typeof CommandPrimitive>) {

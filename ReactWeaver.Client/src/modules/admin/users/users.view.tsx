@@ -1,8 +1,9 @@
-import { Container } from "#/components/container.tsx";
-import { BreadcrumbItem, BreadcrumbLink } from "#/components/ui/breadcrumb.tsx";
-import { getUsersOptions } from "#/lib/api/@tanstack/react-query.gen.ts";
-import { AppHeader } from "#/modules/app/components/app-header.tsx";
-import { AppInset } from "#/modules/app/components/app-inset.tsx";
+import { Container } from "#src/components/container.tsx";
+import { BreadcrumbItem, BreadcrumbLink } from "#src/components/ui/breadcrumb.tsx";
+import { getUsersOptions } from "#src/lib/api/@tanstack/react-query.gen.ts";
+import { AppHeader } from "#src/modules/app/components/app-header.tsx";
+import { AppInset } from "#src/modules/app/components/app-inset.tsx";
+import { m } from "#src/paraglide/messages.js";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { USER_COLUMNS } from "./user-table.columns";
 import { UserTable } from "./user-table.view";
@@ -14,7 +15,7 @@ export function UsersView() {
     <AppInset>
       <AppHeader>
         <BreadcrumbItem>
-          <BreadcrumbLink>Users</BreadcrumbLink>
+          <BreadcrumbLink>{m.users_title()}</BreadcrumbLink>
         </BreadcrumbItem>
       </AppHeader>
       <Container>

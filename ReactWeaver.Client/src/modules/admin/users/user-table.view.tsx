@@ -1,13 +1,13 @@
-import { Button } from "#/components/ui/button.tsx";
+import { Button } from "#src/components/ui/button.tsx";
 import {
   Empty,
   EmptyDescription,
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
-} from "#/components/ui/empty.tsx";
-import { Input } from "#/components/ui/input.tsx";
-import { Item, ItemActions, ItemContent, ItemGroup } from "#/components/ui/item.tsx";
+} from "#src/components/ui/empty.tsx";
+import { Input } from "#src/components/ui/input.tsx";
+import { Item, ItemActions, ItemContent, ItemGroup } from "#src/components/ui/item.tsx";
 import {
   Table,
   TableBody,
@@ -15,9 +15,10 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "#/components/ui/table.tsx";
-import type { UserResponse } from "#/lib/api/index.ts";
-import { useUser } from "#/modules/auth/authorize/authorize.hooks.tsx";
+} from "#src/components/ui/table.tsx";
+import type { UserResponse } from "#src/lib/api/index.ts";
+import { useUser } from "#src/modules/auth/authorize/authorize.hooks.tsx";
+import { m } from "#src/paraglide/messages.js";
 import { FolderIcon } from "@phosphor-icons/react";
 import { type ColumnDef, useTable } from "@tanstack/react-table";
 import { RemoveUsers } from "./remove-users.view";
@@ -50,8 +51,8 @@ export function UserTable(props: UserTableProps) {
           <EmptyMedia variant="icon">
             <FolderIcon />
           </EmptyMedia>
-          <EmptyTitle>No Users Yet</EmptyTitle>
-          <EmptyDescription>There is no users registered</EmptyDescription>
+          <EmptyTitle>{m.users_empty_title()}</EmptyTitle>
+          <EmptyDescription>{m.users_empty_description()}</EmptyDescription>
         </EmptyHeader>
       </Empty>
     );
@@ -62,7 +63,7 @@ export function UserTable(props: UserTableProps) {
       <Item size="xs" render={<header />}>
         <ItemContent>
           <Input
-            placeholder="Filter email..."
+            placeholder={m.placeholder_filter_email()}
             value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
             onChange={(event) => table.getColumn("email")?.setFilterValue(event.target.value)}
             className="max-w-sm"
@@ -116,7 +117,7 @@ export function UserTable(props: UserTableProps) {
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
           >
-            Previous
+            {m.common_previous()}
           </Button>
           <Button
             variant="outline"
@@ -124,7 +125,7 @@ export function UserTable(props: UserTableProps) {
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
           >
-            Next
+            {m.common_next()}
           </Button>
         </ItemActions>
       </Item>

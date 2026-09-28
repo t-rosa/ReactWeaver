@@ -1,9 +1,10 @@
-import { Button } from "#/components/ui/button.tsx";
-import { Field, FieldError, FieldGroup, FieldLabel } from "#/components/ui/field.tsx";
-import { Input } from "#/components/ui/input.tsx";
-import { Spinner } from "#/components/ui/spinner.tsx";
-import { forgotPasswordMutation } from "#/lib/api/@tanstack/react-query.gen.ts";
-import * as AuthCard from "#/modules/auth/components/auth-card.tsx";
+import { Button } from "#src/components/ui/button.tsx";
+import { Field, FieldError, FieldGroup, FieldLabel } from "#src/components/ui/field.tsx";
+import { Input } from "#src/components/ui/input.tsx";
+import { Spinner } from "#src/components/ui/spinner.tsx";
+import { forgotPasswordMutation } from "#src/lib/api/@tanstack/react-query.gen.ts";
+import * as AuthCard from "#src/modules/auth/components/auth-card.tsx";
+import { m } from "#src/paraglide/messages.js";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { Link, useNavigate } from "@tanstack/react-router";
@@ -13,7 +14,7 @@ import * as z from "zod";
 
 const formSchema = z.object({
   email: z.email({
-    error: "Invalid email address",
+    error: () => m.validation_email_invalid(),
   }),
 });
 
@@ -33,8 +34,8 @@ export function ForgotPasswordView() {
     ...forgotPasswordMutation(),
 
     onError(error) {
-      toast.error("An error has occurred");
-      form.setError("root", { message: error.detail ?? "An error has occurred" });
+      toast.error(m.common_error_occurred());
+      form.setError("root", { message: error.detail ?? m.common_error_occurred() });
     },
     async onSuccess() {
       await navigate({ to: "/reset-password" });
@@ -51,8 +52,8 @@ export function ForgotPasswordView() {
     <AuthCard.Root>
       <AuthCard.Content>
         <AuthCard.Header>
-          <AuthCard.Title>Forgot password.</AuthCard.Title>
-          <AuthCard.Description>Enter your email address.</AuthCard.Description>
+          <AuthCard.Title>{m.auth_forgot_title()}</AuthCard.Title>
+          <AuthCard.Description>{m.auth_forgot_description()}</AuthCard.Description>
         </AuthCard.Header>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <FieldGroup>
@@ -61,12 +62,12 @@ export function ForgotPasswordView() {
               name="email"
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor={field.name}>Email</FieldLabel>
+                  <FieldLabel htmlFor={field.name}>{m.common_email()}</FieldLabel>
                   <Input
                     {...field}
                     id={field.name}
                     type="email"
-                    placeholder="name@example.com"
+                    placeholder={m.placeholder_email()}
                     autoComplete="username"
                   />
                   {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
@@ -75,14 +76,14 @@ export function ForgotPasswordView() {
             />
             {form.formState.errors?.root && <FieldError errors={[form.formState.errors.root]} />}
             <Button type="submit" disabled={forgotPassword.isPending}>
-              {forgotPassword.isPending ? "Sending..." : "Submit"}
+              {forgotPassword.isPending ? m.auth_sending() : m.auth_submit()}
               {forgotPassword.isPending && <Spinner />}
             </Button>
           </FieldGroup>
         </form>
       </AuthCard.Content>
       <AuthCard.Footer>
-        <Link to="/login">Log in</Link>
+        <Link to="/login">{m.auth_login()}</Link>
       </AuthCard.Footer>
     </AuthCard.Root>
   );

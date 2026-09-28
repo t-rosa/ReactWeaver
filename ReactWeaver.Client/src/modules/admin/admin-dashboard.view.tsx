@@ -1,4 +1,5 @@
-import { BreadcrumbItem, BreadcrumbLink } from "#/components/ui/breadcrumb.tsx";
+import { BreadcrumbItem, BreadcrumbLink } from "#src/components/ui/breadcrumb.tsx";
+import { m } from "#src/paraglide/messages.js";
 import { AdminHeader } from "./components/admin-header";
 import { AdminInset } from "./components/admin-inset";
 
@@ -7,7 +8,7 @@ export function AdminDashboardView() {
     <AdminInset>
       <AdminHeader>
         <BreadcrumbItem>
-          <BreadcrumbLink>Dashboard</BreadcrumbLink>
+          <BreadcrumbLink>{m.nav_dashboard()}</BreadcrumbLink>
         </BreadcrumbItem>
       </AdminHeader>
     </AdminInset>

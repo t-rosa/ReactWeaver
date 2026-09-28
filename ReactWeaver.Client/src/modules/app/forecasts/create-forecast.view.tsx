@@ -1,5 +1,5 @@
-import { Button } from "#/components/ui/button.tsx";
-import { Calendar } from "#/components/ui/calendar.tsx";
+import { Button } from "#src/components/ui/button.tsx";
+import { Calendar } from "#src/components/ui/calendar.tsx";
 import {
   Dialog,
   DialogClose,
@@ -9,29 +9,30 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "#/components/ui/dialog.tsx";
-import { Field, FieldError, FieldGroup, FieldLabel } from "#/components/ui/field.tsx";
+} from "#src/components/ui/dialog.tsx";
+import { Field, FieldError, FieldGroup, FieldLabel } from "#src/components/ui/field.tsx";
 import {
   NumberInput,
   NumberInputDecrement,
   NumberInputField,
   NumberInputGroup,
   NumberInputIncrement,
-} from "#/components/ui/number-input.tsx";
-import { Popover, PopoverContent, PopoverTrigger } from "#/components/ui/popover.tsx";
-import { Spinner } from "#/components/ui/spinner.tsx";
-import { Textarea } from "#/components/ui/textarea.tsx";
+} from "#src/components/ui/number-input.tsx";
+import { Popover, PopoverContent, PopoverTrigger } from "#src/components/ui/popover.tsx";
+import { Spinner } from "#src/components/ui/spinner.tsx";
+import { Textarea } from "#src/components/ui/textarea.tsx";
 import {
   createWeatherForecastMutation,
   getWeatherForecastsQueryKey,
-} from "#/lib/api/@tanstack/react-query.gen.ts";
-import type { CreateWeatherForecastRequest } from "#/lib/api/index.ts";
-import { zCreateWeatherForecastRequest } from "#/lib/api/zod.gen.ts";
+} from "#src/lib/api/@tanstack/react-query.gen.ts";
+import type { CreateWeatherForecastRequest } from "#src/lib/api/index.ts";
+import { zCreateWeatherForecastRequest } from "#src/lib/api/zod.gen.ts";
+import { getDateFnsLocale } from "#src/lib/i18n.ts";
+import { m } from "#src/paraglide/messages.js";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CalendarIcon, PlusIcon } from "@phosphor-icons/react";
 import { useMutation } from "@tanstack/react-query";
 import { format, formatISO, parseISO } from "date-fns";
-import { fr } from "date-fns/locale";
 import * as React from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -53,8 +54,8 @@ export function CreateForecast() {
   const createForecast = useMutation({
     ...createWeatherForecastMutation(),
     onError(error) {
-      toast.error("An error has occurred");
-      form.setError("root", { message: error.detail ?? "An error has occurred" });
+      toast.error(m.common_error_occurred());
+      form.setError("root", { message: error.detail ?? m.common_error_occurred() });
     },
     onSuccess() {
       setOpen(!open);
@@ -78,12 +79,12 @@ export function CreateForecast() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger render={<Button />}>
-        <PlusIcon /> Add forecast
+        <PlusIcon /> {m.forecasts_add()}
       </DialogTrigger>
       <DialogContent render={<form onSubmit={form.handleSubmit(onSubmit)} />}>
         <DialogHeader>
-          <DialogTitle>Add forecast</DialogTitle>
-          <DialogDescription>Add a new weather forecast to your list.</DialogDescription>
+          <DialogTitle>{m.forecasts_add()}</DialogTitle>
+          <DialogDescription>{m.forecasts_add_description()}</DialogDescription>
         </DialogHeader>
         <FieldGroup>
           <Controller
@@ -91,13 +92,13 @@ export function CreateForecast() {
             name="date"
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor={field.name}>Date</FieldLabel>
+                <FieldLabel htmlFor={field.name}>{m.common_date()}</FieldLabel>
                 <Popover>
                   <PopoverTrigger id={field.name} render={<Button variant="outline" />}>
                     {field.value ? (
-                      format(field.value, "P", { locale: fr })
+                      format(field.value, "P", { locale: getDateFnsLocale() })
                     ) : (
-                      <span>Pick a date</span>
+                      <span>{m.placeholder_pick_date()}</span>
                     )}
                     <CalendarIcon className="ml-auto size-4 opacity-50" />
                   </PopoverTrigger>
@@ -124,7 +125,7 @@ export function CreateForecast() {
             name="temperatureC"
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor={field.name}>Temperature</FieldLabel>
+                <FieldLabel htmlFor={field.name}>{m.common_temperature()}</FieldLabel>
                 <NumberInput
                   {...field}
                   id={field.name}
@@ -134,7 +135,7 @@ export function CreateForecast() {
                 >
                   <NumberInputGroup>
                     <NumberInputDecrement />
-                    <NumberInputField placeholder="20" />
+                    <NumberInputField placeholder={m.placeholder_temperature()} />
                     <NumberInputIncrement />
                   </NumberInputGroup>
                 </NumberInput>
@@ -147,13 +148,13 @@ export function CreateForecast() {
             name="summary"
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor={field.name}>Summary</FieldLabel>
+                <FieldLabel htmlFor={field.name}>{m.common_summary()}</FieldLabel>
                 <Textarea
                   {...field}
                   id={field.name}
                   aria-invalid={fieldState.invalid}
                   value={String(field.value)}
-                  placeholder="Cool..."
+                  placeholder={m.placeholder_summary()}
                 />
                 {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
               </Field>
@@ -162,9 +163,11 @@ export function CreateForecast() {
           {form.formState.errors?.root && <FieldError errors={[form.formState.errors.root]} />}
         </FieldGroup>
         <DialogFooter>
-          <DialogClose render={<Button type="button" variant="outline" />}>Cancel</DialogClose>
+          <DialogClose render={<Button type="button" variant="outline" />}>
+            {m.common_cancel()}
+          </DialogClose>
           <Button type="submit" disabled={createForecast.isPending}>
-            {createForecast.isPending ? "Submitting..." : "Submit"}
+            {createForecast.isPending ? m.common_submitting() : m.common_submit()}
             {createForecast.isPending && <Spinner />}
           </Button>
         </DialogFooter>

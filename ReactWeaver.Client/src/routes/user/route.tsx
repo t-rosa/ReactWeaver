@@ -1,5 +1,5 @@
-import { getCurrentUser } from "#/lib/api/index.ts";
-import { UserView } from "#/modules/user/user.view.tsx";
+import { getCurrentUser } from "#src/lib/api/index.ts";
+import { UserView } from "#src/modules/user/user.view.tsx";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/user")({

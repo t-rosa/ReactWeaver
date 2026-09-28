@@ -1,7 +1,8 @@
-import { Button } from "#/components/ui/button.tsx";
-import { Checkbox } from "#/components/ui/checkbox.tsx";
-import type { UserResponse } from "#/lib/api/index.ts";
-import { useUser } from "#/modules/auth/authorize/authorize.hooks.tsx";
+import { Button } from "#src/components/ui/button.tsx";
+import { Checkbox } from "#src/components/ui/checkbox.tsx";
+import type { UserResponse } from "#src/lib/api/index.ts";
+import { useUser } from "#src/modules/auth/authorize/authorize.hooks.tsx";
+import { m } from "#src/paraglide/messages.js";
 import { ArrowsDownUpIcon } from "@phosphor-icons/react";
 import { createColumnHelper } from "@tanstack/react-table";
 import type { userTableFeatures } from "./table-features";
@@ -18,7 +19,7 @@ export const USER_COLUMNS = columnHelper.columns([
           context.table.getIsAllPageRowsSelected() || context.table.getIsSomePageRowsSelected()
         }
         onCheckedChange={(value) => context.table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
+        aria-label={m.common_select_all()}
       />
     ),
     cell: function Cell(context) {
@@ -33,7 +34,7 @@ export const USER_COLUMNS = columnHelper.columns([
               context.row.toggleSelected(!!value);
             }
           }}
-          aria-label="Select row"
+          aria-label={m.common_select_row()}
         />
       );
     },
@@ -47,7 +48,7 @@ export const USER_COLUMNS = columnHelper.columns([
           variant="ghost"
           onClick={() => context.column.toggleSorting(context.column.getIsSorted() === "asc")}
         >
-          Email
+          {m.common_email()}
           <ArrowsDownUpIcon />
         </Button>
       );
@@ -60,7 +61,7 @@ export const USER_COLUMNS = columnHelper.columns([
           variant="ghost"
           onClick={() => context.column.toggleSorting(context.column.getIsSorted() === "asc")}
         >
-          Roles
+          {m.common_roles()}
           <ArrowsDownUpIcon />
         </Button>
       );
@@ -73,7 +74,7 @@ export const USER_COLUMNS = columnHelper.columns([
           variant="ghost"
           onClick={() => context.column.toggleSorting(context.column.getIsSorted() === "asc")}
         >
-          Email confirmed
+          {m.users_email_confirmed()}
           <ArrowsDownUpIcon />
         </Button>
       );

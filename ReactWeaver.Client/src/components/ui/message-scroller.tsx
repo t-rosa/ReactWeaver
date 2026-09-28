@@ -6,8 +6,8 @@ import {
 } from "@shadcn/react/message-scroller";
 import * as React from "react";
 
-import { Button } from "#/components/ui/button.tsx";
-import { cn } from "#/lib/utils.ts";
+import { Button } from "#src/components/ui/button.tsx";
+import { cn } from "#src/lib/utils.ts";
 import { ArrowDownIcon } from "@phosphor-icons/react";
 
 function MessageScrollerProvider(

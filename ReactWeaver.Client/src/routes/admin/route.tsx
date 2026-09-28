@@ -1,6 +1,6 @@
-import { getCurrentUserOptions } from "#/lib/api/@tanstack/react-query.gen.ts";
-import { getCurrentUser } from "#/lib/api/index.ts";
-import { AdminView } from "#/modules/admin/admin.view.tsx";
+import { getCurrentUserOptions } from "#src/lib/api/@tanstack/react-query.gen.ts";
+import { getCurrentUser } from "#src/lib/api/index.ts";
+import { AdminView } from "#src/modules/admin/admin.view.tsx";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/admin")({

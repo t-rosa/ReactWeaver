@@ -1,4 +1,4 @@
-import { getCurrentUserOptions } from "#/lib/api/@tanstack/react-query.gen.ts";
+import { getCurrentUserOptions } from "#src/lib/api/@tanstack/react-query.gen.ts";
 import { useSuspenseQuery } from "@tanstack/react-query";
 
 export type UserRole = "Admin" | "Member";

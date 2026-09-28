@@ -1,4 +1,4 @@
-import { Button } from "#/components/ui/button.tsx";
+import { Button } from "#src/components/ui/button.tsx";
 import {
   Empty,
   EmptyContent,
@@ -6,9 +6,9 @@ import {
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
-} from "#/components/ui/empty.tsx";
-import { Input } from "#/components/ui/input.tsx";
-import { Item, ItemActions, ItemContent, ItemGroup } from "#/components/ui/item.tsx";
+} from "#src/components/ui/empty.tsx";
+import { Input } from "#src/components/ui/input.tsx";
+import { Item, ItemActions, ItemContent, ItemGroup } from "#src/components/ui/item.tsx";
 import {
   Table,
   TableBody,
@@ -16,8 +16,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "#/components/ui/table.tsx";
-import type { WeatherForecastResponse } from "#/lib/api/index.ts";
+} from "#src/components/ui/table.tsx";
+import type { WeatherForecastResponse } from "#src/lib/api/index.ts";
+import { m } from "#src/paraglide/messages.js";
 import { FolderIcon } from "@phosphor-icons/react";
 import { type ColumnDef, useTable } from "@tanstack/react-table";
 import { CreateForecast } from "./create-forecast.view";
@@ -46,10 +47,8 @@ export function ForecastTable(props: ForecastTableProps) {
           <EmptyMedia variant="icon">
             <FolderIcon />
           </EmptyMedia>
-          <EmptyTitle>No Forecasts Yet</EmptyTitle>
-          <EmptyDescription>
-            You haven&apos;t created any forecast yet. Get started by creating your first forecast.
-          </EmptyDescription>
+          <EmptyTitle>{m.forecasts_empty_title()}</EmptyTitle>
+          <EmptyDescription>{m.forecasts_empty_description()}</EmptyDescription>
         </EmptyHeader>
         <EmptyContent>
           <CreateForecast />
@@ -63,7 +62,7 @@ export function ForecastTable(props: ForecastTableProps) {
       <Item size="xs">
         <ItemContent>
           <Input
-            placeholder="Filter date..."
+            placeholder={m.placeholder_filter_date()}
             value={(table.getColumn("date")?.getFilterValue() as string) ?? ""}
             onChange={(event) => table.getColumn("date")?.setFilterValue(event.target.value)}
             className="max-w-sm"
@@ -112,7 +111,7 @@ export function ForecastTable(props: ForecastTableProps) {
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
           >
-            Previous
+            {m.common_previous()}
           </Button>
           <Button
             variant="outline"
@@ -120,7 +119,7 @@ export function ForecastTable(props: ForecastTableProps) {
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
           >
-            Next
+            {m.common_next()}
           </Button>
         </ItemActions>
       </Item>

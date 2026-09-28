@@ -1,4 +1,4 @@
-import { Button } from "#/components/ui/button.tsx";
+import { Button } from "#src/components/ui/button.tsx";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,8 +7,9 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "#/components/ui/dropdown-menu.tsx";
-import type { UserResponse } from "#/lib/api/index.ts";
+} from "#src/components/ui/dropdown-menu.tsx";
+import type { UserResponse } from "#src/lib/api/index.ts";
+import { m } from "#src/paraglide/messages.js";
 import { DotsThreeIcon } from "@phosphor-icons/react";
 import type { CellContext } from "@tanstack/react-table";
 import * as React from "react";
@@ -34,10 +35,12 @@ export function UserActions(props: UserActionsProps) {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuGroup>
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem onClick={handleCopyIdClick}>Copy ID</DropdownMenuItem>
+            <DropdownMenuLabel>{m.common_actions()}</DropdownMenuLabel>
+            <DropdownMenuItem onClick={handleCopyIdClick}>{m.common_copy_id()}</DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => setAlertOpen(true)}>Remove</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setAlertOpen(true)}>
+              {m.common_remove()}
+            </DropdownMenuItem>
           </DropdownMenuGroup>
         </DropdownMenuContent>
       </DropdownMenu>
