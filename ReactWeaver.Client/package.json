@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "paraglide-js compile --project ./project.inlang --outdir ./src/paraglide --strategy localStorage preferredLanguage baseLocale --emit-ts-declarations && tsc -b && vite build",
     "lint": "oxlint",
     "format": "oxfmt",
     "preview": "vite preview",
