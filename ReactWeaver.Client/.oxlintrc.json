@@ -191,10 +191,16 @@
         "react-dom/no-void-elements-with-children": "error",
         "react/rules-of-hooks": "error",
         "react/exhaustive-deps": "warn",
-        "react/only-export-components": "warn"
+        "react/only-export-components": "warn",
+        "shadcn/no-restyle": "error",
+        "shadcn/no-raw-colors": "error",
+        "shadcn/no-arbitrary-values": "error",
+        "shadcn/no-inline-styles": "error",
+        "shadcn/no-unknown-classes": "error",
+        "shadcn/require-static-classes": "error"
       },
       "plugins": ["typescript", "react"],
-      "jsPlugins": ["eslint-plugin-react-x", "eslint-plugin-react-dom"],
+      "jsPlugins": ["eslint-plugin-react-x", "eslint-plugin-react-dom", "@shadcn/lint"],
       "env": {
         "es2020": true,
         "browser": true
