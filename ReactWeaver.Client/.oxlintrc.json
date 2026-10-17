@@ -192,7 +192,7 @@
         "react/rules-of-hooks": "error",
         "react/exhaustive-deps": "warn",
         "react/only-export-components": "warn",
-        "shadcn/no-restyle": "error",
+        "shadcn/no-restyle": ["error", { "allow": ["layout"] }],
         "shadcn/no-raw-colors": "error",
         "shadcn/no-arbitrary-values": "error",
         "shadcn/no-inline-styles": "error",

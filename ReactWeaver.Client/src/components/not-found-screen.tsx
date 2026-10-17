@@ -13,7 +13,7 @@ export function NotFoundScreen() {
         <CardContent>
           <p>{m.notfound_description()}</p>
         </CardContent>
-        <CardFooter className="grid gap-3">
+        <CardFooter className="grid">
           <Link className={buttonVariants()} to="..">
             &larr; {m.notfound_back()}
           </Link>

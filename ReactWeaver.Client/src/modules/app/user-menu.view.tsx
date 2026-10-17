@@ -39,7 +39,9 @@ export function UserMenu() {
                   <AvatarFallback>{user.email.charAt(0).toUpperCase()}</AvatarFallback>
                 </Avatar>
               </ItemMedia>
-              <ItemContent className="truncate">{user?.email}</ItemContent>
+              <ItemContent className="min-w-0">
+                <p className="truncate">{user.email}</p>
+              </ItemContent>
             </Item>
           </DropdownMenuLabel>
           <DropdownMenuSeparator />

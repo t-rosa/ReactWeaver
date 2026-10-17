@@ -57,7 +57,8 @@ export function ErrorScreen(props: ErrorComponentProps) {
 
               <Button
                 variant="outline"
-                className="cursor-pointer text-xs text-muted-foreground"
+                size="sm"
+                className="cursor-pointer"
                 onClick={handleShowDetailsClick}
               >
                 {showDetails ? m.error_hide_details() : m.error_show_details()}
@@ -71,10 +72,12 @@ export function ErrorScreen(props: ErrorComponentProps) {
                 </Button>
 
                 {errorMessage ? (
-                  <ScrollArea className="overflow-auto rounded-lg border bg-muted p-3 text-xs text-muted-foreground">
-                    {errorMessage}
-                    <ScrollBar orientation="horizontal" />
-                  </ScrollArea>
+                  <div className="rounded-lg border bg-muted text-xs text-muted-foreground">
+                    <ScrollArea>
+                      <pre className="p-3">{errorMessage}</pre>
+                      <ScrollBar orientation="horizontal" />
+                    </ScrollArea>
+                  </div>
                 ) : (
                   <pre className="rounded-lg border bg-muted p-2 text-xs text-muted-foreground">
                     {m.error_unknown()}

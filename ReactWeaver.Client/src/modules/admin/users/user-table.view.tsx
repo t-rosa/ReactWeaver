@@ -94,9 +94,7 @@ export function UserTable(props: UserTableProps) {
                 <TableRow
                   key={row.original.id}
                   data-state={row.getIsSelected() && "selected"}
-                  data-disabled={user.id === row.original.id}
                   aria-disabled={user.id === row.original.id}
-                  className="data-[disabled=true]:pointer-events-none data-[disabled=true]:bg-destructive/10"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>

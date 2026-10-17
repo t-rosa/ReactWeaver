@@ -11,7 +11,7 @@ export function PendingScreen() {
             <Spinner />
           </ItemMedia>
           <ItemContent>
-            <ItemTitle className="line-clamp-1">{m.pending_loading()}</ItemTitle>
+            <ItemTitle>{m.pending_loading()}</ItemTitle>
           </ItemContent>
         </Item>
       </div>
