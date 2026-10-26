@@ -88,19 +88,19 @@ dotnet user-secrets set "SmtpOptions:Password" "value" --project ReactWeaver.Ser
 Find node ID.
 
 ```bash
-docker exec -it hexalink.garage ./garage status
+docker exec -it react-weaver.garage ./garage status
 ```
 
 Assign capacity.
 
 ```bash
-docker exec -it hexalink.garage ./garage layout assign node_id -r z1 -c 1G
+docker exec -it react-weaver.garage ./garage layout assign node_id -r z1 -c 1G
 ```
 
 Apply layout.
 
 ```bash
-docker exec -it hexalink.garage ./garage layout apply
+docker exec -it react-weaver.garage ./garage layout apply
 ```
 
 Create a new S3 key
