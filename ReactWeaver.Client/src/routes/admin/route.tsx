@@ -1,20 +1,19 @@
-import { getCurrentUserOptions } from "#src/lib/api/@tanstack/react-query.gen.ts";
-import { getCurrentUser } from "#src/lib/api/index.ts";
+import { getCurrentUser, getGetCurrentUserQueryOptions } from "#src/lib/api/endpoints/index.ts";
 import { AdminView } from "#src/modules/admin/admin.view.tsx";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/admin")({
   async beforeLoad() {
-    const query = await getCurrentUser();
+    const user = await getCurrentUser().catch(() => null);
 
-    if (query.error) {
+    if (!user) {
       redirect({
         to: "/login",
         throw: true,
       });
     }
 
-    if (query.data && !query.data.roles.includes("Admin")) {
+    if (user && !user.roles.includes("Admin")) {
       redirect({
         to: "/",
         throw: true,
@@ -22,7 +21,7 @@ export const Route = createFileRoute("/admin")({
     }
   },
   loader({ context }) {
-    return context.queryClient.query({ ...getCurrentUserOptions(), staleTime: "static" });
+    return context.queryClient.query({ ...getGetCurrentUserQueryOptions(), staleTime: "static" });
   },
   component: AdminView,
 });

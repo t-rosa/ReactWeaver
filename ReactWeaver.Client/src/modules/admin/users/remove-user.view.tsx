@@ -8,7 +8,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "#src/components/ui/alert-dialog.tsx";
-import { getUsersQueryKey, removeUserMutation } from "#src/lib/api/@tanstack/react-query.gen.ts";
+import { getGetUsersQueryKey, getRemoveUserMutationOptions } from "#src/lib/api/endpoints/index.ts";
 import { m } from "#src/paraglide/messages.js";
 import { useMutation } from "@tanstack/react-query";
 
@@ -20,19 +20,15 @@ interface RemoveUserProps {
 
 export function RemoveUser(props: RemoveUserProps) {
   const removeUser = useMutation({
-    ...removeUserMutation(),
+    ...getRemoveUserMutationOptions(),
     meta: {
-      invalidatesQuery: getUsersQueryKey(),
+      invalidatesQuery: getGetUsersQueryKey(),
     },
   });
 
   function handleRemoveClick() {
     removeUser.mutate(
-      {
-        path: {
-          id: props.id,
-        },
-      },
+      { id: props.id },
       {
         onSuccess() {
           props.setOpen(false);

@@ -1,12 +1,14 @@
-import { getWeatherForecastsOptions } from "#src/lib/api/@tanstack/react-query.gen.ts";
-import { getCurrentUser } from "#src/lib/api/index.ts";
+import {
+  getCurrentUser,
+  getGetWeatherForecastsQueryOptions,
+} from "#src/lib/api/endpoints/index.ts";
 import { AppView } from "#src/modules/app/app.view.tsx";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/app")({
   async beforeLoad() {
-    const query = await getCurrentUser();
-    if (query.error) {
+    const user = await getCurrentUser().catch(() => null);
+    if (!user) {
       redirect({
         to: "/login",
         throw: true,
@@ -14,7 +16,10 @@ export const Route = createFileRoute("/app")({
     }
   },
   loader({ context }) {
-    return context.queryClient.query({ ...getWeatherForecastsOptions(), staleTime: "static" });
+    return context.queryClient.query({
+      ...getGetWeatherForecastsQueryOptions(),
+      staleTime: "static",
+    });
   },
   component: AppView,
 });

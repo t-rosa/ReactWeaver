@@ -10,7 +10,10 @@ import {
   AlertDialogTrigger,
 } from "#src/components/ui/alert-dialog.tsx";
 import { Button } from "#src/components/ui/button.tsx";
-import { getUsersQueryKey, removeUsersMutation } from "#src/lib/api/@tanstack/react-query.gen.ts";
+import {
+  getGetUsersQueryKey,
+  getRemoveUsersMutationOptions,
+} from "#src/lib/api/endpoints/index.ts";
 import { m } from "#src/paraglide/messages.js";
 import { TrashSimpleIcon } from "@phosphor-icons/react";
 import { useMutation } from "@tanstack/react-query";
@@ -21,9 +24,9 @@ interface RemoveUsersProps {
 
 export function RemoveUsers(props: RemoveUsersProps) {
   const removeUsers = useMutation({
-    ...removeUsersMutation(),
+    ...getRemoveUsersMutationOptions(),
     meta: {
-      invalidatesQuery: getUsersQueryKey(),
+      invalidatesQuery: getGetUsersQueryKey(),
     },
   });
 
@@ -33,7 +36,7 @@ export function RemoveUsers(props: RemoveUsersProps) {
 
   function handleRemoveClick() {
     removeUsers.mutate({
-      body: props.ids,
+      data: props.ids,
     });
   }
 

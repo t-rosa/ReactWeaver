@@ -8,7 +8,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "#src/components/ui/dropdown-menu.tsx";
-import type { UserResponse } from "#src/lib/api/index.ts";
+import type { UserResponse } from "#src/lib/api/models/index.ts";
 import { m } from "#src/paraglide/messages.js";
 import { DotsThreeIcon } from "@phosphor-icons/react";
 import type { CellContext } from "@tanstack/react-table";

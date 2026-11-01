@@ -21,11 +21,14 @@ import { Popover, PopoverContent, PopoverTrigger } from "#src/components/ui/popo
 import { Spinner } from "#src/components/ui/spinner.tsx";
 import { Textarea } from "#src/components/ui/textarea.tsx";
 import {
-  getWeatherForecastsQueryKey,
-  updateWeatherForecastMutation,
-} from "#src/lib/api/@tanstack/react-query.gen.ts";
-import type { UpdateWeatherForecastRequest, WeatherForecastResponse } from "#src/lib/api/index.ts";
-import { zUpdateWeatherForecastRequest } from "#src/lib/api/zod.gen.ts";
+  getGetWeatherForecastsQueryKey,
+  getUpdateWeatherForecastMutationOptions,
+} from "#src/lib/api/endpoints/index.ts";
+import type {
+  UpdateWeatherForecastRequest,
+  WeatherForecastResponse,
+} from "#src/lib/api/models/index.ts";
+import { UpdateWeatherForecastBody } from "#src/lib/api/zod.ts";
 import { getDateFnsLocale } from "#src/lib/i18n.ts";
 import { m } from "#src/paraglide/messages.js";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -44,7 +47,7 @@ interface UpdateForecastProps {
 
 export function UpdateForecast(props: UpdateForecastProps) {
   const form = useForm<UpdateWeatherForecastRequest>({
-    resolver: zodResolver(zUpdateWeatherForecastRequest),
+    resolver: zodResolver(UpdateWeatherForecastBody),
     defaultValues: {
       date: new Date(props.forecast.date).toISOString(),
       temperatureC: props.forecast.temperatureC as number,
@@ -53,7 +56,7 @@ export function UpdateForecast(props: UpdateForecastProps) {
   });
 
   const updateForecast = useMutation({
-    ...updateWeatherForecastMutation(),
+    ...getUpdateWeatherForecastMutationOptions(),
     onError(error) {
       toast.error(m.common_error_occurred());
       form.setError("root", { message: error.detail ?? m.common_error_occurred() });
@@ -62,16 +65,14 @@ export function UpdateForecast(props: UpdateForecastProps) {
       props.setOpen(false);
     },
     meta: {
-      invalidatesQuery: getWeatherForecastsQueryKey(),
+      invalidatesQuery: getGetWeatherForecastsQueryKey(),
     },
   });
 
   function onSubmit(values: UpdateWeatherForecastRequest) {
     updateForecast.mutate({
-      path: {
-        id: props.forecast.id,
-      },
-      body: {
+      id: props.forecast.id,
+      data: {
         temperatureC: values.temperatureC,
         date: values.date,
         summary: values.summary,

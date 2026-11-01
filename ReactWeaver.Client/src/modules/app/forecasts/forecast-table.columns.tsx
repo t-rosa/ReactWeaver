@@ -1,6 +1,6 @@
 import { Button } from "#src/components/ui/button.tsx";
 import { Checkbox } from "#src/components/ui/checkbox.tsx";
-import type { WeatherForecastResponse } from "#src/lib/api/index.ts";
+import type { WeatherForecastResponse } from "#src/lib/api/models/index.ts";
 import { m } from "#src/paraglide/messages.js";
 import { ArrowsDownUpIcon } from "@phosphor-icons/react";
 import { createColumnHelper, type ColumnDef } from "@tanstack/react-table";

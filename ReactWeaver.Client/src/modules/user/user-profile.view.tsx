@@ -12,9 +12,9 @@ import {
   ItemTitle,
 } from "#src/components/ui/item.tsx";
 import {
-  getCurrentUserQueryKey,
-  uploadAvatarMutation,
-} from "#src/lib/api/@tanstack/react-query.gen.ts";
+  getGetCurrentUserQueryKey,
+  getUploadAvatarMutationOptions,
+} from "#src/lib/api/endpoints/index.ts";
 import { m } from "#src/paraglide/messages.js";
 import { useMutation } from "@tanstack/react-query";
 import * as React from "react";
@@ -27,7 +27,7 @@ export function UserProfileView() {
   const ref = React.useRef<HTMLInputElement>(null);
 
   const upload = useMutation({
-    ...uploadAvatarMutation(),
+    ...getUploadAvatarMutationOptions(),
     onSuccess(data) {
       console.log(data);
     },
@@ -35,7 +35,7 @@ export function UserProfileView() {
       console.log(data);
     },
     meta: {
-      invalidatesQuery: getCurrentUserQueryKey(),
+      invalidatesQuery: getGetCurrentUserQueryKey(),
     },
   });
 
@@ -46,7 +46,7 @@ export function UserProfileView() {
     if (!file) return;
 
     upload.mutate({
-      body: { file },
+      data: { file },
     });
   }
 

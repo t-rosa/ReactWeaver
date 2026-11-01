@@ -1,4 +1,3 @@
-import { heyApiPlugin } from "@hey-api/vite-plugin";
 import { paraglideVitePlugin } from "@inlang/paraglide-js";
 import tailwindcss from "@tailwindcss/vite";
 import { tanstackRouter } from "@tanstack/router-plugin/vite";
@@ -52,29 +51,6 @@ export default defineConfig({
       emitTsDeclarations: true,
     }),
     ViteImageOptimizer(),
-    heyApiPlugin({
-      config: {
-        input: "../ReactWeaver.Server/ReactWeaver.Server.json",
-        output: {
-          path: "src/lib/api",
-        },
-        plugins: [
-          "@hey-api/client-fetch",
-          {
-            name: "@hey-api/schemas",
-            type: "form",
-          },
-          "zod",
-          {
-            name: "@hey-api/sdk",
-          },
-          {
-            name: "@hey-api/typescript",
-          },
-          "@tanstack/react-query",
-        ],
-      },
-    }),
     tanstackRouter({
       target: "react",
       autoCodeSplitting: true,

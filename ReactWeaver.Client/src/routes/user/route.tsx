@@ -1,11 +1,11 @@
-import { getCurrentUser } from "#src/lib/api/index.ts";
+import { getCurrentUser } from "#src/lib/api/endpoints/index.ts";
 import { UserView } from "#src/modules/user/user.view.tsx";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/user")({
   async beforeLoad() {
-    const query = await getCurrentUser();
-    if (query.error) {
+    const user = await getCurrentUser().catch(() => null);
+    if (!user) {
       redirect({
         to: "/login",
         throw: true,

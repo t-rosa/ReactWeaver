@@ -9,9 +9,9 @@ import {
   AlertDialogTitle,
 } from "#src/components/ui/alert-dialog.tsx";
 import {
-  getWeatherForecastsQueryKey,
-  removeWeatherForecastMutation,
-} from "#src/lib/api/@tanstack/react-query.gen.ts";
+  getGetWeatherForecastsQueryKey,
+  getRemoveWeatherForecastMutationOptions,
+} from "#src/lib/api/endpoints/index.ts";
 import { m } from "#src/paraglide/messages.js";
 import { useMutation } from "@tanstack/react-query";
 
@@ -23,19 +23,15 @@ interface RemoveForecastProps {
 
 export function RemoveForecast(props: RemoveForecastProps) {
   const removeForecast = useMutation({
-    ...removeWeatherForecastMutation(),
+    ...getRemoveWeatherForecastMutationOptions(),
     meta: {
-      invalidatesQuery: getWeatherForecastsQueryKey(),
+      invalidatesQuery: getGetWeatherForecastsQueryKey(),
     },
   });
 
   function handleRemoveClick() {
     removeForecast.mutate(
-      {
-        path: {
-          id: props.id,
-        },
-      },
+      { id: props.id },
       {
         onSuccess() {
           props.setOpen(false);

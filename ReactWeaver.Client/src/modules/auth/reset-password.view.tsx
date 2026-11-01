@@ -2,7 +2,7 @@ import { Button } from "#src/components/ui/button.tsx";
 import { Field, FieldError, FieldGroup, FieldLabel } from "#src/components/ui/field.tsx";
 import { Input } from "#src/components/ui/input.tsx";
 import { Spinner } from "#src/components/ui/spinner.tsx";
-import { resetPasswordMutation } from "#src/lib/api/@tanstack/react-query.gen.ts";
+import { getResetPasswordMutationOptions } from "#src/lib/api/endpoints/index.ts";
 import * as AuthCard from "#src/modules/auth/components/auth-card.tsx";
 import { m } from "#src/paraglide/messages.js";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -58,7 +58,7 @@ export function ResetPasswordView() {
   });
 
   const resetPassword = useMutation({
-    ...resetPasswordMutation(),
+    ...getResetPasswordMutationOptions(),
     onError(error) {
       form.setError("root", { message: error.detail ?? m.common_error_occurred() });
       toast.error(m.common_error_occurred());
@@ -67,7 +67,7 @@ export function ResetPasswordView() {
 
   function onSubmit(values: ResetPasswordFormSchema) {
     resetPassword.mutate({
-      body: {
+      data: {
         email: values.email,
         newPassword: values.newPassword,
         resetCode: values.resetCode,

@@ -280,7 +280,7 @@ dotnet ef migrations remove
 - [Tanstack/Query](https://tanstack.com/query/)
 - [Tanstack/Table](https://tanstack.com/table/)
 - [ReactHookForm](https://react-hook-form.com/)
-- [Heyapi](https://heyapi.dev/docs/openapi/typescript/get-started)
+- [Orval](https://orval.dev/)
 - [Phosphor](https://phosphoricons.com/)
 - [Tailwind](https://tailwindcss.com/)
 - [Shadcn/ui](https://ui.shadcn.com/)

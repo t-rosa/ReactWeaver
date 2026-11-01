@@ -2,7 +2,7 @@ import { Button } from "#src/components/ui/button.tsx";
 import { Field, FieldError, FieldGroup, FieldLabel } from "#src/components/ui/field.tsx";
 import { Input } from "#src/components/ui/input.tsx";
 import { Spinner } from "#src/components/ui/spinner.tsx";
-import { registerMutation } from "#src/lib/api/@tanstack/react-query.gen.ts";
+import { getRegisterMutationOptions } from "#src/lib/api/endpoints/index.ts";
 import * as AuthCard from "#src/modules/auth/components/auth-card.tsx";
 import { m } from "#src/paraglide/messages.js";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -54,7 +54,7 @@ export function RegisterView() {
   });
 
   const register = useMutation({
-    ...registerMutation(),
+    ...getRegisterMutationOptions(),
     onError(error) {
       form.setError("root", { message: error.detail ?? m.common_error_occurred() });
       toast.error(m.common_error_occurred());
@@ -63,7 +63,7 @@ export function RegisterView() {
 
   function onSubmit(values: RegisterFormSchema) {
     register.mutate({
-      body: {
+      data: {
         email: values.email,
         password: values.password,
       },

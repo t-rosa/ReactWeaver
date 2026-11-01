@@ -22,11 +22,11 @@ import { Popover, PopoverContent, PopoverTrigger } from "#src/components/ui/popo
 import { Spinner } from "#src/components/ui/spinner.tsx";
 import { Textarea } from "#src/components/ui/textarea.tsx";
 import {
-  createWeatherForecastMutation,
-  getWeatherForecastsQueryKey,
-} from "#src/lib/api/@tanstack/react-query.gen.ts";
-import type { CreateWeatherForecastRequest } from "#src/lib/api/index.ts";
-import { zCreateWeatherForecastRequest } from "#src/lib/api/zod.gen.ts";
+  getCreateWeatherForecastMutationOptions,
+  getGetWeatherForecastsQueryKey,
+} from "#src/lib/api/endpoints/index.ts";
+import type { CreateWeatherForecastRequest } from "#src/lib/api/models/index.ts";
+import { CreateWeatherForecastBody } from "#src/lib/api/zod.ts";
 import { getDateFnsLocale } from "#src/lib/i18n.ts";
 import { m } from "#src/paraglide/messages.js";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -43,7 +43,7 @@ export function CreateForecast() {
   const minDate = React.useMemo(() => new Date("1900-01-01"), []);
 
   const form = useForm<CreateWeatherForecastRequest>({
-    resolver: zodResolver(zCreateWeatherForecastRequest),
+    resolver: zodResolver(CreateWeatherForecastBody),
     defaultValues: {
       date: maxDate.toISOString(),
       temperatureC: 0,
@@ -52,7 +52,7 @@ export function CreateForecast() {
   });
 
   const createForecast = useMutation({
-    ...createWeatherForecastMutation(),
+    ...getCreateWeatherForecastMutationOptions(),
     onError(error) {
       toast.error(m.common_error_occurred());
       form.setError("root", { message: error.detail ?? m.common_error_occurred() });
@@ -62,13 +62,13 @@ export function CreateForecast() {
       form.reset();
     },
     meta: {
-      invalidatesQuery: getWeatherForecastsQueryKey(),
+      invalidatesQuery: getGetWeatherForecastsQueryKey(),
     },
   });
 
   function onSubmit(values: CreateWeatherForecastRequest) {
     createForecast.mutate({
-      body: {
+      data: {
         temperatureC: values.temperatureC,
         date: values.date,
         summary: values.summary,

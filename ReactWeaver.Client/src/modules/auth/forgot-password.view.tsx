@@ -2,7 +2,7 @@ import { Button } from "#src/components/ui/button.tsx";
 import { Field, FieldError, FieldGroup, FieldLabel } from "#src/components/ui/field.tsx";
 import { Input } from "#src/components/ui/input.tsx";
 import { Spinner } from "#src/components/ui/spinner.tsx";
-import { forgotPasswordMutation } from "#src/lib/api/@tanstack/react-query.gen.ts";
+import { getForgotPasswordMutationOptions } from "#src/lib/api/endpoints/index.ts";
 import * as AuthCard from "#src/modules/auth/components/auth-card.tsx";
 import { m } from "#src/paraglide/messages.js";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -31,7 +31,7 @@ export function ForgotPasswordView() {
   });
 
   const forgotPassword = useMutation({
-    ...forgotPasswordMutation(),
+    ...getForgotPasswordMutationOptions(),
 
     onError(error) {
       toast.error(m.common_error_occurred());
@@ -44,7 +44,7 @@ export function ForgotPasswordView() {
 
   function onSubmit(values: ForgotPasswordFormSchema) {
     forgotPassword.mutate({
-      body: values,
+      data: values,
     });
   }
 

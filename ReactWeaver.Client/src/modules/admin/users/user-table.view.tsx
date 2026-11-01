@@ -16,7 +16,7 @@ import {
   TableHeader,
   TableRow,
 } from "#src/components/ui/table.tsx";
-import type { UserResponse } from "#src/lib/api/index.ts";
+import type { UserResponse } from "#src/lib/api/models/index.ts";
 import { useUser } from "#src/modules/auth/authorize/authorize.hooks.tsx";
 import { m } from "#src/paraglide/messages.js";
 import { FolderIcon } from "@phosphor-icons/react";

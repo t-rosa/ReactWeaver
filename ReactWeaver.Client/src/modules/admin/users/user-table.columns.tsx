@@ -1,6 +1,6 @@
 import { Button } from "#src/components/ui/button.tsx";
 import { Checkbox } from "#src/components/ui/checkbox.tsx";
-import type { UserResponse } from "#src/lib/api/index.ts";
+import type { UserResponse } from "#src/lib/api/models/index.ts";
 import { useUser } from "#src/modules/auth/authorize/authorize.hooks.tsx";
 import { m } from "#src/paraglide/messages.js";
 import { ArrowsDownUpIcon } from "@phosphor-icons/react";

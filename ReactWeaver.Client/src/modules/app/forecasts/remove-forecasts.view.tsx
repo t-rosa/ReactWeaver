@@ -11,19 +11,19 @@ import {
 } from "#src/components/ui/alert-dialog.tsx";
 import { Button } from "#src/components/ui/button.tsx";
 import {
-  getWeatherForecastsQueryKey,
-  removeWeatherForecastsMutation,
-} from "#src/lib/api/@tanstack/react-query.gen.ts";
-import type { RemoveWeatherForecastsRequest } from "#src/lib/api/index.ts";
+  getGetWeatherForecastsQueryKey,
+  getRemoveWeatherForecastsMutationOptions,
+} from "#src/lib/api/endpoints/index.ts";
+import type { RemoveWeatherForecastsRequest } from "#src/lib/api/models/index.ts";
 import { m } from "#src/paraglide/messages.js";
 import { TrashSimpleIcon } from "@phosphor-icons/react";
 import { useMutation } from "@tanstack/react-query";
 
 export function RemoveForecasts(props: RemoveWeatherForecastsRequest) {
   const removeForecasts = useMutation({
-    ...removeWeatherForecastsMutation(),
+    ...getRemoveWeatherForecastsMutationOptions(),
     meta: {
-      invalidatesQuery: getWeatherForecastsQueryKey(),
+      invalidatesQuery: getGetWeatherForecastsQueryKey(),
     },
   });
 
@@ -33,7 +33,7 @@ export function RemoveForecasts(props: RemoveWeatherForecastsRequest) {
 
   function handleRemoveClick() {
     removeForecasts.mutate({
-      body: {
+      data: {
         ids: props.ids,
       },
     });
