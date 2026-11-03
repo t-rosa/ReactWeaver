@@ -157,6 +157,13 @@
         "es2020": true,
         "browser": true
       }
+    },
+    {
+      "files": ["src/app/routes/**/*.tsx"],
+      "plugins": ["react"],
+      "rules": {
+        "react/only-export-components": "off"
+      }
     }
   ]
 }

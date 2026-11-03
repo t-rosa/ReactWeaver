@@ -1,0 +1,17 @@
+import { Breadcrumb, BreadcrumbList } from "#src/components/ui/breadcrumb.tsx";
+import { Separator } from "#src/components/ui/separator.tsx";
+import { SidebarTrigger } from "#src/components/ui/sidebar.tsx";
+
+export function DashboardHeader(props: React.PropsWithChildren) {
+  return (
+    <header className="flex h-16 shrink-0 items-center gap-2">
+      <div className="flex items-center gap-2 px-4">
+        <SidebarTrigger />
+        <Separator orientation="vertical" className="mr-2" />
+        <Breadcrumb>
+          <BreadcrumbList>{props.children}</BreadcrumbList>
+        </Breadcrumb>
+      </div>
+    </header>
+  );
+}

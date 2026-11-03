@@ -7,13 +7,8 @@
 
   "common_cancel": "Annuler",
   "common_continue": "Continuer",
-  "common_save_changes": "Enregistrer les modifications",
-  "common_saving": "Enregistrement…",
   "common_remove": "Supprimer",
   "common_edit": "Modifier",
-  "common_done": "Terminé",
-  "common_optional": "Facultatif",
-  "common_open_document": "Ouvrir le document",
   "common_error_occurred": "Une erreur s'est produite",
   "common_confirm_title": "Êtes-vous absolument sûr ?",
   "common_home": "Accueil",
@@ -30,9 +25,6 @@
 
   "common_email": "E-mail",
   "common_password": "Mot de passe",
-  "common_name": "Nom",
-  "common_description": "Description",
-  "common_category": "Catégorie",
   "common_roles": "Rôles",
   "common_date": "Date",
   "common_temperature": "Température",

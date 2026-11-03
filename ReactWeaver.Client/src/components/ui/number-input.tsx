@@ -2,7 +2,7 @@ import { NumberField as NumberInputPrimitive } from "@base-ui/react";
 import * as React from "react";
 
 import { cn } from "#src/lib/utils.ts";
-import { DotsThreeIcon, DotsThreeVerticalIcon, MinusIcon, PlusIcon } from "@phosphor-icons/react";
+import { MinusIcon, PlusIcon } from "@phosphor-icons/react";
 
 function NumberInput({
   className,
@@ -14,34 +14,6 @@ function NumberInput({
       className={cn("flex w-full flex-col items-start gap-0.5", className)}
       {...props}
     />
-  );
-}
-
-function NumberInputScrubArea({
-  className,
-  children,
-  direction,
-  ...props
-}: React.ComponentProps<typeof NumberInputPrimitive.ScrubArea>) {
-  return (
-    <NumberInputPrimitive.ScrubArea
-      data-slot="number-input-scrub-area"
-      className={cn(
-        direction === "horizontal" ? "cursor-ew-resize" : "cursor-ns-resize",
-        className,
-      )}
-      direction={direction}
-      {...props}
-    >
-      {children}
-      <NumberInputPrimitive.ScrubAreaCursor data-slot="number-input-scrub-area-cursor">
-        {direction === "vertical" ? (
-          <DotsThreeVerticalIcon className="size-5" />
-        ) : (
-          <DotsThreeIcon className="size-5" />
-        )}
-      </NumberInputPrimitive.ScrubAreaCursor>
-    </NumberInputPrimitive.ScrubArea>
   );
 }
 
@@ -118,5 +90,4 @@ export {
   NumberInputField,
   NumberInputGroup,
   NumberInputIncrement,
-  NumberInputScrubArea,
 };
