@@ -4,7 +4,7 @@ import { BreadcrumbItem, BreadcrumbLink } from "#src/components/ui/breadcrumb.ts
 import { m } from "#src/paraglide/messages.js";
 import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/app/dashboard/")({
+export const Route = createFileRoute("/_app/dashboard/")({
   component: AppDashboardRoute,
 });
 

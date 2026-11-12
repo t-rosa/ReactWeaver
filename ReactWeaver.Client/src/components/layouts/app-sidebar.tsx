@@ -43,12 +43,12 @@ const data = {
   navMain: [
     {
       label: () => m.nav_dashboard(),
-      url: "/app/dashboard",
+      url: "/dashboard",
       icon: <GridFourIcon />,
     },
     {
       label: () => m.nav_forecasts(),
-      url: "/app/forecasts",
+      url: "/forecasts",
       icon: <WindIcon />,
     },
   ],

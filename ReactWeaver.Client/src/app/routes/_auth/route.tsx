@@ -6,7 +6,7 @@ export const Route = createFileRoute("/_auth")({
   async beforeLoad() {
     const user = await getCurrentUser().catch(() => null);
     if (user) {
-      redirect({ to: "/app/dashboard", throw: true });
+      redirect({ to: "/dashboard", throw: true });
     }
   },
   component: AuthRoute,

@@ -5,7 +5,7 @@ import {
 } from "#src/lib/api/endpoints/index.ts";
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/app")({
+export const Route = createFileRoute("/_app")({
   async beforeLoad() {
     const user = await getCurrentUser().catch(() => null);
     if (!user) {

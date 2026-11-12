@@ -148,7 +148,7 @@ export function AdminSidebar({ ...props }: React.ComponentProps<typeof Sidebar>)
                     {m.nav_profile()}
                   </DropdownMenuItem>
                   <Authorize role="Admin">
-                    <DropdownMenuItem nativeButton={false} render={<Link to="/app/dashboard" />}>
+                    <DropdownMenuItem nativeButton={false} render={<Link to="/dashboard" />}>
                       <AppWindowIcon />
                       {m.nav_application()}
                     </DropdownMenuItem>

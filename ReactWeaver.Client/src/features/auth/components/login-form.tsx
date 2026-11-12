@@ -48,7 +48,7 @@ export function LoginForm() {
     },
     async onSuccess() {
       toast.success(m.auth_connected());
-      await navigate({ to: "/app/dashboard" });
+      await navigate({ to: "/dashboard" });
     },
   });
 

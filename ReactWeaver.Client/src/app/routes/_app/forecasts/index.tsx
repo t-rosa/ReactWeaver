@@ -12,7 +12,7 @@ import { m } from "#src/paraglide/messages.js";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/app/forecasts/")({
+export const Route = createFileRoute("/_app/forecasts/")({
   loader({ context }) {
     return context.queryClient.query({
       ...getGetWeatherForecastsQueryOptions(),

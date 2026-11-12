@@ -147,7 +147,7 @@ export function UserSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
                       {m.nav_administration()}
                     </DropdownMenuItem>
                   </Authorize>
-                  <DropdownMenuItem nativeButton={false} render={<Link to="/app/dashboard" />}>
+                  <DropdownMenuItem nativeButton={false} render={<Link to="/dashboard" />}>
                     <AppWindowIcon />
                     {m.nav_application()}
                   </DropdownMenuItem>
