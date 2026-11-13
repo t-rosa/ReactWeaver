@@ -163,7 +163,16 @@ npx playwright test
       "projectPath": "${workspaceFolder}/ReactWeaver.Server/ReactWeaver.Server.csproj"
     },
     {
-      "name": "Client",
+      "name": "Dev Preview",
+      "runtimeArgs": ["run-script", "preview"],
+      "runtimeExecutable": "npm",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/ReactWeaver.Client"
+    },
+    {
+      "name": "Dev Client",
       "runtimeArgs": ["run-script", "dev"],
       "runtimeExecutable": "npm",
       "skipFiles": ["<node_internals>/**"],
@@ -181,8 +190,18 @@ npx playwright test
   ],
   "compounds": [
     {
-      "name": "Debug",
-      "configurations": ["Server", "Client", "Browser"],
+      "name": "Debug Preview",
+      "configurations": ["Server", "Dev Preview", "Browser"],
+      "presentation": {
+        "hidden": false,
+        "group": "",
+        "order": 1
+      },
+      "stopAll": true
+    },
+    {
+      "name": "Debug Dev",
+      "configurations": ["Server", "Dev Client", "Browser"],
       "presentation": {
         "hidden": false,
         "group": "",
@@ -193,36 +212,6 @@ npx playwright test
   ]
 }
 ```
-
-## Production Preview
-
-1. Publish the container image
-
-```bash
-rm -rf ReactWeaver.Server/bin/Production/ && dotnet publish ReactWeaver.Server -t:PublishContainer -p ContainerArchiveOutputPath=../server.tar.gz -o ReactWeaver.Server/bin/Production
-```
-
-2. Load the Docker image
-
-```bash
-docker load < server.tar.gz
-```
-
-3. Stop any running containers
-
-```bash
-docker compose down
-```
-
-4. Enable the `preview` service inside `compose.yaml`.
-
-5. Restart the stack
-
-```bash
-docker compose up -d
-```
-
-6. Browse to `http://localhost:3000`.
 
 ## Deployment
 

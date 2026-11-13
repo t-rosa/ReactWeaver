@@ -7,7 +7,16 @@
       "projectPath": "${workspaceFolder}/ReactWeaver.Server/ReactWeaver.Server.csproj"
     },
     {
-      "name": "Client",
+      "name": "Dev Preview",
+      "runtimeArgs": ["run-script", "preview"],
+      "runtimeExecutable": "npm",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/ReactWeaver.Client"
+    },
+    {
+      "name": "Dev Client",
       "runtimeArgs": ["run-script", "dev"],
       "runtimeExecutable": "npm",
       "skipFiles": ["<node_internals>/**"],
@@ -25,8 +34,18 @@
   ],
   "compounds": [
     {
-      "name": "Debug",
-      "configurations": ["Server", "Client", "Browser"],
+      "name": "Debug Preview",
+      "configurations": ["Server", "Dev Preview", "Browser"],
+      "presentation": {
+        "hidden": false,
+        "group": "",
+        "order": 1
+      },
+      "stopAll": true
+    },
+    {
+      "name": "Debug Dev",
+      "configurations": ["Server", "Dev Client", "Browser"],
       "presentation": {
         "hidden": false,
         "group": "",
