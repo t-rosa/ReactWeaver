@@ -47,7 +47,7 @@ export default defineConfig({
     paraglideVitePlugin({
       project: "./project.inlang",
       outdir: "./src/paraglide",
-      strategy: ["localStorage", "preferredLanguage", "baseLocale"],
+      strategy: ["cookie", "baseLocale"],
       emitTsDeclarations: true,
     }),
     ViteImageOptimizer(),

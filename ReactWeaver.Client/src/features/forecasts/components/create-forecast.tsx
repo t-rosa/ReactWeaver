@@ -27,7 +27,7 @@ import {
 } from "#src/lib/api/endpoints/index.ts";
 import type { CreateWeatherForecastRequest } from "#src/lib/api/models/index.ts";
 import { CreateWeatherForecastBody } from "#src/lib/api/zod.ts";
-import { getDateFnsLocale } from "#src/lib/i18n.ts";
+import { getDateLocale } from "#src/features/forecasts/utils/get-date-locale.ts";
 import { m } from "#src/paraglide/messages.js";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CalendarIcon, PlusIcon } from "@phosphor-icons/react";
@@ -96,7 +96,7 @@ export function CreateForecast() {
                 <Popover>
                   <PopoverTrigger id={field.name} render={<Button variant="outline" />}>
                     {field.value ? (
-                      format(field.value, "P", { locale: getDateFnsLocale() })
+                      format(field.value, "P", { locale: getDateLocale() })
                     ) : (
                       <span>{m.placeholder_pick_date()}</span>
                     )}
