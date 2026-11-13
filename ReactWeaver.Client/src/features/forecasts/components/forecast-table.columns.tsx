@@ -5,7 +5,7 @@ import { m } from "#src/paraglide/messages.js";
 import { ArrowsDownUpIcon } from "@phosphor-icons/react";
 import { createColumnHelper, type ColumnDef } from "@tanstack/react-table";
 import { ForecastActions } from "./forecast-actions";
-import type { forecastTableFeatures } from "../utils/table-features";
+import type { forecastTableFeatures } from "./forecast-table.features";
 
 const columnHelper = createColumnHelper<typeof forecastTableFeatures, WeatherForecastResponse>();
 

@@ -1,15 +1,21 @@
-import { ThemeProvider } from "#src/components/theme/theme-provider.tsx";
-import { Toaster } from "#src/components/ui/sonner.tsx";
-import { TooltipProvider } from "#src/components/ui/tooltip.tsx";
-import { queryClient } from "#src/lib/query-client.ts";
 import { QueryClientProvider } from "@tanstack/react-query";
+import { ThemeProvider } from "#src/components/theme/theme-provider.tsx";
+import { RouterProvider } from "@tanstack/react-router";
+import { Toaster } from "#src/components/ui/sonner.tsx";
+import { queryClient } from "#src/lib/query-client.ts";
+import { TooltipProvider } from "#src/components/ui/tooltip.tsx";
+import type { getRouter } from "./router";
 
-export function AppProvider(props: React.PropsWithChildren) {
+interface AppProps {
+  router: ReturnType<typeof getRouter>;
+}
+
+export function App(props: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <TooltipProvider delay={0}>
-          {props.children}
+          <RouterProvider router={props.router} />
           <Toaster closeButton />
         </TooltipProvider>
       </ThemeProvider>

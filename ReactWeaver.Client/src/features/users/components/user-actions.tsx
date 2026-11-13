@@ -14,7 +14,7 @@ import { DotsThreeIcon } from "@phosphor-icons/react";
 import type { CellContext } from "@tanstack/react-table";
 import * as React from "react";
 import { RemoveUser } from "./remove-user";
-import type { userTableFeatures } from "../utils/table-features";
+import type { userTableFeatures } from "./user-table.features";
 
 type UserActionsProps = CellContext<typeof userTableFeatures, UserResponse>;
 

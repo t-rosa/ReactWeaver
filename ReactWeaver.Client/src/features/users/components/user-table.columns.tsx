@@ -1,12 +1,12 @@
 import { Button } from "#src/components/ui/button.tsx";
 import { Checkbox } from "#src/components/ui/checkbox.tsx";
 import type { UserResponse } from "#src/lib/api/models/index.ts";
-import { useUser } from "#src/lib/auth.ts";
 import { m } from "#src/paraglide/messages.js";
 import { ArrowsDownUpIcon } from "@phosphor-icons/react";
 import { createColumnHelper } from "@tanstack/react-table";
-import type { userTableFeatures } from "../utils/table-features";
+import type { userTableFeatures } from "./user-table.features";
 import { UserActions } from "./user-actions";
+import { useUser } from "#src/features/auth/hooks/use-user.ts";
 
 const columnHelper = createColumnHelper<typeof userTableFeatures, UserResponse>();
 

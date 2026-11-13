@@ -13,7 +13,7 @@ import { m } from "#src/paraglide/messages.js";
 import { DotsThreeIcon } from "@phosphor-icons/react";
 import type { CellContext } from "@tanstack/react-table";
 import * as React from "react";
-import type { forecastTableFeatures } from "../utils/table-features";
+import type { forecastTableFeatures } from "./forecast-table.features";
 import { RemoveForecast } from "./remove-forecast";
 import { UpdateForecast } from "./update-forecast";
 

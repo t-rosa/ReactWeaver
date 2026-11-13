@@ -1,14 +1,22 @@
-import { App } from "#src/app/index.tsx";
+import "#src/index.css";
+
+import { App } from "#src/app/app.tsx";
 import { applyDocumentLocale } from "#src/lib/i18n.ts";
 import * as React from "react";
-import { createRoot } from "react-dom/client";
-
-import "#src/index.css";
+import ReactDOM from "react-dom/client";
+import { getRouter } from "./app/router";
 
 applyDocumentLocale();
 
-createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-);
+const router = getRouter();
+
+const rootElement = document.getElementById("app")!;
+
+if (!rootElement.innerHTML) {
+  const root = ReactDOM.createRoot(rootElement);
+  root.render(
+    <React.StrictMode>
+      <App router={router} />
+    </React.StrictMode>,
+  );
+}

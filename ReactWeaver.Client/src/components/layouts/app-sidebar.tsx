@@ -21,9 +21,8 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "#src/components/ui/sidebar.tsx";
-import { useUser } from "#src/lib/auth.ts";
-import { Authorize } from "#src/lib/authorization.tsx";
-import { LogoutMenuItem } from "#src/components/layouts/logout-menu-item.tsx";
+import { Authorize } from "#src/features/auth/components/authorize.tsx";
+import { LogoutMenuItem } from "#src/features/auth/components/logout-menu-item.tsx";
 import { m } from "#src/paraglide/messages.js";
 import {
   ChartPieSliceIcon,
@@ -38,6 +37,7 @@ import {
 import { Link } from "@tanstack/react-router";
 import * as React from "react";
 import { ThemeSwitcher } from "#src/components/theme/theme-switcher.tsx";
+import { useUser } from "#src/features/auth/hooks/use-user.ts";
 
 const data = {
   navMain: [
@@ -143,7 +143,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     </Item>
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem nativeButton={false} render={<Link to={"/user/profile"} />}>
+                  <DropdownMenuItem nativeButton={false} render={<Link to={"/profile"} />}>
                     <UserCircleIcon />
                     {m.nav_profile()}
                   </DropdownMenuItem>

@@ -23,7 +23,7 @@ import { FolderIcon } from "@phosphor-icons/react";
 import { type ColumnDef, useTable } from "@tanstack/react-table";
 import { CreateForecast } from "./create-forecast";
 import { RemoveForecasts } from "./remove-forecasts";
-import { forecastTableFeatures } from "../utils/table-features";
+import { forecastTableFeatures } from "./forecast-table.features";
 
 interface ForecastTableProps {
   columns: ColumnDef<typeof forecastTableFeatures, WeatherForecastResponse>[];

@@ -21,9 +21,8 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "#src/components/ui/sidebar.tsx";
-import { useUser } from "#src/lib/auth.ts";
-import { Authorize } from "#src/lib/authorization.tsx";
-import { LogoutMenuItem } from "#src/components/layouts/logout-menu-item.tsx";
+import { Authorize } from "#src/features/auth/components/authorize.tsx";
+import { LogoutMenuItem } from "#src/features/auth/components/logout-menu-item.tsx";
 import { m } from "#src/paraglide/messages.js";
 import {
   AppWindowIcon,
@@ -36,6 +35,7 @@ import {
 import { Link } from "@tanstack/react-router";
 import * as React from "react";
 import { ThemeSwitcher } from "#src/components/theme/theme-switcher.tsx";
+import { useUser } from "#src/features/auth/hooks/use-user.ts";
 
 interface NavItem {
   label: () => string;
@@ -64,7 +64,7 @@ const data: Data = {
   ],
 };
 
-export function UserSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function ProfileSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { user } = useUser();
   const { isMobile } = useSidebar();
 

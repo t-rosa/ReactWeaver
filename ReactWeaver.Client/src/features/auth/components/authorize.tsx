@@ -1,4 +1,5 @@
-import { useUser, type UserRole } from "./auth";
+import { useUser } from "../hooks/use-user";
+import type { UserRole } from "../types/user-role";
 
 interface AuthorizeProps extends React.PropsWithChildren {
   role: UserRole;

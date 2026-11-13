@@ -1,8 +1,8 @@
 import { Container } from "#src/components/container.tsx";
-import { DashboardHeader } from "#src/components/layouts/dashboard-header.tsx";
-import { DashboardInset } from "#src/components/layouts/dashboard-inset.tsx";
+import { Header } from "#src/components/header.tsx";
 import { BreadcrumbItem, BreadcrumbLink } from "#src/components/ui/breadcrumb.tsx";
-import { FORECAST_COLUMNS } from "#src/features/forecasts/components/forecast-table-columns.tsx";
+import * as React from "react";
+import { FORECAST_COLUMNS } from "#src/features/forecasts/components/forecast-table.columns.tsx";
 import { ForecastTable } from "#src/features/forecasts/components/forecast-table.tsx";
 import {
   getGetWeatherForecastsQueryOptions,
@@ -26,15 +26,15 @@ function ForecastsRoute() {
   const { data } = useSuspenseQuery(getGetWeatherForecastsSuspenseQueryOptions());
 
   return (
-    <DashboardInset>
-      <DashboardHeader>
+    <React.Fragment>
+      <Header>
         <BreadcrumbItem>
           <BreadcrumbLink>{m.forecasts_title()}</BreadcrumbLink>
         </BreadcrumbItem>
-      </DashboardHeader>
+      </Header>
       <Container>
         <ForecastTable columns={FORECAST_COLUMNS} data={data} />
       </Container>
-    </DashboardInset>
+    </React.Fragment>
   );
 }

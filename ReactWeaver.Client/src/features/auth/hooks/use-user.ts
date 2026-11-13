@@ -1,7 +1,6 @@
 import { getGetCurrentUserSuspenseQueryOptions } from "#src/lib/api/endpoints/index.ts";
 import { useSuspenseQuery } from "@tanstack/react-query";
-
-export type UserRole = "Admin" | "Member";
+import type { UserRole } from "../types/user-role";
 
 export function useUser() {
   const { data: user } = useSuspenseQuery({ ...getGetCurrentUserSuspenseQueryOptions() });

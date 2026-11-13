@@ -17,12 +17,12 @@ import {
   TableRow,
 } from "#src/components/ui/table.tsx";
 import type { UserResponse } from "#src/lib/api/models/index.ts";
-import { useUser } from "#src/lib/auth.ts";
 import { m } from "#src/paraglide/messages.js";
 import { FolderIcon } from "@phosphor-icons/react";
 import { type ColumnDef, useTable } from "@tanstack/react-table";
 import { RemoveUsers } from "./remove-users";
-import { userTableFeatures } from "../utils/table-features";
+import { userTableFeatures } from "./user-table.features";
+import { useUser } from "#src/features/auth/hooks/use-user.ts";
 
 interface UserTableProps {
   columns: ColumnDef<typeof userTableFeatures, UserResponse>[];

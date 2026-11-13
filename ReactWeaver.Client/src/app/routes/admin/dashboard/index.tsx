@@ -1,6 +1,6 @@
-import { DashboardHeader } from "#src/components/layouts/dashboard-header.tsx";
-import { DashboardInset } from "#src/components/layouts/dashboard-inset.tsx";
+import { Header } from "#src/components/header.tsx";
 import { BreadcrumbItem, BreadcrumbLink } from "#src/components/ui/breadcrumb.tsx";
+import * as React from "react";
 import { m } from "#src/paraglide/messages.js";
 import { createFileRoute } from "@tanstack/react-router";
 
@@ -10,12 +10,12 @@ export const Route = createFileRoute("/admin/dashboard/")({
 
 function AdminDashboardRoute() {
   return (
-    <DashboardInset>
-      <DashboardHeader>
+    <React.Fragment>
+      <Header>
         <BreadcrumbItem>
           <BreadcrumbLink>{m.nav_dashboard()}</BreadcrumbLink>
         </BreadcrumbItem>
-      </DashboardHeader>
-    </DashboardInset>
+      </Header>
+    </React.Fragment>
   );
 }

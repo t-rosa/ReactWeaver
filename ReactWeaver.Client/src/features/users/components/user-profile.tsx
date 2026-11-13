@@ -9,11 +9,11 @@ import {
   ItemGroup,
   ItemTitle,
 } from "#src/components/ui/item.tsx";
+import { useUser } from "#src/features/auth/hooks/use-user.ts";
 import {
   getGetCurrentUserQueryKey,
   getUploadAvatarMutationOptions,
 } from "#src/lib/api/endpoints/index.ts";
-import { useUser } from "#src/lib/auth.ts";
 import { m } from "#src/paraglide/messages.js";
 import { useMutation } from "@tanstack/react-query";
 import * as React from "react";

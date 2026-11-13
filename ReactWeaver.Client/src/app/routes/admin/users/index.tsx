@@ -1,8 +1,8 @@
 import { Container } from "#src/components/container.tsx";
-import { DashboardHeader } from "#src/components/layouts/dashboard-header.tsx";
-import { DashboardInset } from "#src/components/layouts/dashboard-inset.tsx";
+import { Header } from "#src/components/header.tsx";
 import { BreadcrumbItem, BreadcrumbLink } from "#src/components/ui/breadcrumb.tsx";
-import { USER_COLUMNS } from "#src/features/users/components/user-table-columns.tsx";
+import * as React from "react";
+import { USER_COLUMNS } from "#src/features/users/components/user-table.columns.tsx";
 import { UserTable } from "#src/features/users/components/user-table.tsx";
 import {
   getGetUsersQueryOptions,
@@ -23,15 +23,15 @@ function UsersRoute() {
   const { data } = useSuspenseQuery(getGetUsersSuspenseQueryOptions());
 
   return (
-    <DashboardInset>
-      <DashboardHeader>
+    <React.Fragment>
+      <Header>
         <BreadcrumbItem>
           <BreadcrumbLink>{m.users_title()}</BreadcrumbLink>
         </BreadcrumbItem>
-      </DashboardHeader>
+      </Header>
       <Container>
         <UserTable columns={USER_COLUMNS} data={data} />
       </Container>
-    </DashboardInset>
+    </React.Fragment>
   );
 }
