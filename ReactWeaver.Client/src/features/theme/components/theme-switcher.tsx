@@ -1,5 +1,5 @@
-import { useTheme } from "#src/hooks/use-theme.ts";
-import { ThemeSwitcherMenuItem } from "./theme-switcher-menu-item";
+import { ThemeSwitcherMenuItem } from "../components/theme-switcher-menu-item";
+import { useTheme } from "../hooks/use-theme";
 
 export function ThemeSwitcher() {
   const { theme, setTheme } = useTheme();

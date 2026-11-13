@@ -1,4 +1,4 @@
-import { useTheme } from "#src/hooks/use-theme.ts";
+import { useTheme } from "#src/features/theme/hooks/use-theme.ts";
 import {
   CheckCircleIcon,
   InfoIcon,

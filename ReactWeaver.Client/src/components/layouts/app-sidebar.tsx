@@ -1,4 +1,4 @@
-import { LanguageSwitcher } from "#src/components/language-switcher.tsx";
+import { LanguageSwitcher } from "#src/features/i18n/components/language-switcher.tsx";
 import { Avatar, AvatarFallback, AvatarImage } from "#src/components/ui/avatar.tsx";
 import {
   DropdownMenu,
@@ -36,8 +36,8 @@ import {
 } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
 import * as React from "react";
-import { ThemeSwitcher } from "#src/components/theme/theme-switcher.tsx";
 import { useUser } from "#src/features/auth/hooks/use-user.ts";
+import { ThemeSwitcher } from "#src/features/theme/components/theme-switcher.tsx";
 
 const data = {
   navMain: [
