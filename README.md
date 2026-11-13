@@ -281,6 +281,7 @@ dotnet ef migrations remove
 - [Tanstack/Table](https://tanstack.com/table/)
 - [ReactHookForm](https://react-hook-form.com/)
 - [Orval](https://orval.dev/)
+- [Paraglide](https://paraglidejs.com/)
 - [Phosphor](https://phosphoricons.com/)
 - [Tailwind](https://tailwindcss.com/)
 - [Shadcn/ui](https://ui.shadcn.com/)
