@@ -1,6 +1,6 @@
 import "#src/index.css";
 
-import { App } from "#src/app/app.tsx";
+import { App } from "#src/app/index.tsx";
 import { applyDocumentLocale } from "#src/lib/i18n.ts";
 import * as React from "react";
 import ReactDOM from "react-dom/client";
