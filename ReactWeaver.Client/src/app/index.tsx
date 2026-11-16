@@ -1,6 +1,6 @@
 import { QueryClientProvider } from "@tanstack/react-query";
 import { RouterProvider } from "@tanstack/react-router";
-import { Toaster } from "#src/components/ui/sonner.tsx";
+import { Toaster } from "#src/components/ui/toast.tsx";
 import { queryClient } from "#src/lib/query-client.ts";
 import { TooltipProvider } from "#src/components/ui/tooltip.tsx";
 import type { getRouter } from "./router";
@@ -16,7 +16,7 @@ export function App(props: AppProps) {
       <ThemeProvider>
         <TooltipProvider delay={0}>
           <RouterProvider router={props.router} />
-          <Toaster closeButton />
+          <Toaster />
         </TooltipProvider>
       </ThemeProvider>
     </QueryClientProvider>

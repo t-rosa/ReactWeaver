@@ -10,13 +10,6 @@ import {
   DialogTitle,
 } from "#src/components/ui/dialog.tsx";
 import { Field, FieldError, FieldGroup, FieldLabel } from "#src/components/ui/field.tsx";
-import {
-  NumberInput,
-  NumberInputDecrement,
-  NumberInputField,
-  NumberInputGroup,
-  NumberInputIncrement,
-} from "#src/components/ui/number-input.tsx";
 import { Popover, PopoverContent, PopoverTrigger } from "#src/components/ui/popover.tsx";
 import { Spinner } from "#src/components/ui/spinner.tsx";
 import { Textarea } from "#src/components/ui/textarea.tsx";
@@ -37,7 +30,8 @@ import { useMutation } from "@tanstack/react-query";
 import { format, formatISO, parseISO } from "date-fns";
 import * as React from "react";
 import { Controller, useForm } from "react-hook-form";
-import { toast } from "sonner";
+import { toast } from "#src/components/ui/toast.tsx";
+import { Input } from "#src/components/ui/input.tsx";
 
 interface UpdateForecastProps {
   open: boolean;
@@ -58,7 +52,7 @@ export function UpdateForecast(props: UpdateForecastProps) {
   const updateForecast = useMutation({
     ...getUpdateWeatherForecastMutationOptions(),
     onError(error) {
-      toast.error(m.common_error_occurred());
+      toast.add({ type: "error", title: m.common_error_occurred() });
       form.setError("root", { message: error.detail ?? m.common_error_occurred() });
     },
     onSuccess() {
@@ -129,19 +123,14 @@ export function UpdateForecast(props: UpdateForecastProps) {
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
                 <FieldLabel htmlFor={field.name}>{m.common_temperature()}</FieldLabel>
-                <NumberInput
+                <Input
                   {...field}
                   id={field.name}
                   aria-invalid={fieldState.invalid}
+                  type="number"
                   value={Number(field.value)}
-                  onValueChange={(value) => field.onChange(value)}
-                >
-                  <NumberInputGroup>
-                    <NumberInputDecrement />
-                    <NumberInputField placeholder={m.placeholder_temperature()} />
-                    <NumberInputIncrement />
-                  </NumberInputGroup>
-                </NumberInput>
+                  onChange={(value) => field.onChange(value)}
+                />
                 {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
               </Field>
             )}

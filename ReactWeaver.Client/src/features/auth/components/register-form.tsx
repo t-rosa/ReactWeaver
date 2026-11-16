@@ -9,7 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { Controller, useForm } from "react-hook-form";
-import { toast } from "sonner";
+import { toast } from "#src/components/ui/toast.tsx";
 import * as z from "zod";
 
 const formSchema = z
@@ -57,7 +57,7 @@ export function RegisterForm() {
     ...getRegisterMutationOptions(),
     onError(error) {
       form.setError("root", { message: error.detail ?? m.common_error_occurred() });
-      toast.error(m.common_error_occurred());
+      toast.add({ type: "error", title: m.common_error_occurred() });
     },
   });
 

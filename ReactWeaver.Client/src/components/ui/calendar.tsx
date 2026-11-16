@@ -1,9 +1,11 @@
+"use client";
+
 import * as React from "react";
+import { cn } from "cn";
 import { DayPicker, getDefaultClassNames, type DayButton, type Locale } from "react-day-picker";
 
 import { Button, buttonVariants } from "#src/components/ui/button.tsx";
-import { cn } from "#src/lib/utils.ts";
-import { CaretDownIcon, CaretLeftIcon, CaretRightIcon } from "@phosphor-icons/react";
+import { CaretLeftIcon, CaretRightIcon, CaretDownIcon } from "@phosphor-icons/react";
 
 function Calendar({
   className,
@@ -24,7 +26,7 @@ function Calendar({
     <DayPicker
       showOutsideDays={showOutsideDays}
       className={cn(
-        "group/calendar bg-background p-3 [--cell-radius:var(--radius-md)] [--cell-size:--spacing(8)] in-data-[slot=card-content]:bg-transparent in-data-[slot=popover-content]:bg-transparent",
+        "group/calendar bg-background p-2 [--cell-size:--spacing(7)] in-data-[slot=card-content]:bg-transparent in-data-[slot=popover-content]:bg-transparent",
         String.raw`rtl:**:[.rdp-button\_next>svg]:rotate-180`,
         String.raw`rtl:**:[.rdp-button\_previous>svg]:rotate-180`,
         className,
@@ -180,4 +182,4 @@ function CalendarDayButton({
   );
 }
 
-export { Calendar };
+export { Calendar, CalendarDayButton };

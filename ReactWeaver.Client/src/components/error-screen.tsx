@@ -33,7 +33,7 @@ export function ErrorScreen(props: ErrorComponentProps) {
 
   return (
     <div className="isolate flex size-full items-center justify-center p-6 lg:p-8">
-      <div className="w-full max-w-md rounded-xl border bg-card/50 shadow-md ring-1 ring-black/5">
+      <div className="w-full max-w-md border bg-card/50 shadow-md ring-1 ring-black/5">
         <div className="p-7 sm:p-11">
           <div>
             <div className="flex items-start">
@@ -72,14 +72,14 @@ export function ErrorScreen(props: ErrorComponentProps) {
                 </Button>
 
                 {errorMessage ? (
-                  <div className="rounded-lg border bg-muted text-xs text-muted-foreground">
+                  <div className="border bg-muted text-xs text-muted-foreground">
                     <ScrollArea>
                       <pre className="p-3">{errorMessage}</pre>
                       <ScrollBar orientation="horizontal" />
                     </ScrollArea>
                   </div>
                 ) : (
-                  <pre className="rounded-lg border bg-muted p-2 text-xs text-muted-foreground">
+                  <pre className="border bg-muted p-2 text-xs text-muted-foreground">
                     {m.error_unknown()}
                   </pre>
                 )}

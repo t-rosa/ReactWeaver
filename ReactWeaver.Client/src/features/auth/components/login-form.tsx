@@ -9,7 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { Controller, useForm } from "react-hook-form";
-import { toast } from "sonner";
+import { toast } from "#src/components/ui/toast.tsx";
 import * as z from "zod";
 
 const formSchema = z.object({
@@ -43,11 +43,11 @@ export function LoginForm() {
   const login = useMutation({
     ...getLoginMutationOptions(),
     onError(error) {
-      toast.error(m.common_error_occurred());
+      toast.add({ type: "error", title: m.common_error_occurred() });
       form.setError("root", { message: error.detail ?? m.common_error_occurred() });
     },
     async onSuccess() {
-      toast.success(m.auth_connected());
+      toast.add({ type: "success", title: m.auth_connected() });
       await navigate({ to: "/dashboard" });
     },
   });
