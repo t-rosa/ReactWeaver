@@ -1,4 +1,4 @@
-import { m } from "#src/paraglide/messages.js";
+import { m } from "#src/lib/i18n/paraglide/messages.js";
 import { Link } from "@tanstack/react-router";
 import { buttonVariants } from "./ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "./ui/card";

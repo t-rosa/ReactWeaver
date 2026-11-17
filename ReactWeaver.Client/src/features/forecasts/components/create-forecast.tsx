@@ -21,7 +21,7 @@ import {
 import type { CreateWeatherForecastRequest } from "#src/lib/api/models/index.ts";
 import { CreateWeatherForecastBody } from "#src/lib/api/zod.ts";
 import { getDateLocale } from "#src/features/forecasts/utils/get-date-locale.ts";
-import { m } from "#src/paraglide/messages.js";
+import { m } from "#src/lib/i18n/paraglide/messages.js";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CalendarIcon, PlusIcon } from "@phosphor-icons/react";
 import { useMutation } from "@tanstack/react-query";

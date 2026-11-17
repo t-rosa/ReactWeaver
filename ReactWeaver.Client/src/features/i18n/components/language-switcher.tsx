@@ -6,7 +6,7 @@ import {
   DropdownMenuTrigger,
 } from "#src/components/ui/dropdown-menu.tsx";
 import { SidebarMenuButton, SidebarMenuItem } from "#src/components/ui/sidebar.tsx";
-import { m } from "#src/paraglide/messages.js";
+import { m } from "#src/lib/i18n/paraglide/messages.js";
 import { getLocale, locales, setLocale, type Locale } from "#src/paraglide/runtime.js";
 import { TranslateIcon } from "@phosphor-icons/react";
 

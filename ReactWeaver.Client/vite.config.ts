@@ -45,8 +45,8 @@ const target = env.ASPNETCORE_HTTPS_PORT
 export default defineConfig({
   plugins: [
     paraglideVitePlugin({
-      project: "./project.inlang",
-      outdir: "./src/paraglide",
+      project: "./src/lib/i18n/project.inlang",
+      outdir: "./src/lib/i18n/paraglide",
       strategy: ["cookie", "baseLocale"],
       emitTsDeclarations: true,
     }),

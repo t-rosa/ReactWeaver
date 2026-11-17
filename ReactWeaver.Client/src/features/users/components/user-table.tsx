@@ -17,7 +17,7 @@ import {
   TableRow,
 } from "#src/components/ui/table.tsx";
 import type { UserResponse } from "#src/lib/api/models/index.ts";
-import { m } from "#src/paraglide/messages.js";
+import { m } from "#src/lib/i18n/paraglide/messages.js";
 import { FolderIcon } from "@phosphor-icons/react";
 import { type ColumnDef, useTable } from "@tanstack/react-table";
 import { RemoveUsers } from "./remove-users";

@@ -14,7 +14,7 @@ import {
   getGetUsersQueryKey,
   getRemoveUsersMutationOptions,
 } from "#src/lib/api/endpoints/index.ts";
-import { m } from "#src/paraglide/messages.js";
+import { m } from "#src/lib/i18n/paraglide/messages.js";
 import { TrashSimpleIcon } from "@phosphor-icons/react";
 import { useMutation } from "@tanstack/react-query";
 

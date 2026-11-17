@@ -4,7 +4,7 @@ import { ProfileLayout } from "#src/components/layouts/profile-layout.tsx";
 import { BreadcrumbItem, BreadcrumbLink } from "#src/components/ui/breadcrumb.tsx";
 import { UserProfile } from "#src/features/users/components/user-profile.tsx";
 import { getCurrentUser } from "#src/lib/api/endpoints/index.ts";
-import { m } from "#src/paraglide/messages.js";
+import { m } from "#src/lib/i18n/paraglide/messages.js";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/profile/")({

@@ -1,4 +1,4 @@
-import { m } from "#src/paraglide/messages.js";
+import { m } from "#src/lib/i18n/paraglide/messages.js";
 import { CodeSimpleIcon } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
 

@@ -1,6 +1,6 @@
 import { Button } from "#src/components/ui/button.tsx";
 import { ScrollArea, ScrollBar } from "#src/components/ui/scroll-area.tsx";
-import { m } from "#src/paraglide/messages.js";
+import { m } from "#src/lib/i18n/paraglide/messages.js";
 import { CodeSimpleIcon, CopyIcon } from "@phosphor-icons/react";
 import { Link, type ErrorComponentProps } from "@tanstack/react-router";
 import * as React from "react";

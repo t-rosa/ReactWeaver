@@ -1,6 +1,6 @@
 import { SidebarMenuButton, SidebarMenuItem } from "#src/components/ui/sidebar.tsx";
 import { Switch } from "#src/components/ui/switch.tsx";
-import { m } from "#src/paraglide/messages.js";
+import { m } from "#src/lib/i18n/paraglide/messages.js";
 import * as React from "react";
 
 interface SidebarThemeToggleProps {

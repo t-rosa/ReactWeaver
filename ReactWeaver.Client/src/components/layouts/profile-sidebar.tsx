@@ -23,7 +23,7 @@ import {
 } from "#src/components/ui/sidebar.tsx";
 import { Authorize } from "#src/features/auth/components/authorize.tsx";
 import { LogoutMenuItem } from "#src/features/auth/components/logout-menu-item.tsx";
-import { m } from "#src/paraglide/messages.js";
+import { m } from "#src/lib/i18n/paraglide/messages.js";
 import {
   AppWindowIcon,
   ChartPieSliceIcon,

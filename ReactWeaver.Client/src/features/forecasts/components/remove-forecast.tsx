@@ -12,7 +12,7 @@ import {
   getGetWeatherForecastsQueryKey,
   getRemoveWeatherForecastMutationOptions,
 } from "#src/lib/api/endpoints/index.ts";
-import { m } from "#src/paraglide/messages.js";
+import { m } from "#src/lib/i18n/paraglide/messages.js";
 import { useMutation } from "@tanstack/react-query";
 
 interface RemoveForecastProps {

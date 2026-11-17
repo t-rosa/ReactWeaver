@@ -4,7 +4,7 @@ import { Input } from "#src/components/ui/input.tsx";
 import { Spinner } from "#src/components/ui/spinner.tsx";
 import { getResetPasswordMutationOptions } from "#src/lib/api/endpoints/index.ts";
 import * as AuthCard from "#src/features/auth/components/auth-card.tsx";
-import { m } from "#src/paraglide/messages.js";
+import { m } from "#src/lib/i18n/paraglide/messages.js";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
