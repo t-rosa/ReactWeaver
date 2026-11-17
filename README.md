@@ -94,7 +94,7 @@ docker exec -it react-weaver.garage ./garage status
 Assign capacity.
 
 ```bash
-docker exec -it react-weaver.garage ./garage layout assign node_id -r z1 -c 1G
+docker exec -it react-weaver.garage ./garage layout assign node_id -z z1 -c 1G
 ```
 
 Apply layout.
