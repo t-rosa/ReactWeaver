@@ -100,7 +100,7 @@ docker exec -it react-weaver.garage ./garage layout assign node_id -z z1 -c 1G
 Apply layout.
 
 ```bash
-docker exec -it react-weaver.garage ./garage layout apply
+docker exec -it react-weaver.garage ./garage layout apply --version 1
 ```
 
 Create a new S3 key
