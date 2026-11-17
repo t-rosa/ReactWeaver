@@ -1,4 +1,4 @@
-import { getLocale, type Locale } from "#src/paraglide/runtime.js";
+import { getLocale, type Locale } from "#src/lib/i18n/paraglide/runtime.js";
 import type { Locale as DateFnsLocale } from "date-fns";
 import { enUS, fr } from "date-fns/locale";
 

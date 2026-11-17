@@ -4,7 +4,7 @@ import { App } from "#src/app/index.tsx";
 import * as React from "react";
 import ReactDOM from "react-dom/client";
 import { getRouter } from "./app/router";
-import { getLocale, getTextDirection } from "./paraglide/runtime";
+import { getLocale, getTextDirection } from "#src/lib/i18n/paraglide/runtime.js";
 
 const router = getRouter();
 
